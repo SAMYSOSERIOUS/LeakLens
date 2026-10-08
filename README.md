@@ -133,7 +133,10 @@ history **one month per run**, as if each month had just arrived.
   runs every Monday. It moves the clock one month forward, scores every customer whose
   membership ends next month, checks predictions whose answers are now known (about two
   months later, because customers get 30 days to renew), and commits its state to `state/`.
-  At the end of the data it starts the replay over.
+  At the end of the data it starts the replay over. The real data is too big for the repo,
+  so the job needs the prepared data as a download link in the secret `PREPARED_DATA_URL`;
+  without it the job skips itself and the page keeps the last snapshot from a local run
+  (`make replay-loop`).
 - **Retrain rule:** if the current model's latest checked AUC is below
   `retrain_below_auc` (default 0.80), the job retrains on the newest months whose answers
   are known and logs why.
