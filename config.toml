@@ -1,0 +1,28 @@
+# LeakLens settings. Change numbers here, not in the code.
+
+[data]
+# Where `python -m leaklens prepare` writes the compact tables.
+# Real KKBox data:   data/kkbox/prepared   (is_sample = false)
+# Made-up demo data: data/sample/prepared  (is_sample = true)
+prepared_dir = "data/sample/prepared"
+is_sample = true
+
+[money]
+# ASSUMPTIONS, not facts. They come from the project brief.
+offer_cost = 5.0       # euros per retention offer sent
+customer_value = 60.0  # euros lost when a customer leaves
+save_rate = 1.0        # share of would-be leavers the offer keeps (1.0 = always works)
+
+[audit]
+n_train_months = 4
+max_train_rows = 300000   # cap for the slow public-notebook models on real data
+seed = 0
+
+[replay]
+start = "2016-01-31"        # first "today" of the simulated live business
+train_months = 4
+retrain_below_auc = 0.80    # retrain when checked accuracy (AUC) falls below this
+drift_psi_warn = 0.20       # PSI above this = "customers look different" warning
+offer_list_size = 200       # how many customers to show on the web page
+state_dir = "state"
+site_data_dir = "site/data"

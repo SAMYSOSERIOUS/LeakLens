@@ -1,0 +1,1083 @@
+{
+  "is_sample": true,
+  "data": {
+    "first_date": "2014-12-29",
+    "last_date": "2017-03-31",
+    "n_users": 8000,
+    "n_transactions": 66803
+  },
+  "cutoffs": {
+    "test": "2017-01-31",
+    "valid": "2016-11-30",
+    "train": [
+      "2016-07-31",
+      "2016-08-31",
+      "2016-09-30",
+      "2016-10-31"
+    ]
+  },
+  "assumptions": {
+    "offer_cost": 5.0,
+    "customer_value": 60.0,
+    "save_rate": 1.0
+  },
+  "recipes": [
+    {
+      "key": "A",
+      "title": "jsroa15/KKBOX (random forest)",
+      "url": "https://github.com/jsroa15/KKBOX",
+      "claimed": {
+        "auc": 0.9401
+      },
+      "claimed_text": "Random forest, ROC AUC 0.940 on its test set (README).",
+      "notes": [
+        "Cancellation count, auto-renew share, revenue and tenure are computed over the whole transactions file.",
+        "Churners are oversampled in training, as in the original."
+      ],
+      "results": {
+        "as_published": {
+          "auc": 0.9692,
+          "accuracy": 0.9478,
+          "f1": 0.7604,
+          "precision": 0.8391,
+          "recall": 0.6952
+        },
+        "clean_features_random_split": {
+          "auc": 0.8178,
+          "accuracy": 0.8912,
+          "f1": 0.4286,
+          "precision": 0.5714,
+          "recall": 0.3429
+        },
+        "honest_time_split": {
+          "auc": 0.8324,
+          "accuracy": 0.8822,
+          "f1": 0.5154,
+          "precision": 0.5041,
+          "recall": 0.5272
+        }
+      },
+      "leaks": [
+        {
+          "feature": "mode_quarter",
+          "changed_share": 0.3701,
+          "signal_published": 0.7947,
+          "signal_honest": 0.6357,
+          "leaked": true
+        },
+        {
+          "feature": "regist_trans",
+          "changed_share": 0.9016,
+          "signal_published": 0.7566,
+          "signal_honest": 0.623,
+          "leaked": true
+        },
+        {
+          "feature": "tenure",
+          "changed_share": 0.9016,
+          "signal_published": 0.7387,
+          "signal_honest": 0.6153,
+          "leaked": true
+        },
+        {
+          "feature": "is_auto_renew",
+          "changed_share": 0.109,
+          "signal_published": 0.6291,
+          "signal_honest": 0.5697,
+          "leaked": true
+        },
+        {
+          "feature": "regist_cancels",
+          "changed_share": 0.0453,
+          "signal_published": 0.5945,
+          "signal_honest": 0.5362,
+          "leaked": true
+        },
+        {
+          "feature": "revenue",
+          "changed_share": 0.7518,
+          "signal_published": 0.7464,
+          "signal_honest": 0.6915,
+          "leaked": true
+        },
+        {
+          "feature": "avg_num_50",
+          "changed_share": 0.9745,
+          "signal_published": 0.5306,
+          "signal_honest": 0.5022,
+          "leaked": true
+        },
+        {
+          "feature": "avg_num_unq",
+          "changed_share": 0.9762,
+          "signal_published": 0.7115,
+          "signal_honest": 0.7017,
+          "leaked": true
+        },
+        {
+          "feature": "avg_num_100",
+          "changed_share": 0.9775,
+          "signal_published": 0.7122,
+          "signal_honest": 0.7026,
+          "leaked": true
+        },
+        {
+          "feature": "avg_total_secs",
+          "changed_share": 0.9768,
+          "signal_published": 0.7103,
+          "signal_honest": 0.7015,
+          "leaked": true
+        },
+        {
+          "feature": "avg_num_25",
+          "changed_share": 0.9745,
+          "signal_published": 0.553,
+          "signal_honest": 0.5449,
+          "leaked": true
+        },
+        {
+          "feature": "avg_num_75",
+          "changed_share": 0.9731,
+          "signal_published": 0.5517,
+          "signal_honest": 0.5454,
+          "leaked": true
+        },
+        {
+          "feature": "mode_payment_method",
+          "changed_share": 0.0072,
+          "signal_published": 0.6811,
+          "signal_honest": 0.6801,
+          "leaked": true
+        },
+        {
+          "feature": "mode_plan_days",
+          "changed_share": 0.0,
+          "signal_published": 0.5,
+          "signal_honest": 0.5,
+          "leaked": false
+        },
+        {
+          "feature": "avg_num_985",
+          "changed_share": 0.0054,
+          "signal_published": 0.5,
+          "signal_honest": 0.5,
+          "leaked": true
+        },
+        {
+          "feature": "age",
+          "changed_share": 0.0,
+          "signal_published": 0.5027,
+          "signal_honest": 0.5027,
+          "leaked": false
+        },
+        {
+          "feature": "city",
+          "changed_share": 0.0,
+          "signal_published": 0.511,
+          "signal_honest": 0.511,
+          "leaked": false
+        },
+        {
+          "feature": "gender_male",
+          "changed_share": 0.0,
+          "signal_published": 0.5103,
+          "signal_honest": 0.5103,
+          "leaked": false
+        }
+      ],
+      "auc_drop": 0.1368
+    },
+    {
+      "key": "B",
+      "title": "apostaremczak/churn-prediction (random forest)",
+      "url": "https://github.com/apostaremczak/churn-prediction",
+      "claimed": {
+        "accuracy": 0.927,
+        "f1": 0.482,
+        "precision": 0.825,
+        "recall": 0.34
+      },
+      "claimed_text": "'Unbalanced' random forest: accuracy 92.7%, F1 0.48 (model_results.json).",
+      "notes": [
+        "Uses each user's last row of transactions_v2, which runs to the end of the month in which churn is decided."
+      ],
+      "results": {
+        "as_published": {
+          "auc": 0.9991,
+          "accuracy": 0.9977,
+          "f1": 0.9904,
+          "precision": 1.0,
+          "recall": 0.981
+        },
+        "clean_features_random_split": {
+          "auc": 0.8282,
+          "accuracy": 0.8968,
+          "f1": 0.4485,
+          "precision": 0.6167,
+          "recall": 0.3524
+        },
+        "honest_time_split": {
+          "auc": 0.6684,
+          "accuracy": 0.8836,
+          "f1": 0.212,
+          "precision": 0.5412,
+          "recall": 0.1318
+        }
+      },
+      "leaks": [
+        {
+          "feature": "transaction_date",
+          "changed_share": 0.1845,
+          "signal_published": 0.9802,
+          "signal_honest": 0.5117,
+          "leaked": true
+        },
+        {
+          "feature": "membership_expire_date",
+          "changed_share": 0.0266,
+          "signal_published": 0.985,
+          "signal_honest": 0.5297,
+          "leaked": true
+        },
+        {
+          "feature": "actual_amount_paid",
+          "changed_share": 0.1202,
+          "signal_published": 0.7709,
+          "signal_honest": 0.6735,
+          "leaked": true
+        },
+        {
+          "feature": "is_auto_renew",
+          "changed_share": 0.0456,
+          "signal_published": 0.6556,
+          "signal_honest": 0.5917,
+          "leaked": true
+        },
+        {
+          "feature": "is_cancel",
+          "changed_share": 0.0446,
+          "signal_published": 0.5997,
+          "signal_honest": 0.5372,
+          "leaked": true
+        },
+        {
+          "feature": "payment_plan_days",
+          "changed_share": 0.0,
+          "signal_published": 0.5,
+          "signal_honest": 0.5,
+          "leaked": false
+        },
+        {
+          "feature": "plan_list_price",
+          "changed_share": 0.0,
+          "signal_published": 0.5,
+          "signal_honest": 0.5,
+          "leaked": false
+        },
+        {
+          "feature": "city",
+          "changed_share": 0.0,
+          "signal_published": 0.511,
+          "signal_honest": 0.511,
+          "leaked": false
+        },
+        {
+          "feature": "bd",
+          "changed_share": 0.0,
+          "signal_published": 0.511,
+          "signal_honest": 0.511,
+          "leaked": false
+        },
+        {
+          "feature": "gender_male",
+          "changed_share": 0.0,
+          "signal_published": 0.5103,
+          "signal_honest": 0.5103,
+          "leaked": false
+        },
+        {
+          "feature": "registered_via",
+          "changed_share": 0.0,
+          "signal_published": 0.5227,
+          "signal_honest": 0.5227,
+          "leaked": false
+        },
+        {
+          "feature": "registration_init_time",
+          "changed_share": 0.0,
+          "signal_published": 0.6141,
+          "signal_honest": 0.6141,
+          "leaked": false
+        },
+        {
+          "feature": "payment_method_id",
+          "changed_share": 0.002,
+          "signal_published": 0.6733,
+          "signal_honest": 0.681,
+          "leaked": false
+        }
+      ],
+      "auc_drop": 0.3307
+    },
+    {
+      "key": "C",
+      "title": "naomifridman/Deep-VAE-prediction-of-churn-customer (VAE + KNN)",
+      "url": "https://github.com/naomifridman/Deep-VAE-prediction-of-churn-customer",
+      "claimed": {
+        "accuracy": 0.9503,
+        "f1": 0.66
+      },
+      "claimed_text": "KNN on a VAE latent space: accuracy 95.0%, churn-class F1 0.66 (notebook output).",
+      "notes": [
+        "Substitution: we run the KNN (k=27) on scaled features directly instead of on a VAE's 2-D compression. The leakage sits in the inputs, which we keep exactly."
+      ],
+      "results": {
+        "as_published": {
+          "auc": 0.882,
+          "accuracy": 0.8776,
+          "f1": 0.1818,
+          "precision": 0.4444,
+          "recall": 0.1143
+        },
+        "clean_features_random_split": {
+          "auc": 0.7644,
+          "accuracy": 0.8923,
+          "f1": 0.188,
+          "precision": 0.9167,
+          "recall": 0.1048
+        },
+        "honest_time_split": {
+          "auc": 0.7342,
+          "accuracy": 0.8897,
+          "f1": 0.1337,
+          "precision": 1.0,
+          "recall": 0.0716
+        }
+      },
+      "leaks": [
+        {
+          "feature": "transaction_date",
+          "changed_share": 0.1845,
+          "signal_published": 0.9802,
+          "signal_honest": 0.5117,
+          "leaked": true
+        },
+        {
+          "feature": "membership_expire_date",
+          "changed_share": 0.0266,
+          "signal_published": 0.985,
+          "signal_honest": 0.5297,
+          "leaked": true
+        },
+        {
+          "feature": "trans_count",
+          "changed_share": 0.9016,
+          "signal_published": 0.7566,
+          "signal_honest": 0.623,
+          "leaked": true
+        },
+        {
+          "feature": "actual_amount_paid",
+          "changed_share": 0.1202,
+          "signal_published": 0.7709,
+          "signal_honest": 0.6735,
+          "leaked": true
+        },
+        {
+          "feature": "logs_count",
+          "changed_share": 0.9792,
+          "signal_published": 0.7493,
+          "signal_honest": 0.6835,
+          "leaked": true
+        },
+        {
+          "feature": "num_50",
+          "changed_share": 0.9748,
+          "signal_published": 0.7477,
+          "signal_honest": 0.683,
+          "leaked": true
+        },
+        {
+          "feature": "is_auto_renew",
+          "changed_share": 0.0456,
+          "signal_published": 0.6556,
+          "signal_honest": 0.5917,
+          "leaked": true
+        },
+        {
+          "feature": "num_75",
+          "changed_share": 0.9775,
+          "signal_published": 0.7487,
+          "signal_honest": 0.685,
+          "leaked": true
+        },
+        {
+          "feature": "num_25",
+          "changed_share": 0.9792,
+          "signal_published": 0.7478,
+          "signal_honest": 0.6842,
+          "leaked": true
+        },
+        {
+          "feature": "is_cancel",
+          "changed_share": 0.0446,
+          "signal_published": 0.5997,
+          "signal_honest": 0.5372,
+          "leaked": true
+        },
+        {
+          "feature": "num_unq",
+          "changed_share": 0.9792,
+          "signal_published": 0.7531,
+          "signal_honest": 0.6976,
+          "leaked": true
+        },
+        {
+          "feature": "total_secs",
+          "changed_share": 0.9792,
+          "signal_published": 0.753,
+          "signal_honest": 0.6979,
+          "leaked": true
+        },
+        {
+          "feature": "num_100",
+          "changed_share": 0.9782,
+          "signal_published": 0.7531,
+          "signal_honest": 0.7033,
+          "leaked": true
+        },
+        {
+          "feature": "payment_plan_days",
+          "changed_share": 0.0,
+          "signal_published": 0.5,
+          "signal_honest": 0.5,
+          "leaked": false
+        },
+        {
+          "feature": "plan_list_price",
+          "changed_share": 0.0,
+          "signal_published": 0.5,
+          "signal_honest": 0.5,
+          "leaked": false
+        },
+        {
+          "feature": "num_985",
+          "changed_share": 0.0,
+          "signal_published": 0.5,
+          "signal_honest": 0.5,
+          "leaked": false
+        },
+        {
+          "feature": "bd",
+          "changed_share": 0.0,
+          "signal_published": 0.511,
+          "signal_honest": 0.511,
+          "leaked": false
+        },
+        {
+          "feature": "registration_init_time",
+          "changed_share": 0.0,
+          "signal_published": 0.6141,
+          "signal_honest": 0.6141,
+          "leaked": false
+        },
+        {
+          "feature": "city_1",
+          "changed_share": 0.0,
+          "signal_published": 0.5178,
+          "signal_honest": 0.5178,
+          "leaked": false
+        },
+        {
+          "feature": "city_4",
+          "changed_share": 0.0,
+          "signal_published": 0.5099,
+          "signal_honest": 0.5099,
+          "leaked": false
+        },
+        {
+          "feature": "city_5",
+          "changed_share": 0.0,
+          "signal_published": 0.5045,
+          "signal_honest": 0.5045,
+          "leaked": false
+        },
+        {
+          "feature": "city_13",
+          "changed_share": 0.0,
+          "signal_published": 0.5019,
+          "signal_honest": 0.5019,
+          "leaked": false
+        },
+        {
+          "feature": "city_22",
+          "changed_share": 0.0,
+          "signal_published": 0.501,
+          "signal_honest": 0.501,
+          "leaked": false
+        },
+        {
+          "feature": "registered_via_3",
+          "changed_share": 0.0,
+          "signal_published": 0.5069,
+          "signal_honest": 0.5069,
+          "leaked": false
+        },
+        {
+          "feature": "registered_via_4",
+          "changed_share": 0.0,
+          "signal_published": 0.5177,
+          "signal_honest": 0.5177,
+          "leaked": false
+        },
+        {
+          "feature": "registered_via_7",
+          "changed_share": 0.0,
+          "signal_published": 0.5118,
+          "signal_honest": 0.5118,
+          "leaked": false
+        },
+        {
+          "feature": "registered_via_9",
+          "changed_share": 0.0,
+          "signal_published": 0.5197,
+          "signal_honest": 0.5197,
+          "leaked": false
+        },
+        {
+          "feature": "gender_male",
+          "changed_share": 0.0,
+          "signal_published": 0.5103,
+          "signal_honest": 0.5103,
+          "leaked": false
+        },
+        {
+          "feature": "payment_method_id",
+          "changed_share": 0.002,
+          "signal_published": 0.6733,
+          "signal_honest": 0.681,
+          "leaked": false
+        }
+      ],
+      "auc_drop": 0.1478
+    }
+  ],
+  "models": {
+    "rows": {
+      "train": 9419,
+      "valid": 3066,
+      "test": 2937
+    },
+    "table": {
+      "Nobody churns (baseline)": {
+        "n": 2937,
+        "churn_rate": 0.1188,
+        "auc": 0.5,
+        "pr_auc": 0.1188,
+        "log_loss": 0.3735,
+        "brier": 0.1062,
+        "money_threshold": 0.01,
+        "saved_eur_money_threshold": 6255.0,
+        "saved_eur_default_0_5": 0.0
+      },
+      "Auto-renew rule": {
+        "n": 2937,
+        "churn_rate": 0.1188,
+        "auc": 0.5935,
+        "pr_auc": 0.2274,
+        "log_loss": 0.3643,
+        "brier": 0.0984,
+        "money_threshold": 0.01,
+        "saved_eur_money_threshold": 6255.0,
+        "saved_eur_default_0_5": 1430.0
+      },
+      "Logistic regression": {
+        "n": 2937,
+        "churn_rate": 0.1188,
+        "auc": 0.725,
+        "pr_auc": 0.3624,
+        "log_loss": 0.3521,
+        "brier": 0.0947,
+        "money_threshold": 0.03,
+        "saved_eur_money_threshold": 9035.0,
+        "saved_eur_default_0_5": 2560.0
+      },
+      "LightGBM": {
+        "n": 2937,
+        "churn_rate": 0.1188,
+        "auc": 0.7861,
+        "pr_auc": 0.4283,
+        "log_loss": 0.3172,
+        "brier": 0.0896,
+        "money_threshold": 0.06,
+        "saved_eur_money_threshold": 9510.0,
+        "saved_eur_default_0_5": 2680.0
+      }
+    },
+    "money": {
+      "model": "LightGBM",
+      "threshold_chosen_on_validation": 0.06,
+      "break_even_chance": 0.0833,
+      "comparison": {
+        "money-based threshold": {
+          "threshold": 0.06,
+          "offers_sent": 846,
+          "leavers_reached": 229,
+          "leavers_missed": 120,
+          "saved_eur": 9510.0
+        },
+        "default 0.5": {
+          "threshold": 0.5,
+          "offers_sent": 76,
+          "leavers_reached": 51,
+          "leavers_missed": 298,
+          "saved_eur": 2680.0
+        },
+        "offer to everyone": {
+          "threshold": 0.0,
+          "offers_sent": 2937,
+          "leavers_reached": 349,
+          "leavers_missed": 0,
+          "saved_eur": 6255.0
+        },
+        "no offers": {
+          "threshold": 1.0,
+          "offers_sent": 0,
+          "leavers_reached": 0,
+          "leavers_missed": 349,
+          "saved_eur": 0.0
+        }
+      },
+      "hindsight_best_threshold": 0.03,
+      "hindsight_best_saved_eur": 10065.0
+    },
+    "curves": {
+      "valid": {
+        "n_bins": 100,
+        "leavers": [
+          4,
+          14,
+          17,
+          30,
+          20,
+          10,
+          17,
+          19,
+          13,
+          17,
+          13,
+          12,
+          12,
+          7,
+          7,
+          6,
+          4,
+          3,
+          6,
+          2,
+          6,
+          6,
+          3,
+          4,
+          3,
+          7,
+          5,
+          3,
+          6,
+          0,
+          1,
+          2,
+          2,
+          3,
+          3,
+          2,
+          4,
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          0,
+          4,
+          0,
+          3,
+          0,
+          2,
+          1,
+          3,
+          1,
+          0,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          1,
+          0,
+          2,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          2,
+          0,
+          0,
+          0,
+          1,
+          0,
+          1,
+          1,
+          0,
+          7,
+          16,
+          0
+        ],
+        "stayers": [
+          468,
+          419,
+          370,
+          327,
+          272,
+          177,
+          133,
+          94,
+          81,
+          47,
+          31,
+          35,
+          26,
+          26,
+          23,
+          17,
+          12,
+          12,
+          11,
+          7,
+          8,
+          5,
+          5,
+          8,
+          3,
+          4,
+          3,
+          4,
+          4,
+          6,
+          4,
+          5,
+          1,
+          2,
+          2,
+          4,
+          2,
+          1,
+          2,
+          0,
+          4,
+          2,
+          3,
+          0,
+          2,
+          0,
+          4,
+          1,
+          2,
+          2,
+          2,
+          3,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          3,
+          2,
+          1,
+          3,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "test": {
+        "n_bins": 100,
+        "leavers": [
+          10,
+          15,
+          19,
+          33,
+          25,
+          18,
+          11,
+          13,
+          13,
+          19,
+          6,
+          8,
+          17,
+          8,
+          7,
+          5,
+          5,
+          4,
+          4,
+          3,
+          4,
+          3,
+          1,
+          5,
+          2,
+          2,
+          0,
+          3,
+          2,
+          3,
+          4,
+          5,
+          0,
+          2,
+          2,
+          4,
+          0,
+          1,
+          0,
+          2,
+          0,
+          3,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          2,
+          1,
+          0,
+          0,
+          0,
+          2,
+          0,
+          1,
+          1,
+          2,
+          3,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          2,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          1,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          1,
+          3,
+          7,
+          14,
+          0
+        ],
+        "stayers": [
+          495,
+          405,
+          346,
+          299,
+          229,
+          197,
+          124,
+          94,
+          62,
+          47,
+          38,
+          28,
+          18,
+          16,
+          20,
+          13,
+          11,
+          17,
+          10,
+          10,
+          8,
+          4,
+          8,
+          4,
+          5,
+          5,
+          2,
+          3,
+          5,
+          4,
+          4,
+          1,
+          5,
+          1,
+          3,
+          1,
+          1,
+          1,
+          3,
+          0,
+          5,
+          1,
+          0,
+          2,
+          0,
+          3,
+          4,
+          1,
+          0,
+          0,
+          1,
+          3,
+          2,
+          1,
+          0,
+          1,
+          1,
+          1,
+          2,
+          1,
+          2,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          2,
+          1,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          2,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "top_features": {
+      "auto_renew": 0.3603,
+      "secs_m1": 0.0686,
+      "completion_ratio": 0.0666,
+      "unique_songs_m1": 0.0648,
+      "secs_m3": 0.0411,
+      "tenure_days": 0.0381,
+      "reg_days": 0.038,
+      "auto_renew_share": 0.0349,
+      "activity_trend": 0.0311,
+      "days_to_expire": 0.0311
+    }
+  }
+}
