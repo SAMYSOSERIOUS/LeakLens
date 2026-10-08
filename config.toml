@@ -4,8 +4,8 @@
 # Where `python -m leaklens prepare` writes the compact tables.
 # Real KKBox data:   data/kkbox/prepared   (is_sample = false)
 # Made-up demo data: data/sample/prepared  (is_sample = true)
-prepared_dir = "data/sample/prepared"
-is_sample = true
+prepared_dir = "data/kkbox/prepared"
+is_sample = false
 
 [money]
 # ASSUMPTIONS, not facts. They come from the project brief.

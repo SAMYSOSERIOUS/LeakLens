@@ -79,7 +79,7 @@ def main(argv=None):
 
         from .report import write_all
 
-        write_all(json.loads(Path("reports/audit.json").read_text()))
+        write_all(json.loads(Path("reports/audit.json").read_text(encoding="utf-8")))
 
     elif args.command == "replay-step":
         s = _job(cfg).step()

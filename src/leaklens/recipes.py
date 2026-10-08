@@ -48,6 +48,13 @@ def _members(d: Dataset, users) -> pd.DataFrame:
 #   transaction aggregates + log averages + profile, random forest with
 #   oversampling, random split, ROC AUC.
 # --------------------------------------------------------------------------
+def _mode(df: pd.DataFrame, col: str) -> pd.Series:
+    """Most common value per customer (smallest value wins a tie), fast on millions of rows."""
+    counts = df.groupby(["msno", col]).size().reset_index(name="n")
+    counts = counts.sort_values(["msno", "n", col], ascending=[True, False, True])
+    return counts.drop_duplicates("msno").set_index("msno")[col]
+
+
 def features_a(d: Dataset, users) -> pd.DataFrame:
     users = pd.Index(users, name="msno")
     tx = d.tx[d.tx["msno"].isin(users)]
@@ -55,12 +62,12 @@ def features_a(d: Dataset, users) -> pd.DataFrame:
     m = _members(d, users)
     f = pd.DataFrame(index=users)
     f["regist_trans"] = g.size()
-    f["mode_plan_days"] = g["payment_plan_days"].agg(lambda s: s.mode().iat[0])
-    f["mode_payment_method"] = g["payment_method_id"].agg(lambda s: s.mode().iat[0])
+    f["mode_plan_days"] = _mode(tx, "payment_plan_days")
+    f["mode_payment_method"] = _mode(tx, "payment_method_id")
     f["revenue"] = g["actual_amount_paid"].sum()
     f["is_auto_renew"] = g["is_auto_renew"].mean()
     f["regist_cancels"] = g["is_cancel"].sum()
-    f["mode_quarter"] = g["transaction_date"].agg(lambda s: s.dt.quarter.mode().iat[0])
+    f["mode_quarter"] = _mode(tx.assign(quarter=tx["transaction_date"].dt.quarter), "quarter")
     f["tenure"] = (g["transaction_date"].max() - m["registration_init_time"]).dt.days
     lg = d.logs[d.logs["msno"].isin(users)].groupby("msno")
     days = lg["days_active"].sum().replace(0, np.nan)

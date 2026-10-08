@@ -1,4 +1,4 @@
-# Three popular churn models, re-tested honestly: here's what they're really worth
+# Three popular churn models, re-tested honestly: from 0.98 to 0.74 AUC
 
 [![tests](../../actions/workflows/tests.yml/badge.svg)](../../actions/workflows/tests.yml)
 [![weekly replay](../../actions/workflows/weekly-replay.yml/badge.svg)](../../actions/workflows/weekly-replay.yml)
@@ -15,16 +15,23 @@ which customers is it actually worth sending a retention offer to?
 ## Results
 
 <!-- RESULTS:START -->
-> **Demo numbers.** These come from the built-in made-up sample data, not from KKBox. Run the pipeline on the real files (see *Run it on the real data*) to get real numbers.
-
 | Public notebook | What it claimed | Re-run as published (AUC) | Honest re-test (AUC) | Drop | Main leak |
 |---|---|---|---|---|---|
-| [jsroa15/KKBOX (random forest)](https://github.com/jsroa15/KKBOX) | Random forest, ROC AUC 0.940 on its test set (README). | 0.969 | 0.832 | −0.137 | `mode_quarter`, `regist_trans`, `tenure` |
-| [apostaremczak/churn-prediction (random forest)](https://github.com/apostaremczak/churn-prediction) | 'Unbalanced' random forest: accuracy 92.7%, F1 0.48 (model_results.json). | 0.999 | 0.668 | −0.331 | `transaction_date`, `membership_expire_date`, `actual_amount_paid` |
-| [naomifridman/Deep-VAE-prediction-of-churn-customer (VAE + KNN)](https://github.com/naomifridman/Deep-VAE-prediction-of-churn-customer) | KNN on a VAE latent space: accuracy 95.0%, churn-class F1 0.66 (notebook output). | 0.882 | 0.734 | −0.148 | `transaction_date`, `membership_expire_date`, `trans_count` |
+| [jsroa15/KKBOX (random forest)](https://github.com/jsroa15/KKBOX) | Random forest, ROC AUC 0.940 on its test set (README). | 0.977 | 0.743 | −0.233 | `mode_quarter`, `regist_cancels`, `revenue` |
+| [apostaremczak/churn-prediction (random forest)](https://github.com/apostaremczak/churn-prediction) | 'Unbalanced' random forest: accuracy 92.7%, F1 0.48 (model_results.json). | 0.989 | 0.826 | −0.163 | `membership_expire_date`, `transaction_date`, `is_cancel` |
+| [naomifridman/Deep-VAE-prediction-of-churn-customer (VAE + KNN)](https://github.com/naomifridman/Deep-VAE-prediction-of-churn-customer) | KNN on a VAE latent space: accuracy 95.0%, churn-class F1 0.66 (notebook output). | 0.977 | 0.808 | −0.169 | `membership_expire_date`, `transaction_date`, `is_cancel` |
 
-Our honest LightGBM on the same test month: AUC **0.786** (auto-renew rule 0.594, nobody-churns baseline 0.500). Money-based threshold **0.06** saves **€9,510** on 2,937 customers, versus €2,680 at the default 0.5. Full tables: [reports/results.md](reports/results.md).
+Our honest LightGBM on the same test month: AUC **0.865** (auto-renew rule 0.799, nobody-churns baseline 0.500). Money-based threshold **0.09** saves **€1,007,035** on 883,727 customers, versus €126,795 at the default 0.5. Full tables: [reports/results.md](reports/results.md).
 <!-- RESULTS:END -->
+
+**What these numbers cover.** Full KKBox transaction and member data (2.4 million customers,
+23 million transactions, Jan 2015 – Mar 2017). Test month: customers whose membership ran out
+in February 2017, scored on 31 January 2017 (883,727 customers, 3.9% churned). The listening
+logs (30 GB) were left out of this run, so the features use payments and profiles only.
+The three public notebooks are re-tested on a random sample of 300,000 of those customers to
+keep their slow models practical; our own models use all of them. The churn rate is lower
+than in the competition because we score every customer whose membership ends that month,
+including the many auto-renewers.
 
 - One-page summary for managers: [docs/manager_summary.md](docs/manager_summary.md)
 - All tables, per-feature leak checks: [reports/results.md](reports/results.md)
@@ -35,7 +42,7 @@ Our honest LightGBM on the same test month: AUC **0.786** (auto-renew rule 0.594
 There is no good public German churn dataset: German companies don't publish customer data,
 and data protection rules (GDPR) make that unlikely to change. So this project uses the
 **KKBox** data from the WSDM 2018 churn challenge
-([Mendeley mirror](https://data.mendeley.com/datasets/mv3f8bdrvy)). KKBox is a Taiwanese
+([Kaggle](https://www.kaggle.com/c/kkbox-churn-prediction-challenge/data)). KKBox is a Taiwanese
 music streaming service. The data fits this project for three reasons:
 
 - **Real subscription transactions with dates** for millions of users (payments, plan
@@ -83,9 +90,9 @@ Claimed numbers come from each repository's README, results file or notebook out
 recipes in [`src/leaklens/recipes.py`](src/leaklens/recipes.py) rebuild each notebook's
 feature list, split and model from its published code and description, so that all three run
 through the same harness on the same data. They are re-implementations, not byte-for-byte
-copies, and the differences are listed above. Kaggle notebooks were not used because the
-Kaggle site was not reachable from the build environment; the three GitHub notebooks are
-widely forked public solutions on the same data.
+copies, and the differences are listed above. These three were chosen because each one
+publishes its code, its feature list and its claimed scores on GitHub. Re-testing popular
+Kaggle competition notebooks the same way is a natural next step.
 
 ## Our honest model
 
@@ -177,15 +184,18 @@ make serve                    # monitor at http://localhost:8000
 
 ### Run it on the real data
 
+Download `transactions.csv.7z`, `transactions_v2.csv.7z` and `members_v3.csv.7z` from the
+[Kaggle competition page](https://www.kaggle.com/c/kkbox-churn-prediction-challenge/data)
+(free account, accept the rules), unpack them into `data/kkbox/raw`, then:
+
 ```bash
-# put the KKBox CSVs in data/kkbox/raw (see data/README.md), then
 make prepare
 # in config.toml: prepared_dir = "data/kkbox/prepared", is_sample = false
 make audit && make replay-loop
 ```
 
-Expect the audit to take a while on the full data: the public notebooks' models are capped
-at `max_train_rows` (300,000) to keep it practical. To run the weekly job on real data in
+The audit takes about 30 minutes on a laptop. The public notebooks are re-tested on a random
+sample of `max_train_rows` (300,000) customers to keep their slow models practical. To run the weekly job on real data in
 GitHub Actions, upload the prepared folder as a `.tar.gz` and set its link as the secret
 `PREPARED_DATA_URL`.
 
@@ -215,6 +225,11 @@ state/          the replay job's memory between runs
   above for what was kept and changed.
 - The €5 / €60 / 100% figures are assumptions from the brief. The offer's real effect
   should be measured with a random control group before trusting any euro figure.
+- The real-data run leaves out the listening logs. Listening activity is one of the
+  strongest honest signals, so our model's score is probably a lower bound. Adding
+  `user_logs.csv` (30 GB) and rerunning `make prepare && make audit` includes it.
+- One test month (February 2017 expiries). Repeating the audit on other months would show
+  how stable the gaps are.
 - KKBox is a Taiwanese music service from 2015–2017. The method transfers; the exact numbers
   won't.
 

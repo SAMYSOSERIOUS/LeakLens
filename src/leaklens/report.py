@@ -12,7 +12,7 @@ from pathlib import Path
 
 
 def _eur(x: float) -> str:
-    return f"€{x:,.0f}"
+    return f"−€{-x:,.0f}" if x < 0 else f"€{x:,.0f}"
 
 
 def _pct(x: float) -> str:
@@ -163,8 +163,8 @@ def write_all(r: dict, root: str | Path = ".") -> None:
     root = Path(root)
     (root / "reports").mkdir(exist_ok=True)
     (root / "docs").mkdir(exist_ok=True)
-    (root / "reports" / "results.md").write_text(results_md(r))
-    (root / "docs" / "manager_summary.md").write_text(manager_md(r))
+    (root / "reports" / "results.md").write_text(results_md(r), encoding="utf-8")
+    (root / "docs" / "manager_summary.md").write_text(manager_md(r), encoding="utf-8")
     readme = root / "README.md"
     if readme.exists():
         block = (f"<!-- RESULTS:START -->\n{_demo_banner(r)}{headline_table(r)}\n\n"
@@ -177,6 +177,6 @@ def write_all(r: dict, root: str | Path = ".") -> None:
                  f"{_eur(r['models']['money']['comparison']['default 0.5']['saved_eur'])} at the default 0.5. "
                  f"Full tables: [reports/results.md](reports/results.md).\n<!-- RESULTS:END -->")
         text = re.sub(r"<!-- RESULTS:START -->.*?<!-- RESULTS:END -->", lambda _: block,
-                      readme.read_text(), flags=re.S)
-        readme.write_text(text)
+                      readme.read_text(encoding="utf-8"), flags=re.S)
+        readme.write_text(text, encoding="utf-8")
     print("wrote reports/results.md, docs/manager_summary.md" + (", README.md" if readme.exists() else ""))

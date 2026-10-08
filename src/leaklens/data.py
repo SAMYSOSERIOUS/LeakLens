@@ -72,6 +72,16 @@ def _clean_members(m: pd.DataFrame) -> pd.DataFrame:
     return m.drop_duplicates("msno").reset_index(drop=True)
 
 
+def empty_members() -> pd.DataFrame:
+    """A members table with the right columns and types but no rows."""
+    return pd.DataFrame({
+        "msno": pd.Series(dtype="object"), "city": pd.Series(dtype="float64"),
+        "bd": pd.Series(dtype="float64"), "gender": pd.Series(dtype="object"),
+        "registered_via": pd.Series(dtype="float64"),
+        "registration_init_time": pd.Series(dtype="datetime64[ns]"),
+    })
+
+
 def aggregate_daily_logs(daily: pd.DataFrame) -> pd.DataFrame:
     """Sum daily listening rows into one row per user per month."""
     d = daily.copy()
@@ -88,8 +98,12 @@ def aggregate_daily_logs(daily: pd.DataFrame) -> pd.DataFrame:
 
 
 def _combine_monthly(parts: list[pd.DataFrame]) -> pd.DataFrame:
-    if not parts:
-        return pd.DataFrame(columns=["msno", "month_end", *LOG_NUM_COLS, "days_active", "last_date"])
+    if not parts:  # no listening logs: an empty table with the right types
+        return pd.DataFrame({
+            "msno": pd.Series(dtype="object"), "month_end": pd.Series(dtype="datetime64[ns]"),
+            **{c: pd.Series(dtype="float64") for c in [*LOG_NUM_COLS, "days_active"]},
+            "last_date": pd.Series(dtype="datetime64[ns]"),
+        })
     df = pd.concat(parts, ignore_index=True)
     g = df.groupby(["msno", "month_end"], sort=False)
     out = g[LOG_NUM_COLS + ["days_active"]].sum()
@@ -111,10 +125,16 @@ def prepare(raw_dir: str | Path, out_dir: str | Path, chunksize: int = 5_000_000
 
     mfile = next((raw / f for f in ("members_v3.csv", "members.csv") if (raw / f).exists()), None)
     if mfile is None:
-        raise FileNotFoundError(f"No members*.csv in {raw}")
-    members = _clean_members(pd.read_csv(mfile))
+        # Optional: without it the profile features (age, city, sign-up date) stay empty.
+        print(f"members: no members*.csv in {raw}, continuing without customer profiles")
+        members = empty_members()
+    else:
+        members = _clean_members(pd.read_csv(mfile))
     members.to_parquet(out / "members.parquet", index=False)
     print(f"members: {len(members):,} rows")
+    if len(tx) == 1_048_575:
+        print("WARNING: exactly 1,048,575 transactions - the Excel row limit. "
+              "This file was probably cut off by Excel; get a fresh copy and don't open it in Excel.")
 
     parts = []
     for f in ("user_logs.csv", "user_logs_v2.csv"):

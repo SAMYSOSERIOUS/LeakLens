@@ -71,6 +71,16 @@ def _fit(recipe: Recipe, X, y, seed, max_rows, rng):
     return recipe.model(seed).fit(X, y.values)
 
 
+def _sample(pop: pd.DataFrame, n: int, rng) -> pd.DataFrame:
+    """A random sample of customers, so the slow public models finish on the full data.
+
+    Random customers from the same month: the scores stay fair, just slightly less precise.
+    """
+    if len(pop) <= n:
+        return pop
+    return pop.iloc[np.sort(rng.choice(len(pop), n, replace=False))]
+
+
 def _signal(y, x) -> float:
     """How well one feature on its own separates leavers (0.5 = not at all)."""
     x = pd.Series(x).astype(float)
@@ -83,7 +93,7 @@ def _signal(y, x) -> float:
 def audit_recipe(recipe: Recipe, ds: Dataset, cut: dict, seed: int = 0, max_rows: int = 300_000) -> dict:
     rng = np.random.default_rng(seed)
     T = cut["test"]
-    pop = scoring_population(ds.tx, T)
+    pop = _sample(scoring_population(ds.tx, T), max_rows, rng)
     y = churn_labels(ds.tx, T, pop).reindex(pop.index)
 
     published = recipe.build(ds, pop.index)                 # whole file, as the notebook did
@@ -98,7 +108,7 @@ def audit_recipe(recipe: Recipe, ds: Dataset, cut: dict, seed: int = 0, max_rows
     # honest: learn from earlier months (answers known on T), predict month T
     frames, ys = [], []
     for c in [*cut["train"], cut["valid"]]:
-        p_c = scoring_population(ds.tx, c)
+        p_c = _sample(scoring_population(ds.tx, c), max_rows // 4, rng)
         frames.append(recipe.build(visible(ds, c), p_c.index))
         ys.append(churn_labels(ds.tx, c, p_c).reindex(p_c.index))
     m = _fit(recipe, pd.concat(frames), pd.concat(ys), seed, max_rows, rng)
@@ -204,4 +214,4 @@ def save(result: dict, *paths: str | Path) -> None:
     for p in paths:
         p = Path(p)
         p.parent.mkdir(parents=True, exist_ok=True)
-        p.write_text(json.dumps(result, indent=2, default=str))
+        p.write_text(json.dumps(result, indent=2, default=str), encoding="utf-8")

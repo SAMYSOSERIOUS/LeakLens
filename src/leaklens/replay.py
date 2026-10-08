@@ -118,11 +118,11 @@ class ReplayJob:
 
     # ---- state ----
     def load_state(self) -> dict | None:
-        return json.loads(self.state_path.read_text()) if self.state_path.exists() else None
+        return json.loads(self.state_path.read_text(encoding="utf-8")) if self.state_path.exists() else None
 
     def save_state(self, s: dict) -> None:
         self.state_dir.mkdir(parents=True, exist_ok=True)
-        self.state_path.write_text(json.dumps(s, indent=1, default=str))
+        self.state_path.write_text(json.dumps(s, indent=1, default=str), encoding="utf-8")
 
     # ---- training ----
     def train(self, today: pd.Timestamp, s: dict, reason: str) -> None:
@@ -269,4 +269,4 @@ class ReplayJob:
                        "top": offers.head(self.cfg.offer_list_size).to_dict(orient="records")},
         }
         self.site_dir.mkdir(parents=True, exist_ok=True)
-        (self.site_dir / "monitor.json").write_text(json.dumps(monitor, indent=1, default=str))
+        (self.site_dir / "monitor.json").write_text(json.dumps(monitor, indent=1, default=str), encoding="utf-8")

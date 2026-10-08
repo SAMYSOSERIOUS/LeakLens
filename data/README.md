@@ -4,8 +4,11 @@ Nothing in this folder is committed except this note.
 
 ## Real data: KKBox (WSDM 2018 churn challenge)
 
-1. Download the files from Mendeley Data: https://data.mendeley.com/datasets/mv3f8bdrvy
-   (a mirror of the Kaggle "WSDM - KKBox's Churn Prediction Challenge" files).
+1. Download the files from Kaggle: https://www.kaggle.com/c/kkbox-churn-prediction-challenge/data
+   (free account; accept the competition rules first). Note: the Mendeley Data page
+   (https://data.mendeley.com/datasets/mv3f8bdrvy) only has `transactions_v2.csv`, which
+   mostly covers March 2017 and is not enough for an honest month-by-month test.
+   Never open these files in Excel: saving cuts them off at 1,048,575 rows.
 2. Unpack these into `data/kkbox/raw/`:
    - `transactions.csv`, `transactions_v2.csv`
    - `members_v3.csv`
