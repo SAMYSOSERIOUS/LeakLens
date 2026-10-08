@@ -1,6 +1,6 @@
 {
  "loop": 1,
- "today": "2016-10-31",
+ "today": "2016-11-30",
  "events": [
   {
    "date": "2016-01-31",
@@ -158,10 +158,13 @@
    "n_scored": 2478,
    "n_offers": 518,
    "expected_leavers": 200.0,
-   "auc": null,
-   "log_loss": null,
-   "churn_rate": null,
-   "saved_eur": null
+   "auc": 0.8247,
+   "log_loss": 0.2091,
+   "churn_rate": 0.088,
+   "saved_eur": 6110.0,
+   "checked_on": "2016-11-30",
+   "leavers": 218,
+   "leavers_reached": 145
   },
   {
    "loop": 1,
@@ -172,6 +175,20 @@
    "n_scored": 2668,
    "n_offers": 609,
    "expected_leavers": 215.7,
+   "auc": null,
+   "log_loss": null,
+   "churn_rate": null,
+   "saved_eur": null
+  },
+  {
+   "loop": 1,
+   "cutoff": "2016-11-30",
+   "answers_known_on": "2017-01-30",
+   "model_version": 1,
+   "threshold": 0.08,
+   "n_scored": 3066,
+   "n_offers": 770,
+   "expected_leavers": 237.0,
    "auc": null,
    "log_loss": null,
    "churn_rate": null,
@@ -448,11 +465,38 @@
     ]
    ],
    "warning": true
+  },
+  {
+   "date": "2016-11-30",
+   "max_psi": 2.2821,
+   "top": [
+    [
+     "payment_method",
+     2.2821
+    ],
+    [
+     "amount_paid",
+     0.7334
+    ],
+    [
+     "discount",
+     0.3519
+    ],
+    [
+     "completion_ratio",
+     0.0092
+    ],
+    [
+     "days_active_m1",
+     0.0075
+    ]
+   ],
+   "warning": true
   }
  ],
  "pending": [
-  "2016-09-30",
-  "2016-10-31"
+  "2016-10-31",
+  "2016-11-30"
  ],
  "model_version": 1,
  "model": {
