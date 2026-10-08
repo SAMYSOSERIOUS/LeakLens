@@ -1,0 +1,631 @@
+{
+ "loop": 1,
+ "today": "2017-03-31",
+ "events": [
+  {
+   "date": "2016-07-31",
+   "loop": 1,
+   "type": "retrain",
+   "model_version": 1,
+   "reason": "first model",
+   "valid_auc": 0.9331,
+   "threshold": 0.08
+  },
+  {
+   "date": "2017-01-31",
+   "loop": 1,
+   "type": "retrain",
+   "model_version": 2,
+   "reason": "accuracy (AUC) 0.760 on 2016-11-30 fell below the floor of 0.80",
+   "valid_auc": 0.757,
+   "threshold": 0.09
+  }
+ ],
+ "history": [
+  {
+   "loop": 1,
+   "cutoff": "2016-07-31",
+   "answers_known_on": "2016-09-30",
+   "model_version": 1,
+   "threshold": 0.08,
+   "n_scored": 803951,
+   "n_offers": 135125,
+   "expected_leavers": 54383.8,
+   "auc": 0.8982,
+   "log_loss": 0.1585,
+   "churn_rate": 0.0429,
+   "saved_eur": 1016015.0,
+   "checked_on": "2016-09-30",
+   "leavers": 34484,
+   "leavers_reached": 28194
+  },
+  {
+   "loop": 1,
+   "cutoff": "2016-08-31",
+   "answers_known_on": "2016-10-30",
+   "model_version": 1,
+   "threshold": 0.08,
+   "n_scored": 848080,
+   "n_offers": 151249,
+   "expected_leavers": 68889.9,
+   "auc": 0.9216,
+   "log_loss": 0.1582,
+   "churn_rate": 0.0624,
+   "saved_eur": 1958155.0,
+   "checked_on": "2016-10-31",
+   "leavers": 52920,
+   "leavers_reached": 45240
+  },
+  {
+   "loop": 1,
+   "cutoff": "2016-09-30",
+   "answers_known_on": "2016-11-30",
+   "model_version": 1,
+   "threshold": 0.08,
+   "n_scored": 839471,
+   "n_offers": 130026,
+   "expected_leavers": 47370.1,
+   "auc": 0.884,
+   "log_loss": 0.1345,
+   "churn_rate": 0.0383,
+   "saved_eur": 845550.0,
+   "checked_on": "2016-11-30",
+   "leavers": 32134,
+   "leavers_reached": 24928
+  },
+  {
+   "loop": 1,
+   "cutoff": "2016-10-31",
+   "answers_known_on": "2016-12-30",
+   "model_version": 1,
+   "threshold": 0.08,
+   "n_scored": 894758,
+   "n_offers": 171713,
+   "expected_leavers": 87907.5,
+   "auc": 0.9516,
+   "log_loss": 0.1358,
+   "churn_rate": 0.0898,
+   "saved_eur": 3533135.0,
+   "checked_on": "2016-12-31",
+   "leavers": 80343,
+   "leavers_reached": 73195
+  },
+  {
+   "loop": 1,
+   "cutoff": "2016-11-30",
+   "answers_known_on": "2017-01-30",
+   "model_version": 1,
+   "threshold": 0.08,
+   "n_scored": 887233,
+   "n_offers": 148131,
+   "expected_leavers": 65994.6,
+   "auc": 0.7596,
+   "log_loss": 0.244,
+   "churn_rate": 0.0805,
+   "saved_eur": 2156145.0,
+   "checked_on": "2017-01-31",
+   "leavers": 71385,
+   "leavers_reached": 48280
+  },
+  {
+   "loop": 1,
+   "cutoff": "2016-12-31",
+   "answers_known_on": "2017-03-02",
+   "model_version": 1,
+   "threshold": 0.08,
+   "n_scored": 872356,
+   "n_offers": 134265,
+   "expected_leavers": 46550.7,
+   "auc": 0.8646,
+   "log_loss": 0.1429,
+   "churn_rate": 0.0449,
+   "saved_eur": 1145895.0,
+   "checked_on": "2017-03-31",
+   "leavers": 39212,
+   "leavers_reached": 30287
+  },
+  {
+   "loop": 1,
+   "cutoff": "2017-01-31",
+   "answers_known_on": "2017-03-30",
+   "model_version": 2,
+   "threshold": 0.09,
+   "n_scored": 883727,
+   "n_offers": 87681,
+   "expected_leavers": 31878.1,
+   "auc": 0.8624,
+   "log_loss": 0.1163,
+   "churn_rate": 0.0395,
+   "saved_eur": 1003695.0,
+   "checked_on": "2017-03-31",
+   "leavers": 34878,
+   "leavers_reached": 24035
+  },
+  {
+   "loop": 1,
+   "cutoff": "2017-02-28",
+   "answers_known_on": "2017-04-30",
+   "model_version": 2,
+   "threshold": 0.09,
+   "n_scored": 890266,
+   "n_offers": 144528,
+   "expected_leavers": 47276.4,
+   "auc": null,
+   "log_loss": null,
+   "churn_rate": null,
+   "saved_eur": null
+  },
+  {
+   "loop": 1,
+   "cutoff": "2017-03-31",
+   "answers_known_on": "2017-05-30",
+   "model_version": 2,
+   "threshold": 0.09,
+   "n_scored": 908819,
+   "n_offers": 86289,
+   "expected_leavers": 31506.1,
+   "auc": null,
+   "log_loss": null,
+   "churn_rate": null,
+   "saved_eur": null
+  }
+ ],
+ "drift": [
+  {
+   "date": "2016-07-31",
+   "max_psi": 0.1098,
+   "top": [
+    [
+     "payment_method",
+     0.1098
+    ],
+    [
+     "amount_paid",
+     0.0219
+    ],
+    [
+     "age",
+     0.006
+    ],
+    [
+     "n_lapses",
+     0.0042
+    ],
+    [
+     "plan_days",
+     0.0033
+    ]
+   ],
+   "warning": false
+  },
+  {
+   "date": "2016-08-31",
+   "max_psi": 0.1412,
+   "top": [
+    [
+     "payment_method",
+     0.1412
+    ],
+    [
+     "amount_paid",
+     0.027
+    ],
+    [
+     "plan_days",
+     0.0206
+    ],
+    [
+     "age",
+     0.0081
+    ],
+    [
+     "n_lapses",
+     0.0069
+    ]
+   ],
+   "warning": false
+  },
+  {
+   "date": "2016-09-30",
+   "max_psi": 0.1378,
+   "top": [
+    [
+     "payment_method",
+     0.1378
+    ],
+    [
+     "amount_paid",
+     0.0587
+    ],
+    [
+     "plan_days",
+     0.0116
+    ],
+    [
+     "age",
+     0.0084
+    ],
+    [
+     "n_lapses",
+     0.0068
+    ]
+   ],
+   "warning": false
+  },
+  {
+   "date": "2016-10-31",
+   "max_psi": 0.2638,
+   "top": [
+    [
+     "payment_method",
+     0.2638
+    ],
+    [
+     "plan_days",
+     0.1051
+    ],
+    [
+     "amount_paid",
+     0.0743
+    ],
+    [
+     "age",
+     0.0137
+    ],
+    [
+     "n_lapses",
+     0.0067
+    ]
+   ],
+   "warning": true
+  },
+  {
+   "date": "2016-11-30",
+   "max_psi": 0.1925,
+   "top": [
+    [
+     "payment_method",
+     0.1925
+    ],
+    [
+     "amount_paid",
+     0.0438
+    ],
+    [
+     "plan_days",
+     0.0281
+    ],
+    [
+     "age",
+     0.0134
+    ],
+    [
+     "n_lapses",
+     0.0062
+    ]
+   ],
+   "warning": false
+  },
+  {
+   "date": "2016-12-31",
+   "max_psi": 0.1818,
+   "top": [
+    [
+     "payment_method",
+     0.1818
+    ],
+    [
+     "amount_paid",
+     0.0637
+    ],
+    [
+     "age",
+     0.011
+    ],
+    [
+     "n_lapses",
+     0.0083
+    ],
+    [
+     "plan_days",
+     0.0039
+    ]
+   ],
+   "warning": false
+  },
+  {
+   "date": "2017-01-31",
+   "max_psi": 0.0858,
+   "top": [
+    [
+     "payment_method",
+     0.0858
+    ],
+    [
+     "plan_days",
+     0.0604
+    ],
+    [
+     "amount_paid",
+     0.051
+    ],
+    [
+     "n_lapses",
+     0.0017
+    ],
+    [
+     "age",
+     0.001
+    ]
+   ],
+   "warning": false
+  },
+  {
+   "date": "2017-02-28",
+   "max_psi": 0.1427,
+   "top": [
+    [
+     "payment_method",
+     0.1427
+    ],
+    [
+     "plan_days",
+     0.108
+    ],
+    [
+     "amount_paid",
+     0.0647
+    ],
+    [
+     "n_lapses",
+     0.0018
+    ],
+    [
+     "age",
+     0.0007
+    ]
+   ],
+   "warning": false
+  },
+  {
+   "date": "2017-03-31",
+   "max_psi": 0.1632,
+   "top": [
+    [
+     "payment_method",
+     0.1632
+    ],
+    [
+     "plan_days",
+     0.1105
+    ],
+    [
+     "amount_paid",
+     0.0715
+    ],
+    [
+     "age",
+     0.0017
+    ],
+    [
+     "n_lapses",
+     0.0011
+    ]
+   ],
+   "warning": false
+  }
+ ],
+ "pending": [
+  "2017-02-28",
+  "2017-03-31"
+ ],
+ "model_version": 2,
+ "model": {
+  "version": 2,
+  "trained_on": "2017-01-31",
+  "months": [
+   "2016-07-31",
+   "2016-08-31",
+   "2016-09-30",
+   "2016-10-31",
+   "2016-11-30"
+  ],
+  "threshold": 0.09,
+  "valid_auc": 0.757,
+  "categories": {
+   "payment_method": [
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "2",
+    "20",
+    "21",
+    "22",
+    "23",
+    "26",
+    "27",
+    "28",
+    "29",
+    "3",
+    "30",
+    "31",
+    "32",
+    "33",
+    "34",
+    "35",
+    "36",
+    "37",
+    "38",
+    "39",
+    "40",
+    "41",
+    "5",
+    "6",
+    "7",
+    "8"
+   ],
+   "city": [
+    "1.0",
+    "10.0",
+    "11.0",
+    "12.0",
+    "13.0",
+    "14.0",
+    "15.0",
+    "16.0",
+    "17.0",
+    "18.0",
+    "19.0",
+    "20.0",
+    "21.0",
+    "22.0",
+    "3.0",
+    "4.0",
+    "5.0",
+    "6.0",
+    "7.0",
+    "8.0",
+    "9.0",
+    "missing"
+   ],
+   "registered_via": [
+    "13.0",
+    "3.0",
+    "4.0",
+    "7.0",
+    "9.0",
+    "missing"
+   ],
+   "gender": [
+    "female",
+    "male",
+    "missing",
+    "unknown"
+   ]
+  }
+ },
+ "reference": {
+  "auto_renew": {
+   "edges": [],
+   "shares": [
+    1.0
+   ]
+  },
+  "amount_paid": {
+   "edges": [
+    99.0,
+    149.0
+   ],
+   "shares": [
+    0.02947424975307085,
+    0.44920139099326944,
+    0.5213243592536597
+   ]
+  },
+  "discount": {
+   "edges": [
+    0.0
+   ],
+   "shares": [
+    2.7612072840648155e-05,
+    0.9999723879271594
+   ]
+  },
+  "plan_days": {
+   "edges": [
+    30.0
+   ],
+   "shares": [
+    0.025849580191192545,
+    0.9741504198088075
+   ]
+  },
+  "n_lapses": {
+   "edges": [
+    1.0
+   ],
+   "shares": [
+    0.8078012529797054,
+    0.19219874702029463
+   ]
+  },
+  "days_active_m1": {
+   "edges": [],
+   "shares": [
+    1.0
+   ]
+  },
+  "secs_m1": {
+   "edges": [],
+   "shares": [
+    1.0
+   ]
+  },
+  "completion_ratio": {
+   "edges": [],
+   "shares": [
+    1.0
+   ]
+  },
+  "age": {
+   "edges": [
+    22.0,
+    27.0,
+    34.0
+   ],
+   "shares": [
+    0.6911854073471045,
+    0.0915019633821794,
+    0.1119285792675921,
+    0.10538405000312391
+   ]
+  },
+  "payment_method": {
+   "shares": {
+    "41": 0.6076523349868597,
+    "40": 0.0877525714912836,
+    "38": 0.06860874698987456,
+    "36": 0.054256553128787154,
+    "37": 0.04275331678324967,
+    "34": 0.0344561228952522,
+    "35": 0.025039002052887414,
+    "33": 0.01660257779760023,
+    "29": 0.012288542417174897,
+    "31": 0.011743788980115329,
+    "30": 0.01022255096708945,
+    "32": 0.009953450257201778,
+    "28": 0.004798884659457731,
+    "39": 0.002614722897639004,
+    "27": 0.0024911705717079683,
+    "20": 0.001955309158105559,
+    "23": 0.0018179507957541991,
+    "22": 0.0011660250759741504,
+    "18": 0.0007862420741065915,
+    "16": 0.0007436539617591511,
+    "19": 0.0006208036376799962,
+    "14": 0.0005452214382941543,
+    "13": 0.0004839132765632236,
+    "12": 0.0002454666475410162,
+    "11": 8.494222407758712e-05,
+    "15": 8.213421667006357e-05,
+    "26": 5.6628149385058076e-05,
+    "10": 4.6566122841432055e-05,
+    "8": 3.205808456922709e-05,
+    "6": 3.0420080248171694e-05,
+    "5": 1.9656051852664787e-05,
+    "21": 1.9422051235371158e-05,
+    "17": 1.7082045062434876e-05,
+    "3": 1.0062026543626022e-05,
+    "2": 1.8720049383490273e-06,
+    "7": 2.340006172936284e-07
+   }
+  }
+ }
+}
