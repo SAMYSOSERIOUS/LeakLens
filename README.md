@@ -3,11 +3,34 @@
 [![tests](../../actions/workflows/tests.yml/badge.svg)](../../actions/workflows/tests.yml)
 [![weekly replay](../../actions/workflows/weekly-replay.yml/badge.svg)](../../actions/workflows/weekly-replay.yml)
 
+**Live monitor: [samysoserious.github.io/LeakLens](https://samysoserious.github.io/LeakLens/)**
+
 Companies spend real money on retention offers ("stay and get a month free") based on churn
 models. Those models often look much better in testing than they work in real life, because
 the test lets them peek at the future. **LeakLens** measures that gap on three popular public
 models, builds an honest one, and turns its scores into a decision in euros: who is actually
 worth an offer.
+
+![LeakLens report: findings and the 3D cut-off view](docs/img/top.png)
+
+## At a glance
+
+All numbers are from the real KKBox data: 2.4 million customers, 23 million transactions,
+January 2015 to March 2017.
+
+- **Public models overstate their accuracy.** Three popular public churn models score
+  0.98–0.99 AUC as published. Tested honestly, they score **0.74–0.83**.
+- **The cause is leaked future data.** The worst leaks are the membership end date and the
+  latest payment date, both read *after* the customer had already renewed. Once the future
+  is removed, their predictive power drops from 0.95 to 0.52–0.56.
+- **An honest model still works.** Our LightGBM scores **0.865** on a later month it never
+  saw, beating all three public models and the simple "auto-renew is off" rule (0.799).
+- **Set the offer rule in euros, not accuracy.** With an offer at €5 and a lost customer at
+  €60, offering to everyone above a **9%** chance of leaving saves **€1.0M** in one month,
+  against €0.13M with the usual 50% cut-off.
+- **The monitor caught a real change.** Replaying the data month by month, the drift warning
+  fired in October 2016. The accuracy drop (to 0.76) could only be confirmed in January 2017,
+  when the answers came in. The job retrained by itself, and accuracy recovered to 0.86.
 
 **The question:** how much do popular public churn models overstate their performance, and
 which customers is it actually worth sending a retention offer to?
@@ -24,18 +47,66 @@ which customers is it actually worth sending a retention offer to?
 Our honest LightGBM on the same test month: AUC **0.865** (auto-renew rule 0.799, nobody-churns baseline 0.500). Money-based threshold **0.09** saves **€1,007,035** on 883,727 customers, versus €126,795 at the default 0.5. Full tables: [reports/results.md](reports/results.md).
 <!-- RESULTS:END -->
 
-**What these numbers cover.** Full KKBox transaction and member data (2.4 million customers,
-23 million transactions, Jan 2015 – Mar 2017). Test month: customers whose membership ran out
-in February 2017, scored on 31 January 2017 (883,727 customers, 3.9% churned). The listening
-logs (30 GB) were left out of this run, so the features use payments and profiles only.
-The three public notebooks are re-tested on a random sample of 300,000 of those customers to
-keep their slow models practical; our own models use all of them. The churn rate is lower
-than in the competition because we score every customer whose membership ends that month,
-including the many auto-renewers.
+**What these numbers cover.** Test month: customers whose membership ran out in February 2017,
+scored on 31 January 2017 (883,727 customers, 3.9% churned). The listening logs (30 GB) were
+left out of this run, so the features use payments and profiles only. The three public
+notebooks are re-tested on a random sample of 300,000 of those customers to keep their slow
+models practical; our own models use all of them. The churn rate is lower than in the
+competition because we score every customer whose membership ends that month, including the
+many auto-renewers.
 
 - One-page summary for managers: [docs/manager_summary.md](docs/manager_summary.md)
 - All tables, per-feature leak checks: [reports/results.md](reports/results.md)
-- Live monitor page: published by GitHub Pages from [`site/`](site/) (enable Pages → "GitHub Actions")
+
+## The monitor page
+
+A static page (no server) published by GitHub Pages from [`site/`](site/). It reads two
+files the pipeline writes, `site/data/audit.json` and `site/data/monitor.json`, so every
+number on it comes from the latest run. The two 3D figures use three.js
+([`site/leak3d.js`](site/leak3d.js)).
+
+**Findings.** The headline result, and a 3D view of the prediction cut-off: switch between
+"As published" (records from the future flow through the wall into the model) and "Honest"
+(they are stopped at the cut-off). The readout shows the mean AUC of the three public models
+in each case.
+
+**§01 Mechanism.** How the future gets into the features, and the three kinds of leak found:
+values read after the fact, totals counted to the end of the file, and flags set later.
+
+![How the future gets into the features](docs/img/mechanism.png)
+
+**§02 Case files.** Each public notebook: its claimed result, its published score (orange),
+its honest score (blue), our model for comparison (dashed line), and its leaked features
+with the predictive power each one loses once the future is removed.
+
+![The three case files](docs/img/cases.png)
+
+**§03 Leak matrix.** A 3D chart you can rotate: for each leaked feature, the blue base is the
+signal that survives the honest re-test and the orange glass on top is the signal that came
+from the future.
+
+![The 3D leak matrix](docs/img/matrix.png)
+
+**§04 Model health.** The replay job's own record as a timeline, then checked accuracy and
+drift on the same months. The dashed line marks the automatic retrain.
+
+![Model health, month by month](docs/img/monitor.png)
+
+**§05 Decision.** Two sliders, what an offer costs and what a customer is worth, move the
+cut-off and recompute the money saved on the test month. No server is needed: the audit saves
+how many leavers and stayers fall in each 1%-wide band of predicted risk, and the page adds
+them up.
+
+![The cost calculator](docs/img/decision.png)
+
+**§06 Action list.** Everyone worth an offer this month, highest risk first, with the
+expected gain per customer.
+
+![The action list](docs/img/actions.png)
+
+The page also works on a phone:
+
+<img src="docs/img/mobile.png" alt="Phone view" width="300">
 
 ## Why this dataset
 
@@ -144,17 +215,18 @@ history **one month per run**, as if each month had just arrived.
   customers, input by input (PSI score). Above 0.2 the page shows a warning. Inputs that grow
   for everyone every month (time as a customer) are left out, because they would raise a
   false alarm every run.
-- **Web page:** [`site/index.html`](site/index.html), a static page (no server) with the
-  audit verdict, accuracy month by month with retrain markers, drift, the cost calculator
-  and the offer list.
+- **Web page:** [`site/index.html`](site/index.html), described above.
 - **Cost calculator:** two sliders (offer cost, customer value). The audit precomputes how
   many leavers and stayers fall in each 1%-wide band of predicted risk, so the page can
   recompute the best cut-off and the money saved for any setting without a server.
 
-The demo data contains a planted change: from September 2016 a partner promotion brings in
-customers on a free first month, and many leave when they first have to pay. In the replay
-the drift warning fires in September, the drop in accuracy is confirmed two months later,
-the job retrains, and accuracy recovers.
+**On the real data** (replay from July 2016 to March 2017): checked accuracy stayed between
+0.88 and 0.95 until the drift warning in October 2016 (score 0.26). The November predictions
+then scored 0.76, which the job learned in January 2017, when their answers arrived. It
+retrained on the newest known months, and the next checked month scored 0.86.
+
+The built-in demo data has a similar planted change (a promotion wave from September 2016),
+so the same story can be seen without downloading anything.
 
 ## Tests
 
@@ -181,7 +253,7 @@ pip install -e ".[dev]"      # Python 3.11+
 make sample                   # made-up data in KKBox format (≈1 min)
 make test                     # 30 tests
 make audit                    # steps 1-6, writes reports/, docs/, README results
-make replay-loop              # 15 months of the live simulation
+make replay-loop              # 15 months of the live simulation (demo data starts Jan 2016)
 make serve                    # monitor at http://localhost:8000
 ```
 
@@ -194,10 +266,12 @@ Download `transactions.csv.7z`, `transactions_v2.csv.7z` and `members_v3.csv.7z`
 ```bash
 make prepare
 # in config.toml: prepared_dir = "data/kkbox/prepared", is_sample = false
-make audit && make replay-loop
+make audit
+python -m leaklens replay-reset
+python -m leaklens replay-run --steps 9   # replay Jul 2016 - Mar 2017 (start is set in config.toml)
 ```
 
-The audit takes about 30 minutes on a laptop. The public notebooks are re-tested on a random
+The audit takes about 30 minutes on a laptop, the replay about an hour. The public notebooks are re-tested on a random
 sample of `max_train_rows` (300,000) customers to keep their slow models practical. To run the weekly job on real data in
 GitHub Actions, upload the prepared folder as a `.tar.gz` and set its link as the secret
 `PREPARED_DATA_URL`.
@@ -218,7 +292,8 @@ src/leaklens/
   report.py     README results, manager summary, full tables
   sample.py     made-up data in KKBox format (for tests and the demo)
 tests/          leakage, model, data, money
-site/           the static monitor page (+ data/ written by the job)
+site/           the static monitor page (+ data/ written by the audit and the job)
+docs/           manager summary, screenshots
 state/          the replay job's memory between runs
 ```
 

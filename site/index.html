@@ -3,558 +3,698 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>LeakLens Monitor</title>
+<title>LeakLens — Leakage audit of KKBox churn models</title>
+<meta name="description" content="Three popular KKBox churn models re-tested honestly, an honest model, a euro-based offer rule and a month-by-month model health monitor.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: an inspection log. A status strip on top, then the audit verdict,
-   then the live checks (health, drift, money, offer list) in reading order. */
+/* A dark audit report: findings and a 3D view of the cut-off first, then the mechanism,
+   the three case files, a 3D leak matrix, the month-by-month monitor, the euro decision
+   and the action list. Single dark theme on purpose. */
 :root {
-  --bg: #f4f6f9;          /* page: cool paper with a blue bias */
-  --panel: #fcfcfb;       /* chart surface */
-  --ink: #12161d;
-  --ink-2: #4a5160;
-  --ink-3: #7b8292;
-  --rule: #dde2ea;
-  --grid: #e8ecf2;
-  --accent: #2a78d6;      /* series 1 */
-  --accent-soft: #dce9f9;
-  --published: #eb6834;   /* series 2: "as published" */
-  --good: #0ca30c;
-  --warning: #fab219;
-  --critical: #d03b3b;
-  --warn-ink: #8a5a00;
-  --crit-ink: #a72a2a;
-  --good-ink: #1d6b1d;
-  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
-  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
-  --font-data: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --radius: 10px;
-  color-scheme: light;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #111317; --panel: #1a1a19; --ink: #f3f4f6; --ink-2: #c3c6cf; --ink-3: #8d93a0;
-    --rule: #2c3038; --grid: #262a31; --accent: #3987e5; --accent-soft: #1d2b3d;
-    --published: #d95926; --warn-ink: #fab219; --crit-ink: #f08a8a; --good-ink: #5fd35f;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #111317; --panel: #1a1a19; --ink: #f3f4f6; --ink-2: #c3c6cf; --ink-3: #8d93a0;
-  --rule: #2c3038; --grid: #262a31; --accent: #3987e5; --accent-soft: #1d2b3d;
-  --published: #d95926; --warn-ink: #fab219; --crit-ink: #f08a8a; --good-ink: #5fd35f;
+  --bg: #0a0c0f; --panel: #0d1014; --ink: #eceef2; --ink-2: #a7adb8; --ink-3: #7d8491;
+  --rule: #222731; --rule-2: #1a1e25; --grid: #1b2028; --track: #151920;
+  --honest: #5b9bff; --honest-ink: #7fb0ff; --published: #ff6b2c; --published-ink: #ff8a55;
+  --good: #45c46a; --warn: #f2b53a; --crit: #f2555a;
+  --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --sans: 'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
-body {
-  margin: 0; background: var(--bg); color: var(--ink);
-  font: 15px/1.55 var(--font-body);
-}
-.wrap { max-width: 1080px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 64px;
-  display: flex; flex-direction: column; gap: 40px; }
-h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
-h1 { font-size: clamp(28px, 4.2vw, 40px); font-weight: 700; line-height: 1.1; }
-h2 { font-size: 22px; font-weight: 700; }
-h3 { font-size: 16px; font-weight: 500; }
-p { margin: 0; max-width: 68ch; }
-.muted { color: var(--ink-2); }
-.small { font-size: 13px; color: var(--ink-3); }
-.num { font-family: var(--font-data); font-variant-numeric: tabular-nums; }
-a { color: var(--accent); }
-.eyebrow { font: 500 12px/1 var(--font-data); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+a { color: var(--honest-ink); text-decoration: none; }
+a:hover { color: #b3d0ff; }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--honest); outline-offset: 3px; border-radius: 3px; }
+::selection { background: var(--published); color: var(--bg); }
+input[type=range] { accent-color: var(--honest); width: 100%; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+.mono { font-family: var(--mono); }
+.tab { font-variant-numeric: tabular-nums; }
+.eyebrow { font: 500 11px/1 var(--mono); letter-spacing: .12em; color: var(--ink-3); }
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
 
-header.top { display: flex; flex-direction: column; gap: 14px; }
-.demo { border: 1px dashed var(--ink-3); border-radius: var(--radius); padding: 10px 14px; font-size: 14px; color: var(--ink-2); max-width: 100%; }
-.strip { display: flex; flex-wrap: wrap; gap: 10px; }
-.chip { display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; border-radius: 999px;
-  background: var(--panel); border: 1px solid var(--rule); font-size: 13px; }
-.chip b { font-family: var(--font-data); font-weight: 500; }
-.dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
-.dot.good { background: var(--good); } .dot.warn { background: var(--warning); } .dot.crit { background: var(--critical); }
+header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: rgba(10,12,15,.82); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid #1d222a; }
+.top-in { max-width: 1240px; margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.mark { display: flex; align-items: center; gap: 10px; color: var(--ink); }
+.mark i { width: 14px; height: 14px; border: 1.5px solid var(--ink); border-radius: 50%; position: relative; display: inline-block; }
+.mark i::after { content: ""; position: absolute; right: -5px; bottom: -4px; width: 7px; height: 1.5px; background: var(--published); transform: rotate(45deg); }
+.mark b { font: 600 14px/1 var(--sans); letter-spacing: .14em; }
+.nav { display: flex; gap: 2px; flex-wrap: wrap; margin-left: auto; }
+.nav a { font: 400 13px var(--sans); color: var(--ink-2); padding: 6px 10px; border-radius: 4px; }
+.nav a:hover { color: var(--ink); background: var(--track); }
+.badge { font: 500 11px/1 var(--mono); letter-spacing: .08em; padding: 5px 9px; border-radius: 999px; }
+.badge.sample { color: var(--warn); border: 1px solid #4a3a17; }
+.badge.real { color: var(--honest-ink); border: 1px solid #22344f; }
 
-section { display: flex; flex-direction: column; gap: 16px; }
-.section-head { display: flex; flex-direction: column; gap: 6px; }
-.panel { background: var(--panel); border: 1px solid var(--rule); border-radius: var(--radius); padding: 18px; min-width: 0; }
-.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+main { max-width: 1240px; margin: 0 auto; padding: 48px 24px 96px; display: flex; flex-direction: column; gap: 112px; }
+@media (max-width: 600px) { main { padding: 32px 16px 72px; gap: 80px; } .top-in { padding: 10px 16px; } }
+section { display: flex; flex-direction: column; gap: 28px; scroll-margin-top: 80px; }
+.sec-head { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 16px 56px; align-items: end; border-top: 1px solid var(--ink); padding-top: 20px; }
+.sec-head > div { display: flex; flex-direction: column; gap: 12px; }
+.sec-head h2 { margin: 0; font: 400 clamp(30px, 3.4vw, 44px)/1.08 var(--serif); letter-spacing: -.02em; }
+.sec-head p { margin: 0; color: var(--ink-2); max-width: 62ch; }
+.box { border: 1px solid var(--rule); border-radius: 4px; }
+.span2 { grid-column: span 2; }
+@media (max-width: 760px) { .span2 { grid-column: auto; } }
 
-/* audit dumbbells */
-.audit-row { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.6fr); gap: 18px; align-items: center;
-  padding-block: 14px; border-top: 1px solid var(--rule); }
-.audit-row:first-of-type { border-top: 0; }
-.audit-row .who { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-.leak-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.tag { font: 12px/1.4 var(--font-data); padding: 2px 7px; border-radius: 5px; background: var(--accent-soft); color: var(--ink); }
-.legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--ink-2); }
-.legend span { display: inline-flex; align-items: center; gap: 6px; }
-.sw { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-@media (max-width: 640px) { .audit-row { grid-template-columns: 1fr; } }
+/* hero */
+.hero-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 40px; align-items: stretch; }
+.hero-text { display: flex; flex-direction: column; gap: 28px; justify-content: center; }
+.hero-text h1 { margin: 0; font: 400 clamp(38px, 5vw, 68px)/1.02 var(--serif); letter-spacing: -.025em; }
+.hero-text h1 em { color: var(--published); }
+.hero-text .lede { margin: 0; max-width: 56ch; font-size: 17px; line-height: 1.6; color: var(--ink-2); }
+.pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; }
+.pair > div { padding: 18px 20px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.pair > div:first-child { border-right: 1px solid var(--rule); background: linear-gradient(180deg, rgba(255,107,44,.07), transparent); }
+.pair > div:last-child { background: linear-gradient(180deg, rgba(91,155,255,.07), transparent); }
+.pair .big { font: 400 clamp(30px, 3.6vw, 40px)/1 var(--serif); font-variant-numeric: tabular-nums; }
+.pair .k { font-size: 13px; color: var(--ink-2); }
+.fig3d { margin: 0; position: relative; min-height: 540px; overflow: hidden; background: radial-gradient(120% 90% at 40% 45%, #121821 0%, #0a0c0f 70%); }
+@media (max-width: 600px) { .fig3d { min-height: 440px; } }
+.fig3d .cap { position: absolute; top: 16px; left: 18px; right: 18px; display: flex; justify-content: space-between; gap: 16px; pointer-events: none; flex-wrap: wrap; }
+.toggle { position: absolute; left: 16px; bottom: 16px; display: flex; gap: 2px; padding: 3px; background: rgba(10,12,15,.88); border: 1px solid #2a303a; border-radius: 999px; }
+.toggle button { font: 500 12px/1 var(--mono); letter-spacing: .04em; padding: 11px 16px; border: 0; border-radius: 999px; cursor: pointer; background: transparent; color: var(--ink-2); transition: background .3s, color .3s; }
+.toggle button[aria-pressed="true"].pub { background: var(--published); color: var(--bg); }
+.toggle button[aria-pressed="true"].hon { background: var(--honest); color: var(--bg); }
+.key3d { position: absolute; right: 18px; bottom: 22px; display: flex; gap: 16px; font: 400 11px/1 var(--mono); color: var(--ink-2); pointer-events: none; flex-wrap: wrap; }
+.key3d span, .legend span { display: flex; align-items: center; gap: 6px; }
+.dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+.no3d { position: absolute; inset: 0; display: grid; place-items: center; color: var(--ink-3); font: 400 12px var(--mono); }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.facts > div { padding: 22px 20px; display: flex; flex-direction: column; gap: 8px; border-left: 1px solid var(--rule-2); min-width: 0; }
+.facts > div:first-child { padding-left: 0; border-left: 0; }
+@media (max-width: 520px) { .facts > div { padding-left: 0; border-left: 0; border-top: 1px solid var(--rule-2); } .facts > div:first-child { border-top: 0; } }
+.facts .v { font: 400 38px/1 var(--serif); font-variant-numeric: tabular-nums; }
+.facts .k { font-size: 13px; color: var(--ink-2); max-width: 30ch; }
 
-svg text { font-family: var(--font-data); font-size: 11px; fill: var(--ink-3); }
-svg .lbl { fill: var(--ink-2); }
-.chart { width: 100%; height: auto; display: block; overflow: visible; }
-.chart-box { position: relative; }
-.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); padding: 6px 9px;
-  border-radius: 6px; font: 12px/1.4 var(--font-data); white-space: nowrap; transform: translate(-50%, -110%); z-index: 2; }
+/* mechanism */
+.mech-fig { margin: 0; padding: 28px 24px 20px; background: var(--panel); display: flex; flex-direction: column; gap: 14px; }
+.types { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); border-top: 1px solid var(--rule); }
+.types > div { padding: 22px 24px; display: flex; flex-direction: column; gap: 10px; border-left: 1px solid var(--rule-2); }
+.types > div:first-child { padding-left: 0; border-left: 0; }
+@media (max-width: 600px) { .types > div { padding-left: 0; border-left: 0; } }
+.types .tag { font: 500 12px/1 var(--mono); color: var(--published); }
+.types h3 { margin: 0; font: 500 19px/1.3 var(--serif); }
+.types p { margin: 0; font-size: 14px; color: var(--ink-2); }
+.types code { font: 400 12px var(--mono); color: var(--ink-3); }
 
-/* drift list */
-.drift-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
-.drift-list li { display: grid; grid-template-columns: minmax(0, 1fr) 90px 52px; gap: 10px; align-items: center; font-size: 14px; }
-.bar { height: 8px; border-radius: 4px; background: var(--grid); overflow: hidden; }
-.bar i { display: block; height: 100%; border-radius: 4px; background: var(--accent); }
-.bar i.warn { background: var(--warning); }
+/* cases */
+.legend { display: flex; gap: 22px; flex-wrap: wrap; font: 400 12px/1 var(--mono); color: var(--ink-2); padding-bottom: 16px; }
+.case { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 20px 48px; padding: 28px 0; border-top: 1px solid var(--rule); }
+.case .id { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.sev { font: 500 10.5px/1 var(--mono); letter-spacing: .1em; padding: 4px 8px; border-radius: 999px; }
+.case h3 { margin: 0; font: 400 26px/1.15 var(--serif); letter-spacing: -.01em; overflow-wrap: anywhere; }
+.case h3 a { color: var(--ink); }
+.case h3 a:hover { color: #b3d0ff; }
+.nums { display: flex; gap: 28px; margin-top: 6px; flex-wrap: wrap; }
+.nums div { display: flex; flex-direction: column; gap: 2px; }
+.nums .l { font: 400 11px var(--mono); color: var(--ink-3); }
+.nums .n { font: 400 24px/1.1 var(--serif); font-variant-numeric: tabular-nums; }
+.scale { position: relative; height: 58px; margin: 0 6px; }
+.scale .axis { position: absolute; left: 0; right: 0; top: 24px; height: 1px; background: #2a303a; }
+.scale .t { position: absolute; top: 40px; transform: translateX(-50%); font: 400 11px var(--mono); color: var(--ink-3); }
+.scale .t.first { transform: none; } .scale .t.last { transform: translateX(-100%); }
+.scale .ours { position: absolute; top: 8px; height: 32px; border-left: 1.5px dashed var(--ink-2); }
+.scale .gap { position: absolute; top: 22px; height: 5px; background: linear-gradient(90deg, var(--honest), var(--published)); opacity: .55; }
+.scale .d { position: absolute; top: 16px; width: 17px; height: 17px; margin-left: -8.5px; border-radius: 50%; }
+.scale .d.pub { background: var(--published); box-shadow: 0 0 0 3px var(--bg), 0 0 18px rgba(255,107,44,.6); }
+.scale .d.hon { background: var(--honest); box-shadow: 0 0 0 3px var(--bg), 0 0 18px rgba(91,155,255,.6); }
+.leak { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 16px; align-items: baseline; }
+.leak .lab { font-size: 14px; color: var(--ink); }
+.leak code { font: 400 12px var(--mono); color: var(--published-ink); margin-left: 6px; }
+.leak .sig { font: 400 12px var(--mono); color: var(--ink-2); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.leak .bar { grid-column: 1 / -1; position: relative; height: 6px; background: var(--track); border-radius: 1px; }
+.leak .ghost { position: absolute; left: 0; top: 0; bottom: 0; border: 1px solid var(--published); background: repeating-linear-gradient(45deg, rgba(255,107,44,.22) 0 3px, transparent 3px 6px); }
+.leak .fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--honest); }
 
-/* calculator */
-.calc { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 24px; }
-@media (max-width: 760px) { .calc { grid-template-columns: 1fr; } }
-.controls { display: flex; flex-direction: column; gap: 20px; }
-.slider { display: flex; flex-direction: column; gap: 6px; }
-.slider label { display: flex; justify-content: space-between; font-size: 14px; }
-.slider output { font: 500 15px var(--font-data); }
-input[type=range] { width: 100%; accent-color: var(--accent); }
-input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
-.kpis { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-.kpi { display: flex; flex-direction: column; gap: 2px; }
-.kpi .v { font: 700 24px/1.2 var(--font-display); font-variant-numeric: tabular-nums; }
-.kpi .k { font-size: 12px; color: var(--ink-3); }
+/* matrix */
+.mat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 24px; align-items: stretch; }
+.fig-mat { margin: 0; position: relative; min-height: 480px; overflow: hidden; background: radial-gradient(100% 80% at 50% 60%, #11161d 0%, #0a0c0f 75%); }
+.mat-list { display: flex; flex-direction: column; border-top: 1px solid var(--rule); }
+.mat-list .grp { padding: 16px 0; border-bottom: 1px solid var(--rule-2); display: flex; flex-direction: column; gap: 8px; }
+.mat-list .row { display: flex; justify-content: space-between; gap: 12px; font: 400 12px/1.4 var(--mono); }
 
-/* table */
-.table-wrap { overflow-x: auto; }
-table { border-collapse: collapse; width: 100%; font-size: 14px; }
-th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--rule); white-space: nowrap; }
-th { font: 500 12px var(--font-data); text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-3); }
-td.r, th.r { text-align: right; }
-.pill { font: 12px var(--font-data); padding: 2px 8px; border-radius: 999px; border: 1px solid var(--rule); }
-.btn { font: 500 14px var(--font-body); padding: 8px 14px; border-radius: 8px; border: 1px solid var(--rule);
-  background: var(--panel); color: var(--ink); cursor: pointer; align-self: flex-start; }
-.btn:hover { border-color: var(--accent); }
-.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.events { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
-.events li { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 10px; }
-footer { font-size: 13px; color: var(--ink-3); display: flex; flex-direction: column; gap: 6px; }
-@media (prefers-reduced-motion: no-preference) { .bar i { transition: width .3s ease; } }
+/* monitor */
+.story { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); border-top: 1px solid var(--rule); }
+.story li { padding: 16px 16px 16px 0; display: flex; flex-direction: column; gap: 6px; border-top: 2px solid var(--ink-3); margin-top: -1px; }
+.story li + li { padding-left: 16px; }
+@media (max-width: 600px) { .story li + li { padding-left: 0; } }
+.story .when { font: 400 11px var(--mono); color: var(--ink-3); letter-spacing: .04em; }
+.story b { font-weight: 500; }
+.story span.s { font-size: 13px; color: var(--ink-2); }
+.mon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 24px; }
+.charts { padding: 22px 22px 14px; background: var(--panel); display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.ch-title { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: baseline; }
+.ch-title h3 { margin: 0; font: 500 15px/1.3 var(--sans); }
+.ch-title span { font: 400 11px var(--mono); }
+.ch-title.sep { padding-top: 8px; border-top: 1px solid var(--rule-2); }
+svg.chart { width: 100%; height: auto; display: block; overflow: visible; }
+svg text { font-family: var(--mono); font-size: 11px; fill: var(--ink-3); }
+.side { display: flex; flex-direction: column; gap: 20px; }
+.side .box { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+.side h3 { margin: 0; font: 500 15px/1.3 var(--sans); }
+.shift { display: grid; grid-template-columns: minmax(0, 1fr) 72px 40px; gap: 10px; align-items: center; font-size: 13px; }
+.shift .n { color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.shift .t { height: 6px; background: var(--track); display: block; }
+.shift .t i { display: block; height: 100%; }
+.shift .v { font: 400 12px var(--mono); text-align: right; }
+.log { display: grid; grid-template-columns: 82px minmax(0, 1fr); gap: 8px 12px; font-size: 13px; color: var(--ink-2); }
+.log .d { font: 400 12px var(--mono); color: var(--ink-3); }
+
+/* decision */
+.dec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 24px; align-items: start; }
+.controls { display: flex; flex-direction: column; gap: 24px; padding: 22px; }
+.controls label { display: flex; flex-direction: column; gap: 10px; }
+.controls label > span { display: flex; justify-content: space-between; font-size: 14px; font-weight: 500; }
+.controls output { font: 500 16px var(--mono); color: var(--honest); }
+.kpis { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 14px; border-top: 1px solid var(--rule-2); padding-top: 18px; }
+.kpis div { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.kpis .v { font: 400 28px/1.1 var(--serif); font-variant-numeric: tabular-nums; }
+.kpis .k { font-size: 12px; color: var(--ink-3); }
+.note { margin: 0; font-size: 13px; line-height: 1.5; color: var(--ink-2); border-left: 2px solid var(--warn); padding-left: 12px; }
+.fig-money { margin: 0; padding: 22px; background: var(--panel); display: flex; flex-direction: column; gap: 10px; min-width: 0; position: relative; }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); padding: 6px 9px; border-radius: 4px; font: 12px/1.4 var(--mono); white-space: nowrap; transform: translate(-50%, -115%); z-index: 3; }
+
+/* actions */
+.table-wrap { overflow-x: auto; border-top: 1px solid var(--rule); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 600px; }
+th { text-align: left; padding: 12px; font: 500 11px var(--mono); letter-spacing: .08em; color: var(--ink-3); border-bottom: 1px solid var(--rule); white-space: nowrap; }
+td { padding: 11px 12px; border-bottom: 1px solid #161a20; font: 400 13px var(--mono); color: var(--ink-2); white-space: nowrap; }
+th:first-child, td:first-child { padding-left: 0; } th:last-child, td:last-child { padding-right: 0; }
+td.id { color: var(--ink); } td.gain { color: var(--honest-ink); }
+.r { text-align: right; }
+tbody tr:hover { background: #0f1217; }
+.risk { display: inline-block; vertical-align: middle; width: 64px; height: 5px; background: var(--track); margin-left: 10px; }
+.risk i { display: block; height: 100%; background: var(--published); }
+.pill { font: 400 11px var(--mono); padding: 3px 8px; border: 1px solid #2a303a; border-radius: 999px; }
+.more { align-self: flex-start; font: 500 13px var(--sans); padding: 10px 16px; border-radius: 4px; border: 1px solid #2a303a; background: transparent; color: var(--ink); cursor: pointer; }
+.more:hover { border-color: var(--honest); }
+
+footer { border-top: 1px solid var(--ink); padding-top: 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 28px; font-size: 13px; color: var(--ink-2); }
+footer div { display: flex; flex-direction: column; gap: 8px; }
+footer .eyebrow { color: var(--ink); }
+footer p { margin: 0; }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header class="top">
-    <span class="eyebrow">LeakLens · churn model monitor</span>
-    <h1>How far can we trust the churn model this month?</h1>
-    <p class="muted">A live-business simulation on the KKBox music subscription data. Each week the job feeds in one more month of history, scores every customer whose membership runs out next month, and checks how its older predictions turned out.</p>
-    <div class="demo" id="demo" hidden>Demo mode: the numbers on this page come from the built-in made-up sample data, not from KKBox. Run the pipeline on the real files to replace them.</div>
-    <div class="strip" id="strip"></div>
-  </header>
+<header class="top">
+  <div class="top-in">
+    <a class="mark" href="#top"><i aria-hidden="true"></i><b>LEAKLENS</b></a>
+    <span class="mono" style="font-size:12px;color:var(--ink-3)">Leakage audit · KKBox churn</span>
+    <nav class="nav" aria-label="Sections">
+      <a href="#mechanism">Mechanism</a><a href="#cases">Cases</a><a href="#matrix">Leak matrix</a><a href="#monitor">Monitor</a><a href="#decision">Decision</a><a href="#actions">Actions</a>
+    </nav>
+    <span class="badge" id="badge"></span>
+  </div>
+</header>
 
-  <section id="audit">
-    <div class="section-head">
-      <span class="eyebrow">The audit</span>
-      <h2>Three popular public churn models, re-tested honestly</h2>
-      <p class="muted">Score = AUC: how well the model ranks leavers above stayers. 0.5 is a coin flip, 1.0 is perfect. "As published" builds features from the whole data file, including the weeks after the prediction date. "Honest" only uses what was known on that date and is tested on a later month.</p>
-    </div>
-    <div class="panel">
-      <div class="legend" style="margin-bottom:6px">
-        <span><i class="sw" style="background:var(--published)"></i>As published</span>
-        <span><i class="sw" style="background:var(--accent)"></i>Honest re-test</span>
-      </div>
-      <div id="audit-rows"></div>
-    </div>
-    <p class="small" id="audit-note"></p>
-  </section>
-
-  <section id="health">
-    <div class="section-head">
-      <span class="eyebrow">Model health</span>
-      <h2>Accuracy, month by month</h2>
-      <p class="muted">Each point is a month of predictions, checked once the answers were in. Customers get 30 days to renew, so a month's answers arrive about two months later. When accuracy falls below the floor, the job retrains the model.</p>
-    </div>
-    <div class="grid2">
-      <div class="panel"><div class="chart-box" id="auc-chart"></div></div>
-      <div class="panel" style="display:flex;flex-direction:column;gap:12px">
-        <h3>What the job did</h3>
-        <ul class="events" id="events"></ul>
-      </div>
-    </div>
-  </section>
-
-  <section id="drift">
-    <div class="section-head">
-      <span class="eyebrow">Drift warning</span>
-      <h2 id="drift-title">Do this month's customers look like the ones the model learned from?</h2>
-      <p class="muted">Drift score (PSI) compares this month's customers with the training customers, input by input. Below 0.1 means no real change, 0.1 to 0.2 is worth watching, above 0.2 means customers look different. Drift often shows up before accuracy can be measured.</p>
-    </div>
-    <div class="grid2">
-      <div class="panel"><div class="chart-box" id="drift-chart"></div></div>
-      <div class="panel" style="display:flex;flex-direction:column;gap:12px">
-        <h3 id="drift-now-title">Biggest changes this month</h3>
-        <ul class="drift-list" id="drift-list"></ul>
-      </div>
-    </div>
-  </section>
-
-  <section id="money">
-    <div class="section-head">
-      <span class="eyebrow">Cost calculator</span>
-      <h2>Who is worth an offer, in euros</h2>
-      <p class="muted">Set what an offer costs and what a lost customer is worth. The cut-off for sending an offer is picked on one month and the money is counted on the next month, the same way it would work in real life.</p>
-    </div>
-    <div class="panel calc">
-      <div class="controls">
-        <div class="slider">
-          <label for="cost">Offer cost <output id="cost-out" class="num"></output></label>
-          <input type="range" id="cost" min="1" max="30" step="0.5" value="5">
+<main id="top">
+  <section aria-label="Findings" style="gap:40px">
+    <div class="hero-grid">
+      <div class="hero-text" data-reveal="hero">
+        <div class="eyebrow" style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><span>FINDINGS</span><span style="width:28px;height:1px;background:#2a303a"></span><span>CHURN PREDICTION · WSDM 2018</span></div>
+        <h1 id="h1">Three public churn models claim near-perfect accuracy.</h1>
+        <p class="lede" id="lede"></p>
+        <div class="pair">
+          <div><span class="eyebrow" style="color:var(--published-ink)">AS PUBLISHED</span><span class="big" id="pub-rng" style="color:var(--published)"></span><span class="k">AUC with whole-file features</span></div>
+          <div><span class="eyebrow" style="color:var(--honest-ink)">HONEST RE-TEST</span><span class="big" id="hon-rng" style="color:var(--honest)"></span><span class="k">AUC with a strict time split</span></div>
         </div>
-        <div class="slider">
-          <label for="value">Value of a customer <output id="value-out" class="num"></output></label>
-          <input type="range" id="value" min="10" max="300" step="5" value="60">
+      </div>
+      <figure class="fig3d box" data-reveal="hero3d">
+        <div id="hero3d" style="position:absolute;inset:0"></div>
+        <figcaption class="cap">
+          <div style="display:flex;flex-direction:column;gap:4px;max-width:30ch">
+            <span class="eyebrow">FIG. 1 — INFORMATION AT THE CUT-OFF</span>
+            <span id="mode-cap" style="font-size:13px;line-height:1.45;color:var(--ink-2)"></span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px">
+            <span class="eyebrow">MEAN AUC</span>
+            <span id="readout" class="tab" style="font:400 44px/1 var(--serif);transition:color .6s"></span>
+          </div>
+        </figcaption>
+        <div class="toggle" role="group" aria-label="Show the model as published or tested honestly">
+          <button type="button" class="pub" id="btn-pub">As published</button>
+          <button type="button" class="hon" id="btn-hon">Honest</button>
         </div>
+        <div class="key3d"><span><i class="dot" style="background:var(--honest)"></i>Past record</span><span><i class="dot" style="background:var(--published)"></i>Future record</span></div>
+      </figure>
+    </div>
+    <div class="facts" id="facts" data-reveal="facts"></div>
+  </section>
+
+  <section id="mechanism" style="gap:36px">
+    <div class="sec-head" data-reveal="mech-h">
+      <div><span class="eyebrow">§01 — MECHANISM</span><h2>How the future gets into the features</h2></div>
+      <p>A churn model predicts on a cut-off date whether a customer will renew within 30 days after their membership ends. If any feature is computed from records dated after that cut-off, the model is partly reading the answer. On KKBox this happens quietly, because the transaction log covers the whole period and most notebooks aggregate it in one pass.</p>
+    </div>
+    <figure class="mech-fig box" data-reveal="mech-fig">
+      <span class="eyebrow">FIG. 2 — ONE CUSTOMER, ONE PREDICTION</span>
+      <div style="overflow-x:auto"><svg viewBox="0 0 1000 200" style="width:100%;min-width:620px;height:auto;display:block;overflow:visible" role="img" aria-label="Records after the cut-off flow back into the features">
+        <defs>
+          <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="#ff6b2c"></path></marker>
+          <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8" stroke="#ff6b2c" stroke-width="1.2" opacity=".35"></line></pattern>
+        </defs>
+        <rect x="20" y="118" width="520" height="34" fill="#5b9bff" opacity=".16"></rect>
+        <rect x="20" y="118" width="520" height="34" fill="none" stroke="#5b9bff"></rect>
+        <text x="32" y="140" style="font:500 13px var(--mono);fill:#b3d0ff">FEATURE WINDOW · history up to cut-off</text>
+        <rect x="560" y="118" width="190" height="34" fill="#1a1f27"></rect>
+        <text x="572" y="140" style="font:500 13px var(--mono);fill:#a7adb8">LABEL WINDOW · +30d</text>
+        <rect x="770" y="118" width="210" height="34" fill="url(#hatch)" stroke="#ff6b2c"></rect>
+        <text x="782" y="140" style="font:500 13px var(--mono);fill:#ff8a55">REST OF THE FILE</text>
+        <line x1="550" x2="550" y1="70" y2="176" stroke="#eceef2" stroke-width="2"></line>
+        <text x="550" y="192" style="font:500 12px var(--mono);fill:#eceef2;text-anchor:middle">CUT-OFF</text>
+        <path d="M870,114 C860,40 420,30 380,112" fill="none" stroke="#ff6b2c" stroke-width="1.6" stroke-dasharray="5 5" marker-end="url(#ah)"></path>
+        <path d="M660,114 C650,66 280,58 240,112" fill="none" stroke="#ff6b2c" stroke-width="1.2" stroke-dasharray="3 5" opacity=".7" marker-end="url(#ah)"></path>
+        <text x="620" y="36" style="font:400 13px var(--sans);fill:#ff8a55;text-anchor:middle">renewals, cancels and payment totals flow back into the features</text>
+        <line x1="20" x2="980" y1="170" y2="170" stroke="#2a303a"></line>
+      </svg></div>
+    </figure>
+    <div class="types" data-reveal="mech-types">
+      <div><span class="tag">L1 · READ AFTER THE FACT</span><h3>A value overwritten by the outcome</h3><p>The membership end date and the latest payment date are read from each customer's last transaction. If the customer renewed, they already point past the cut-off.</p><code>membership_expire_date · transaction_date</code></div>
+      <div><span class="tag">L2 · COUNTED TO END OF FILE</span><h3>Aggregates that include the label period</h3><p>Payment counts, revenue, cancellations and the most common payment quarter are counted over the full log, so customers who stayed pick up extra rows.</p><code>trans_count · revenue · regist_cancels · mode_quarter</code></div>
+      <div><span class="tag">L3 · FLAGS SET LATER</span><h3>Events recorded after the decision</h3><p>Cancel flags written after the cut-off describe the churn itself, not its warning signs.</p><code>is_cancel</code></div>
+    </div>
+  </section>
+
+  <section id="cases">
+    <div class="sec-head" data-reveal="cases-h">
+      <div><span class="eyebrow">§02 — CASE FILES</span><h2>Three models, re-tested on the same data</h2></div>
+      <p>AUC ranks customers who leave above customers who stay: 0.5 is a coin flip, 1.0 is perfect. Under each model, the bars show its leaked features on their own: their edge over a coin flip as published (outline) and what remains once the future is removed (fill).</p>
+    </div>
+    <div data-reveal="cases">
+      <div class="legend">
+        <span><i class="dot" style="width:10px;height:10px;background:var(--published)"></i>As published</span>
+        <span><i class="dot" style="width:10px;height:10px;background:var(--honest)"></i>Honest re-test</span>
+        <span><i style="width:14px;height:0;border-top:1.5px dashed var(--ink-2);display:inline-block"></i><span id="ours-leg"></span></span>
+      </div>
+      <div id="case-list"></div>
+    </div>
+  </section>
+
+  <section id="matrix">
+    <div class="sec-head" data-reveal="matrix-h">
+      <div><span class="eyebrow">§03 — LEAK MATRIX</span><h2>Where the borrowed signal sits</h2></div>
+      <p>Each column is one leaked feature. Its blue base is the edge over a coin flip that survives the honest re-test; the orange glass on top is the edge that only existed because the feature could see past the cut-off. Drag to rotate.</p>
+    </div>
+    <div class="mat-grid" data-reveal="matrix">
+      <figure class="fig-mat box span2">
+        <div id="mat3d" style="position:absolute;inset:0"></div>
+        <span class="eyebrow" style="position:absolute;top:16px;left:18px;pointer-events:none">FIG. 3 — SIGNAL PER LEAKED FEATURE</span>
+      </figure>
+      <div class="mat-list" id="mat-list"></div>
+    </div>
+  </section>
+
+  <section id="monitor">
+    <div class="sec-head" data-reveal="mon-h">
+      <div><span class="eyebrow">§04 — MODEL HEALTH</span><h2 id="mon-title">Replayed as if live</h2></div>
+      <p id="mon-intro"></p>
+    </div>
+    <ol class="story" id="story" data-reveal="story"></ol>
+    <div class="mon-grid" data-reveal="monitor">
+      <div class="charts box span2">
+        <div class="ch-title"><h3>Checked accuracy (AUC) by prediction month</h3><span id="floor-lab" style="color:var(--crit)"></span></div>
+        <div style="position:relative" id="auc-box"><svg class="chart" id="auc" viewBox="0 0 720 240" role="img" aria-label="Checked accuracy by prediction month"></svg></div>
+        <div class="ch-title sep"><h3>Drift: how different that month's customers look</h3><span id="warn-lab" style="color:var(--warn)"></span></div>
+        <div style="position:relative" id="drift-box"><svg class="chart" id="drift" viewBox="0 0 720 150" role="img" aria-label="Drift score by month"></svg></div>
+      </div>
+      <div class="side">
+        <div class="box"><h3 id="shift-title">Largest shifts</h3><div id="shifts" style="display:flex;flex-direction:column;gap:14px"></div>
+          <p style="margin:0;font-size:12px;color:var(--ink-3)">PSI below 0.1: no real change. 0.1–0.2: watch. Above 0.2: the population has moved.</p></div>
+        <div class="box"><h3>Job log</h3><div class="log" id="log"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="decision">
+    <div class="sec-head" data-reveal="dec-h">
+      <div><span class="eyebrow">§05 — DECISION</span><h2>Who is worth an offer, in euros</h2></div>
+      <p>Set what an offer costs and what a lost customer is worth. The cut-off that maximises savings is rarely the default 50%; it sits wherever the expected value of keeping someone exceeds the cost of asking. It is picked on one month and the money is counted on the next.</p>
+    </div>
+    <div class="dec-grid" data-reveal="decision">
+      <div class="controls box">
+        <label for="cost"><span>Offer cost <output id="cost-out"></output></span><input type="range" id="cost" min="1" max="30" step="0.5" value="5"></label>
+        <label for="val"><span>Value of a retained customer <output id="val-out"></output></span><input type="range" id="val" min="10" max="300" step="5" value="60"></label>
         <div class="kpis" id="kpis"></div>
-        <p class="small" id="calc-note"></p>
+        <p class="note" id="calc-note"></p>
       </div>
-      <div class="chart-box" id="money-chart" style="min-width:0"></div>
+      <figure class="fig-money box span2" id="money-box">
+        <span class="eyebrow">FIG. 4 — NET SAVING BY OFFER CUT-OFF</span>
+        <svg class="chart" id="money" viewBox="0 0 640 300" role="img" aria-label="Net saving by offer cut-off"></svg>
+      </figure>
     </div>
   </section>
 
-  <section id="offers">
-    <div class="section-head">
-      <span class="eyebrow">Action list</span>
-      <h2 id="offers-title">Customers recommended for an offer</h2>
-      <p class="muted" id="offers-sub"></p>
+  <section id="actions">
+    <div class="sec-head" data-reveal="act-h">
+      <div><span class="eyebrow">§06 — ACTION LIST</span><h2 id="act-title">Customers worth an offer this month</h2></div>
+      <p id="act-sub"></p>
     </div>
-    <div class="panel" style="display:flex;flex-direction:column;gap:12px">
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Customer</th><th class="r">Chance of leaving</th><th class="r">Expected gain</th><th>Membership ends</th><th>Auto-renew</th><th class="r">Listening days last month</th></tr></thead>
-          <tbody id="offer-body"></tbody>
-        </table>
-      </div>
-      <button class="btn" id="more" type="button">Show 25 more</button>
+    <div data-reveal="table" style="display:flex;flex-direction:column;gap:14px">
+      <div class="table-wrap"><table><thead id="thead"></thead><tbody id="tbody"></tbody></table></div>
+      <button type="button" class="more" id="more">Show 12 more</button>
     </div>
   </section>
 
   <footer>
-    <span id="foot-assump"></span>
-    <span>Code, tests and method: see the project README. Chances and gains are model estimates, not guarantees.</span>
+    <div><span class="eyebrow">METHOD</span><p>Features only from records dated on or before the cut-off. Churn: no new paid subscription within 30 days after membership expires (WSDM 2018 rule). The leakage test rewrites all post-cut-off records and fails if any feature value moves.</p></div>
+    <div><span class="eyebrow">ASSUMPTIONS</span><p id="f-assump"></p></div>
+    <div><span class="eyebrow">DATA</span><p id="f-data"></p></div>
   </footer>
-</div>
+</main>
 
 <script>
 (async function () {
   const $ = (id) => document.getElementById(id);
-  const NS = "http://www.w3.org/2000/svg";
-  const eur = (x) => (x < 0 ? "−€" : "€") + Math.abs(Math.round(x)).toLocaleString("en-US");
-  const pct = (x) => (100 * x).toFixed(0) + "%";
-  const monthLabel = (d) => new Date(d + "T00:00:00Z").toLocaleDateString("en-GB", { month: "short", year: "2-digit", timeZone: "UTC" });
-  const el = (tag, attrs = {}, parent) => {
-    const e = document.createElementNS(NS, tag);
-    for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
-    if (parent) parent.appendChild(e);
-    return e;
-  };
-  const html = (tag, attrs = {}, text) => {
-    const e = document.createElement(tag);
-    for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
-    if (text !== undefined) e.textContent = text;
-    return e;
-  };
+  const NS = 'http://www.w3.org/2000/svg';
+  const EZ = 'cubic-bezier(.2,.7,.2,1)';
+  const motion = !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const eur = (x) => (x < 0 ? '−€' : '€') + Math.abs(Math.round(x)).toLocaleString('en-US');
+  const eurS = (x) => { const a = Math.abs(x), s = x < 0 ? '−€' : '€'; return a >= 1e6 ? s + (a / 1e6).toFixed(1) + 'M' : a >= 1e4 ? s + Math.round(a / 1e3) + 'k' : s + Math.round(a).toLocaleString('en-US'); };
+  const pct = (x) => Math.round(100 * x) + '%';
+  const int = (x) => Math.round(x).toLocaleString('en-US');
+  const f2 = (x) => x.toFixed(2), f3 = (x) => x.toFixed(3);
+  const rng = (a) => Math.min(...a).toFixed(2) === Math.max(...a).toFixed(2) ? f2(Math.min(...a)) : `${f2(Math.min(...a))}–${f2(Math.max(...a))}`;
+  const mean = (a) => a.reduce((s, v) => s + v, 0) / a.length;
+  const mon = (d) => new Date(d.slice(0, 7) + '-01T00:00:00Z').toLocaleDateString('en-GB', { month: 'short', year: '2-digit', timeZone: 'UTC' });
+  const monUp = (d) => new Date(d.slice(0, 7) + '-01T00:00:00Z').toLocaleDateString('en-GB', { month: 'short', year: 'numeric', timeZone: 'UTC' }).toUpperCase();
+  const monLong = (d) => new Date(d.slice(0, 7) + '-01T00:00:00Z').toLocaleDateString('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+  const svg = (parent, tag, attrs = {}, text) => { const e = document.createElementNS(NS, tag);
+    for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v); if (text !== undefined) e.textContent = text; parent.appendChild(e); return e; };
 
-  let monitor, audit;
+  let audit, monitor;
   try {
-    [monitor, audit] = await Promise.all([
-      fetch("data/monitor.json").then((r) => r.json()),
-      fetch("data/audit.json").then((r) => r.json()),
-    ]);
+    [audit, monitor] = await Promise.all([fetch('data/audit.json').then((r) => r.json()), fetch('data/monitor.json').then((r) => r.json())]);
   } catch (e) {
-    $("strip").textContent = "Could not load data/monitor.json or data/audit.json. Run the replay job and the audit first.";
+    $('lede').textContent = 'Could not load data/audit.json or data/monitor.json. Run the audit and the replay job first.';
     return;
   }
-  const S = monitor.settings;
-  if (audit.is_sample) $("demo").hidden = false;
+  const S = monitor.settings, A = audit.assumptions;
+  const badge = $('badge');
+  badge.className = 'badge ' + (audit.is_sample ? 'sample' : 'real');
+  badge.textContent = audit.is_sample ? 'SAMPLE DATA' : 'KKBOX DATA';
 
-  /* ---------- status strip ---------- */
-  const checked = monitor.history.filter((h) => h.auc !== null);
-  const last = checked[checked.length - 1];
-  const drift = monitor.drift_latest;
-  const chips = [
-    ["", `Simulated today <b>${monitor.today}</b>`],
-    ["", `Model <b>v${monitor.model.version}</b>, trained ${monitor.model.trained_on}`],
-    last ? [last.auc >= S.retrain_below_auc ? "good" : "crit",
-      `Last checked accuracy <b>${last.auc.toFixed(3)}</b> (${monthLabel(last.cutoff)})`] : ["", "No month checked yet"],
-    [drift.warning ? "warn" : "good", drift.warning ? `Drift warning <b>${drift.max_psi.toFixed(2)}</b>` : `No drift <b>${drift.max_psi.toFixed(2)}</b>`],
-    ["", `Offers this month <b>${monitor.offers.count.toLocaleString()}</b> of ${monitor.offers.total_scored.toLocaleString()}`],
-  ];
-  for (const [state, text] of chips) {
-    const c = html("span", { class: "chip" });
-    if (state) c.appendChild(html("i", { class: "dot " + state }));
-    const t = html("span"); t.innerHTML = text; c.appendChild(t);
-    $("strip").appendChild(c);
-  }
-
-  /* ---------- shared tooltip ---------- */
-  function tipFor(box) {
-    const t = html("div", { class: "tip", hidden: "" });
-    box.appendChild(t);
-    return {
-      show(x, y, text, svg) {
-        const r = svg.getBoundingClientRect(), vb = svg.viewBox.baseVal;
-        t.textContent = text; t.hidden = false;
-        t.style.left = (x * r.width / vb.width) + "px";
-        t.style.top = (y * r.height / vb.height) + "px";
-      },
-      hide() { t.hidden = true; },
-    };
-  }
-
-  /* ---------- audit dumbbells ---------- */
-  const lo = 0.5, hi = 1.0;
-  for (const rec of audit.recipes) {
-    const row = html("div", { class: "audit-row" });
-    const who = html("div", { class: "who" });
-    const a = html("a", { href: rec.url, target: "_blank", rel: "noopener" }, rec.title.split(" (")[0]);
-    const h3 = html("h3"); h3.appendChild(a); who.appendChild(h3);
-    who.appendChild(html("span", { class: "small" }, "Claimed: " + rec.claimed_text));
-    const tags = html("div", { class: "leak-tags" });
-    rec.leaks.filter((l) => l.leaked && l.signal_published - l.signal_honest > 0.02).slice(0, 3)
-      .forEach((l) => tags.appendChild(html("span", { class: "tag", title: "Leaked future data" }, l.feature)));
-    if (tags.children.length) { who.appendChild(html("span", { class: "small" }, "Leaked features:")); who.appendChild(tags); }
-    row.appendChild(who);
-
-    const W = 460, H = 58, L = 8, R = 8;
-    const x = (v) => L + (Math.min(Math.max(v, lo), hi) - lo) / (hi - lo) * (W - L - R);
-    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, class: "chart", role: "img",
-      "aria-label": `${rec.title}: as published ${rec.results.as_published.auc}, honest ${rec.results.honest_time_split.auc}` });
-    [0.5, 0.6, 0.7, 0.8, 0.9, 1.0].forEach((t) => {
-      el("line", { x1: x(t), x2: x(t), y1: 14, y2: 38, stroke: "var(--grid)", "stroke-width": 1 }, svg);
-      const tx = el("text", { x: x(t), y: 54, "text-anchor": t === 0.5 ? "start" : t === 1 ? "end" : "middle" }, svg);
-      tx.textContent = t.toFixed(1);
-    });
-    const p = rec.results.as_published.auc, h = rec.results.honest_time_split.auc;
-    el("line", { x1: x(h), x2: x(p), y1: 26, y2: 26, stroke: "var(--ink-3)", "stroke-width": 2 }, svg);
-    el("circle", { cx: x(p), cy: 26, r: 7, fill: "var(--published)", stroke: "var(--panel)", "stroke-width": 2 }, svg);
-    el("circle", { cx: x(h), cy: 26, r: 7, fill: "var(--accent)", stroke: "var(--panel)", "stroke-width": 2 }, svg);
-    const tp = el("text", { x: x(p), y: 10, "text-anchor": p > 0.95 ? "end" : "middle", class: "lbl" }, svg);
-    tp.textContent = p.toFixed(3);
-    const th = el("text", { x: x(h), y: 10, "text-anchor": "middle", class: "lbl" }, svg);
-    th.textContent = h.toFixed(3);
-    const box = html("div", { style: "min-width:0" }); box.appendChild(svg);
-    box.appendChild(html("div", { class: "small" }, `Drop: −${rec.auc_drop.toFixed(3)}`));
-    row.appendChild(box);
-    $("audit-rows").appendChild(row);
-  }
-  const g = audit.models.table.LightGBM, rule = audit.models.table["Auto-renew rule"];
-  $("audit-note").textContent = `For comparison, our own honest LightGBM scores ${g.auc.toFixed(3)} on the same test month (${audit.cutoffs.test}); the simple auto-renew rule scores ${rule.auc.toFixed(3)}.`;
-
-  /* ---------- accuracy chart ---------- */
-  (function () {
-    const hist = monitor.history;
-    const W = 520, H = 260, L = 40, R = 14, T = 16, B = 34;
-    const ys = checked.map((h) => h.auc);
-    const ymin = Math.min(0.7, S.retrain_below_auc - 0.05, ...ys) - 0.02;
-    const ymax = Math.min(1, Math.max(0.9, ...ys) + 0.02);
-    const n = hist.length;
-    const x = (i) => L + (n <= 1 ? 0.5 : i / (n - 1)) * (W - L - R);
-    const y = (v) => T + (1 - (v - ymin) / (ymax - ymin)) * (H - T - B);
-    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, class: "chart", role: "img", "aria-label": "Checked accuracy by month" });
-    for (let v = Math.ceil(ymin * 20) / 20; v <= ymax + 1e-9; v += 0.05) {
-      el("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), stroke: "var(--grid)" }, svg);
-      const t = el("text", { x: L - 6, y: y(v) + 4, "text-anchor": "end" }, svg); t.textContent = v.toFixed(2);
-    }
-    const step = Math.max(1, Math.ceil(n / 7));
-    hist.forEach((h, i) => {
-      if (i % step && i !== n - 1) return;
-      const t = el("text", { x: x(i), y: H - 12, "text-anchor": "middle" }, svg); t.textContent = monthLabel(h.cutoff);
-    });
-    // pending band
-    const firstPending = hist.findIndex((h) => h.auc === null);
-    if (firstPending >= 0) {
-      const x0 = x(Math.max(firstPending - 0.5, 0)), x1 = W - R;
-      el("rect", { x: x0, y: T, width: x1 - x0, height: H - T - B, fill: "var(--accent-soft)", opacity: 0.55 }, svg);
-      const t = el("text", { x: (x0 + x1) / 2, y: T + 14, "text-anchor": "middle", class: "lbl" }, svg); t.textContent = "answers pending";
-    }
-    // retrain markers
-    monitor.events.filter((e) => e.type === "retrain" && e.loop === monitor.loop).forEach((e) => {
-      const i = hist.findIndex((h) => h.cutoff === e.date);
-      if (i < 0) return;
-      el("line", { x1: x(i), x2: x(i), y1: T, y2: H - B, stroke: "var(--ink-3)", "stroke-dasharray": "3 3" }, svg);
-      const t = el("text", { x: x(i) + 4, y: H - B - 6, class: "lbl" }, svg); t.textContent = `v${e.model_version}`;
-    });
-    // floor
-    el("line", { x1: L, x2: W - R, y1: y(S.retrain_below_auc), y2: y(S.retrain_below_auc), stroke: "var(--critical)", "stroke-width": 1.5, "stroke-dasharray": "6 4" }, svg);
-    const ft = el("text", { x: W - R, y: y(S.retrain_below_auc) + 14, "text-anchor": "end", style: "fill:var(--crit-ink)" }, svg);
-    ft.textContent = `retrain below ${S.retrain_below_auc.toFixed(2)}`;
-    // line
-    const pts = hist.map((h, i) => (h.auc === null ? null : [x(i), y(h.auc)])).filter(Boolean);
-    if (pts.length) {
-      el("path", { d: "M" + pts.map((p) => p.join(",")).join("L"), fill: "none", stroke: "var(--accent)", "stroke-width": 2, "stroke-linejoin": "round" }, svg);
-    }
-    const tip = tipFor($("auc-chart"));
-    hist.forEach((h, i) => {
-      if (h.auc === null) return;
-      const below = h.auc < S.retrain_below_auc;
-      el("circle", { cx: x(i), cy: y(h.auc), r: 4.5, fill: below ? "var(--critical)" : "var(--accent)", stroke: "var(--panel)", "stroke-width": 2 }, svg);
-      const hit = el("circle", { cx: x(i), cy: y(h.auc), r: 14, fill: "transparent", tabindex: 0 }, svg);
-      const text = `${monthLabel(h.cutoff)}: AUC ${h.auc.toFixed(3)} · model v${h.model_version} · saved ${eur(h.saved_eur)}`;
-      hit.addEventListener("mouseenter", () => tip.show(x(i), y(h.auc) - 8, text, svg));
-      hit.addEventListener("focus", () => tip.show(x(i), y(h.auc) - 8, text, svg));
-      hit.addEventListener("mouseleave", () => tip.hide());
-      hit.addEventListener("blur", () => tip.hide());
-    });
-    $("auc-chart").appendChild(svg);
-  })();
-
-  // events
-  monitor.events.slice().reverse().slice(0, 8).forEach((e) => {
-    const li = html("li");
-    li.appendChild(html("span", { class: "num small" }, e.date));
-    const msg = e.type === "retrain"
-      ? `Trained model v${e.model_version}: ${e.reason}. Offer cut-off set to ${pct(e.threshold)}.`
-      : `Replay restarted: ${e.reason}.`;
-    li.appendChild(html("span", {}, msg));
-    $("events").appendChild(li);
+  /* ---------- plain words for leaked features ---------- */
+  const WORDS = {
+    membership_expire_date: ['Membership end date read after renewal', 'expire_date'],
+    transaction_date: ['Latest payment date, incl. post-cut-off', 'txn_date'],
+    is_cancel: ['Cancel flag recorded after cut-off', 'is_cancel'],
+    mode_quarter: ['Most common payment quarter, to end of file', 'mode_qtr'],
+    regist_cancels: ['Cancellations counted to end of file', 'cancels'],
+    revenue: ['Total paid, incl. post-cut-off', 'revenue'],
+    regist_trans: ['Payment count, to end of file', 'pay_count'],
+    trans_count: ['Payment count, to end of file', 'trans_count'],
+    tenure: ['Tenure measured to last payment in file', 'tenure'],
+    actual_amount_paid: ['Latest amount paid, possibly post-cut-off', 'amount'],
+    is_auto_renew: ['Auto-renew setting read after cut-off', 'auto_renew'],
+  };
+  const recs = audit.recipes;
+  const cases = recs.map((r) => {
+    const pub = r.results.as_published.auc, hon = r.results.honest_time_split.auc;
+    const leaks = r.leaks.filter((l) => l.leaked && l.signal_published - l.signal_honest > 0.02)
+      .sort((a, b) => (b.signal_published - b.signal_honest) - (a.signal_published - a.signal_honest)).slice(0, 3)
+      .map((l) => ({ code: l.feature, label: (WORDS[l.feature] || [l.feature])[0], short: (WORDS[l.feature] || [, l.feature])[1],
+        sp: l.signal_published, sh: l.signal_honest, pub: l.signal_published - 0.5, hon: Math.max(0, l.signal_honest - 0.5) }));
+    const drop = pub - hon, edgeLost = 1 - (hon - 0.5) / (pub - 0.5);
+    const tot = leaks.reduce((a, l) => a + l.pub, 0), lost = leaks.reduce((a, l) => a + l.pub - l.hon, 0);
+    return { key: r.key, url: r.url, title: r.title.split(' (')[0], model: (r.title.match(/\(([^)]+)\)/) || [, ''])[1],
+      claimed: r.claimed_text.replace(/\.$/, ''), pub, hon, drop, edgeLost, leaks, share: tot ? lost / tot : 0,
+      sev: drop >= 0.2 ? 'CRITICAL' : drop >= 0.1 ? 'SEVERE' : 'MINOR' };
   });
+  const gbm = audit.models.table.LightGBM, rule = audit.models.table['Auto-renew rule'];
+  const smart = audit.models.money.comparison['money-based threshold'], half = audit.models.money.comparison['default 0.5'];
 
-  /* ---------- drift ---------- */
-  (function () {
-    const ser = monitor.drift_series;
-    const W = 520, H = 240, L = 40, R = 14, T = 16, B = 34;
-    const ymax = Math.max(0.3, ...ser.map((d) => d.max_psi)) * 1.08;
-    const n = ser.length, band = (W - L - R) / Math.max(n, 1), bw = Math.max(4, band - 2);
-    const y = (v) => T + (1 - v / ymax) * (H - T - B);
-    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, class: "chart", role: "img", "aria-label": "Largest drift score by month" });
-    const ticks = ymax > 1.5 ? [0, 0.5, 1, 1.5, 2, 2.5, 3] : [0, 0.1, 0.2, 0.3, 0.5, 1];
-    ticks.filter((v) => v <= ymax).forEach((v) => {
-      el("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), stroke: "var(--grid)" }, svg);
-      const t = el("text", { x: L - 6, y: y(v) + 4, "text-anchor": "end" }, svg); t.textContent = v.toFixed(1);
-    });
-    const tip = tipFor($("drift-chart"));
-    const step = Math.max(1, Math.ceil(n / 7));
-    ser.forEach((d, i) => {
-      const x0 = L + i * band + (band - bw) / 2, warn = d.max_psi >= S.drift_psi_warn;
-      const top = y(d.max_psi), hgt = H - B - top;
-      const r = Math.min(4, bw / 2, hgt);
-      el("path", { d: `M${x0},${H - B}V${top + r}q0,-${r} ${r},-${r}h${bw - 2 * r}q${r},0 ${r},${r}V${H - B}Z`,
-        fill: warn ? "var(--warning)" : "var(--accent)" }, svg);
-      const hit = el("rect", { x: L + i * band, y: T, width: band, height: H - T - B, fill: "transparent", tabindex: 0 }, svg);
-      const text = `${monthLabel(d.date)}: drift ${d.max_psi.toFixed(2)}${warn ? " (warning)" : ""}`;
-      const show = () => tip.show(x0 + bw / 2, top - 6, text, svg);
-      hit.addEventListener("mouseenter", show); hit.addEventListener("focus", show);
-      hit.addEventListener("mouseleave", () => tip.hide()); hit.addEventListener("blur", () => tip.hide());
-      if (i % step === 0 || i === n - 1) {
-        const t = el("text", { x: x0 + bw / 2, y: H - 12, "text-anchor": "middle" }, svg); t.textContent = monthLabel(d.date);
-      }
-    });
-    el("line", { x1: L, x2: W - R, y1: y(S.drift_psi_warn), y2: y(S.drift_psi_warn), stroke: "var(--ink-2)", "stroke-dasharray": "6 4", "stroke-width": 1.5 }, svg);
-    const wt = el("text", { x: W - R, y: y(S.drift_psi_warn) - 6, "text-anchor": "end", class: "lbl" }, svg);
-    wt.textContent = `warning line ${S.drift_psi_warn.toFixed(2)}`;
-    $("drift-chart").appendChild(svg);
+  /* ---------- hero ---------- */
+  const lostMin = Math.min(...cases.map((c) => c.edgeLost)), lostMax = Math.max(...cases.map((c) => c.edgeLost));
+  $('h1').innerHTML = `Three public churn models claim near-perfect accuracy. <em>${lostMax >= 0.45 ? 'Up to half' : 'Up to ' + pct(lostMax)} of their edge came from the future.</em>`;
+  $('lede').textContent = `We re-ran three widely copied KKBox notebooks under one rule: features may only use data dated on or before the prediction cut-off, and churn is measured only after it. Each model lost ${pct(lostMin) === pct(lostMax) ? pct(lostMin) : `between ${pct(lostMin)} and ${pct(lostMax)}`} of its advantage over a coin flip. This report documents where the leaks were, what an honest model achieves, and how it is monitored and turned into a decision in euros.`;
+  $('pub-rng').textContent = rng(cases.map((c) => c.pub));
+  $('hon-rng').textContent = rng(cases.map((c) => c.hon));
+  const meanPub = mean(cases.map((c) => c.pub)), meanHon = mean(cases.map((c) => c.hon));
+  let mode = 'published';
+  function setMode(m) {
+    mode = m;
+    $('btn-pub').setAttribute('aria-pressed', m === 'published'); $('btn-hon').setAttribute('aria-pressed', m === 'honest');
+    $('mode-cap').textContent = m === 'honest'
+      ? 'Cut-off enforced. Records from after the prediction date are stopped at the wall; the model learns only from the past.'
+      : 'As published. Records from after the prediction date pass through the cut-off and feed the model, tinting it with the answer.';
+    $('readout').textContent = f3(m === 'honest' ? meanHon : meanPub);
+    $('readout').style.color = m === 'honest' ? 'var(--honest)' : 'var(--published)';
+    if (hero3d) hero3d.setMode(m);
+  }
+  let hero3d = null, mat3d = null;
+  $('btn-pub').onclick = () => setMode('published'); $('btn-hon').onclick = () => setMode('honest');
+  setMode('published');
 
-    const top = drift.top, maxv = Math.max(S.drift_psi_warn * 1.5, ...top.map((t) => t[1]));
-    $("drift-title").textContent = drift.warning
-      ? "Warning: this month's customers look different from the training customers"
-      : "This month's customers look like the ones the model learned from";
-    top.forEach(([f, v]) => {
-      const li = html("li");
-      li.appendChild(html("span", {}, monitor.feature_labels[f] || f));
-      const b = html("div", { class: "bar" });
-      b.appendChild(html("i", { class: v >= S.drift_psi_warn ? "warn" : "", style: `width:${Math.min(100, 100 * v / maxv)}%` }));
-      li.appendChild(b);
-      li.appendChild(html("span", { class: "num small", style: "text-align:right" }, v.toFixed(2)));
-      $("drift-list").appendChild(li);
+  const nLeaks = new Set(cases.flatMap((c) => recs.find((r) => r.key === c.key).leaks.filter((l) => l.leaked && l.signal_published - l.signal_honest > 0.02).map((l) => l.feature))).size;
+  const facts = [
+    [mean(cases.map((c) => c.drop)), 3, '−', '', 'var(--published)', 'Mean AUC lost by the three public models once future data is removed'],
+    [nLeaks, 0, '', '', 'var(--ink)', 'Leaked features: their predictive power falls once the future is removed'],
+    [gbm.auc, 3, '', '', 'var(--honest)', `Our honest LightGBM, tested on a later month. The simple auto-renew rule scores ${f3(rule.auc)}`],
+    [smart.saved_eur, 0, '€', '', 'var(--honest)', `Saved in one month with a money-based cut-off (${pct(smart.threshold)}), vs ${eurS(half.saved_eur)} at the default 50%`],
+  ];
+  const fmtN = (v, dec, pre) => pre + v.toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+  $('facts').innerHTML = facts.map(([v, dec, pre, , col, k]) =>
+    `<div><span class="v" data-count="${v}" data-dec="${dec}" data-prefix="${pre}" style="color:${col}">${fmtN(v, dec, pre)}</span><span class="k">${esc(k)}</span></div>`).join('');
+
+  /* ---------- cases ---------- */
+  const pos = (v) => ((Math.min(Math.max(v, 0.5), 1) - 0.5) / 0.5 * 100).toFixed(2) + '%';
+  $('ours-leg').textContent = `Our honest model ${f3(gbm.auc)}`;
+  $('case-list').innerHTML = cases.map((c, i) => {
+    const crit = c.sev === 'CRITICAL';
+    return `<article class="case" data-i="${i}">
+      <div class="id">
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span class="mono" style="font-weight:500;font-size:12px;letter-spacing:.1em">CASE ${c.key}</span>
+          <span class="sev" style="color:${crit ? 'var(--crit)' : 'var(--warn)'};border:1px solid ${crit ? '#5a2426' : '#4a3a17'}">${c.sev}</span></div>
+        <h3><a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.title)}</a></h3>
+        <span style="font-size:13px;color:var(--ink-3)">Claimed: ${esc(c.claimed)}</span>
+        <div class="nums">
+          <div><span class="l">PUBLISHED</span><span class="n" style="color:var(--published)">${f3(c.pub)}</span></div>
+          <div><span class="l">HONEST</span><span class="n" style="color:var(--honest)">${f3(c.hon)}</span></div>
+          <div><span class="l">DROP</span><span class="n">−${f3(c.drop)}</span></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:22px;min-width:0">
+        <div class="scale" aria-label="As published ${f3(c.pub)}, honest ${f3(c.hon)}">
+          <div class="axis"></div>
+          ${[0.5, 0.6, 0.7, 0.8, 0.9, 1].map((t, j) => `<div class="t ${j === 0 ? 'first' : j === 5 ? 'last' : ''}" style="left:${pos(t)}">${t.toFixed(1)}</div>`).join('')}
+          <div class="ours" style="left:${pos(gbm.auc)}"></div>
+          <div class="gap" data-anim="gap" style="left:${pos(c.pub)};width:0%"></div>
+          <div class="d pub" style="left:${pos(c.pub)}"></div>
+          <div class="d hon" data-anim="hon" style="left:${pos(c.pub)}"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          ${c.leaks.map((l) => `<div class="leak">
+            <span class="lab">${esc(l.label)} <code>${esc(l.code)}</code></span>
+            <span class="sig">${f2(l.sp)} → <span style="color:var(--honest-ink)">${f2(l.sh)}</span></span>
+            <div class="bar"><div class="ghost" style="width:${(l.pub / 0.5 * 100).toFixed(1)}%"></div><div class="fill" data-anim="fill" data-w="${(l.hon / 0.5 * 100).toFixed(1)}%" style="width:${(l.pub / 0.5 * 100).toFixed(1)}%"></div></div>
+          </div>`).join('')}
+        </div>
+      </div>
+    </article>`;
+  }).join('');
+  function playCases(animate) {
+    document.querySelectorAll('#case-list .case').forEach((el) => {
+      const i = +el.dataset.i, c = cases[i], d = 0.3 + i * 0.25;
+      const tr = animate ? `left 1.8s ${EZ} ${d}s, width 1.8s ${EZ} ${d}s` : 'none';
+      const hon = el.querySelector('[data-anim=hon]'), gap = el.querySelector('[data-anim=gap]');
+      hon.style.transition = tr; gap.style.transition = tr;
+      hon.style.left = pos(c.hon); gap.style.left = pos(c.hon); gap.style.width = ((c.pub - c.hon) / 0.5 * 100).toFixed(2) + '%';
+      el.querySelectorAll('[data-anim=fill]').forEach((f, j) => { f.style.transition = animate ? `width 1.6s ${EZ} ${0.8 + i * 0.25 + j * 0.12}s` : 'none'; f.style.width = f.dataset.w; });
     });
+  }
+
+  /* ---------- matrix list ---------- */
+  $('mat-list').innerHTML = cases.map((c) => `<div class="grp"><span class="mono" style="font-weight:500;font-size:12px;letter-spacing:.1em">CASE ${c.key} · ${pct(c.share)} of signal leaked</span>
+    ${c.leaks.map((l) => `<div class="row"><span style="color:var(--ink-2)">${esc(l.short)}</span><span style="color:var(--published-ink)">−${f2(l.pub - l.hon)}</span></div>`).join('')}</div>`).join('') +
+    `<div style="display:flex;flex-direction:column;gap:8px;padding-top:16px;font:400 12px/1 var(--mono);color:var(--ink-2)">
+      <span style="display:flex;align-items:center;gap:8px"><span style="width:10px;height:10px;background:var(--honest)"></span>Signal that survives</span>
+      <span style="display:flex;align-items:center;gap:8px"><span style="width:10px;height:10px;background:rgba(255,107,44,.5);border:1px solid var(--published-ink)"></span>Signal from the future</span></div>`;
+
+  /* ---------- monitor ---------- */
+  const hist = monitor.history.filter((h) => h.loop === monitor.loop), n = hist.length;
+  const checked = hist.filter((h) => h.auc !== null);
+  const WORDN = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen'];
+  $('mon-title').textContent = `${WORDN[n] || n} months, replayed as if live`;
+  $('mon-intro').textContent = `The job scores everyone whose membership ends next month, checks those predictions once the answers arrive about two months later, warns when customers start to look different, and retrains when accuracy falls below the ${f2(S.retrain_below_auc)} floor.`;
+  $('floor-lab').textContent = `— — retrain floor ${f2(S.retrain_below_auc)}`;
+  $('warn-lab').textContent = `— — warning at PSI ${f2(S.drift_psi_warn)}`;
+  const evs = monitor.events.filter((e) => e.loop === monitor.loop);
+  const retrains = evs.filter((e) => e.type === 'retrain' && e.model_version > 1).map((e) => ({ v: e.model_version, i: hist.findIndex((h) => h.cutoff === e.date) })).filter((r) => r.i >= 0);
+
+  (function story() {
+    const COL = { info: 'var(--honest)', good: 'var(--good)', warn: 'var(--warn)', crit: 'var(--crit)' }, it = [];
+    const first = evs.find((e) => e.type === 'retrain');
+    if (first) it.push(['info', first.date, `Model v${first.model_version} goes live`, `Offer cut-off set at ${pct(first.threshold)}.`]);
+    const v1 = checked.filter((h) => h.model_version === (first ? first.model_version : 1) && h.auc >= S.retrain_below_auc);
+    if (v1.length) it.push(['good', v1[0].checked_on, 'Predictions hold', `Checked AUC ${f2(Math.min(...v1.map((h) => h.auc)))}–${f2(Math.max(...v1.map((h) => h.auc)))}.`]);
+    const ds = monitor.drift_series.filter((d) => hist.some((h) => h.cutoff === d.date)), w = ds.find((d) => d.max_psi >= S.drift_psi_warn);
+    if (w) it.push(['warn', w.date, 'Drift warning', `Customers start to look different. PSI ${f2(w.max_psi)}.`]);
+    const bad = checked.find((h) => h.auc < S.retrain_below_auc);
+    if (bad) it.push(['crit', bad.checked_on, 'Accuracy drop confirmed', `${mon(bad.cutoff)} predictions scored ${f2(bad.auc)}, below the floor.`]);
+    const re = evs.filter((e) => e.type === 'retrain' && e.model_version > 1).pop();
+    if (re) {
+      it.push(['info', re.date, `Retrained: v${re.model_version}`, 'Automatic, on the newest labelled months.']);
+      const after = checked.filter((h) => h.model_version === re.model_version).pop();
+      if (after) it.push([after.auc >= S.retrain_below_auc ? 'good' : 'crit', after.checked_on, after.auc >= S.retrain_below_auc ? 'Back on track' : 'Still below the floor', `Checked AUC ${f3(after.auc)}.`]);
+    }
+    if (!it.length) it.push(['info', monitor.today, 'Waiting for answers', 'Predictions are checked about two months after they are made.']);
+    $('story').innerHTML = it.map(([c, d, b, s]) => `<li style="border-top-color:${COL[c]}"><span class="when">${monUp(d)}</span><b>${esc(b)}</b><span class="s">${esc(s)}</span></li>`).join('');
   })();
 
-  /* ---------- cost calculator ---------- */
-  (function () {
-    const cv = audit.models.curves, sr = audit.assumptions.save_rate;
-    const nb = cv.test.n_bins;
-    const tail = (arr) => { const out = new Array(arr.length + 1).fill(0); for (let i = arr.length - 1; i >= 0; i--) out[i] = out[i + 1] + arr[i]; return out; };
+  const L = 48, R = 16, band = (720 - L - R) / Math.max(n, 1), cx = (i) => L + band * (i + 0.5);
+  const monthStep = n > 10 ? 2 : 1;
+  let aucLine, aucArea, aucDots = [], driftBars = [];
+  (function aucChart() {
+    const g = $('auc'), ys = checked.map((h) => h.auc);
+    const lo = Math.floor((Math.min(S.retrain_below_auc - 0.05, ...ys) - 0.005) * 20) / 20, hi = Math.min(1, Math.ceil((Math.max(...ys) + 0.01) * 20) / 20);
+    const T = 16, B = 212, ay = (v) => T + (1 - (v - lo) / (hi - lo)) * (B - T);
+    for (let v = lo; v <= hi + 1e-9; v += 0.05) { svg(g, 'line', { x1: L, x2: 704, y1: ay(v), y2: ay(v), stroke: '#1b2028' }); svg(g, 'text', { x: 40, y: ay(v) + 4, 'text-anchor': 'end' }, v.toFixed(2)); }
+    const fp = hist.findIndex((h) => h.auc === null);
+    if (fp >= 0) { const x0 = L + band * fp; svg(g, 'rect', { x: x0, y: T, width: 720 - R - x0, height: B - T, fill: 'url(#hatch)', opacity: 0.5 });
+      svg(g, 'text', { x: (x0 + 720 - R) / 2, y: T + 18, 'text-anchor': 'middle', style: 'fill:#a7adb8' }, 'awaiting answers'); }
+    retrains.forEach((r) => { const x = L + band * r.i; svg(g, 'line', { x1: x, x2: x, y1: T, y2: B, stroke: '#a7adb8', 'stroke-dasharray': '3 4' });
+      svg(g, 'text', { x: x + 6, y: B - 8, style: 'fill:#a7adb8' }, `retrain → v${r.v}`); });
+    svg(g, 'line', { x1: L, x2: 704, y1: ay(S.retrain_below_auc), y2: ay(S.retrain_below_auc), stroke: '#f2555a', 'stroke-width': 1.5, 'stroke-dasharray': '6 4' });
+    const pts = hist.map((h, i) => (h.auc === null ? null : { i, x: cx(i), y: ay(h.auc), h })).filter(Boolean);
+    if (pts.length) {
+      const d = pts.map((p) => p.x.toFixed(1) + ',' + p.y.toFixed(1)).join('L');
+      aucArea = svg(g, 'path', { d: `M${pts[0].x},${B}L${d}L${pts[pts.length - 1].x},${B}Z`, fill: '#5b9bff', opacity: 0.12 });
+      aucLine = svg(g, 'path', { d: 'M' + d, fill: 'none', stroke: '#5b9bff', 'stroke-width': 2, 'stroke-linejoin': 'round', pathLength: 1, 'stroke-dasharray': 1 });
+      pts.forEach((p, j) => { const bad = p.h.auc < S.retrain_below_auc;
+        const c = svg(g, 'circle', { cx: p.x, cy: p.y, r: bad ? 6 : 4.5, fill: bad ? '#f2555a' : '#5b9bff', stroke: '#0d1014', 'stroke-width': 2 });
+        svg(c, 'title', {}, `${mon(p.h.cutoff)}: AUC ${f3(p.h.auc)} · model v${p.h.model_version} · checked ${p.h.checked_on}`); aucDots.push(c);
+        if (bad || j === pts.length - 1) svg(g, 'text', { x: p.x, y: bad ? p.y + 20 : p.y - 12, 'text-anchor': 'middle', style: 'fill:#eceef2;font-weight:500' }, f2(p.h.auc)); });
+    }
+    hist.forEach((h, i) => { if (i % monthStep === 0 || i === n - 1) svg(g, 'text', { x: cx(i), y: 234, 'text-anchor': 'middle' }, mon(h.cutoff)); });
+  })();
+  (function driftChart() {
+    const g = $('drift'), dm = Object.fromEntries(monitor.drift_series.map((d) => [d.date, d.max_psi])), vals = hist.map((h) => dm[h.cutoff] ?? 0);
+    const top = Math.max(0.35, ...vals) * 1.08, T = 12, B = 124, dy = (v) => T + (1 - v / top) * (B - T), bw = Math.min(30, band - 10);
+    (top > 0.8 ? [0, 0.5, 1, 1.5, 2, 2.5, 3] : [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7]).filter((v) => v <= top).forEach((v) => {
+      svg(g, 'line', { x1: L, x2: 704, y1: dy(v), y2: dy(v), stroke: '#1b2028' }); svg(g, 'text', { x: 40, y: dy(v) + 4, 'text-anchor': 'end' }, v.toFixed(1)); });
+    retrains.forEach((r) => { const x = L + band * r.i; svg(g, 'line', { x1: x, x2: x, y1: T, y2: B, stroke: '#a7adb8', 'stroke-dasharray': '3 4' }); });
+    vals.forEach((v, i) => { const warn = v >= S.drift_psi_warn;
+      const b = svg(g, 'rect', { x: cx(i) - bw / 2, y: dy(v), width: bw, height: Math.max(0, B - dy(v)), fill: warn ? '#f2b53a' : '#5b9bff', style: 'transform-box:fill-box;transform-origin:50% 100%' });
+      svg(b, 'title', {}, `${mon(hist[i].cutoff)}: PSI ${f2(v)}${warn ? ' (warning)' : ''}`); driftBars.push(b);
+      if (warn) svg(g, 'text', { x: cx(i), y: dy(v) - 6, 'text-anchor': 'middle', style: 'fill:#f2b53a;font-weight:500' }, f2(v));
+      if (i % monthStep === 0 || i === n - 1) svg(g, 'text', { x: cx(i), y: 144, 'text-anchor': 'middle' }, mon(hist[i].cutoff)); });
+    svg(g, 'line', { x1: L, x2: 704, y1: dy(S.drift_psi_warn), y2: dy(S.drift_psi_warn), stroke: '#f2b53a', 'stroke-width': 1.5, 'stroke-dasharray': '6 4' });
+  })();
+  function playMonitor(animate) {
+    if (aucLine) { aucLine.style.transition = animate ? `stroke-dashoffset 2.2s ${EZ} .2s` : 'none'; aucLine.style.strokeDashoffset = 0;
+      aucArea.style.transition = animate ? 'opacity 1.2s ease .8s' : 'none'; aucArea.style.opacity = 0.12; }
+    aucDots.forEach((d, j) => { d.style.transition = animate ? `opacity .4s ease ${0.3 + j * 0.16}s` : 'none'; d.style.opacity = 1; });
+    driftBars.forEach((b, i) => { b.style.transition = animate ? `transform .9s ${EZ} ${0.4 + i * 0.06}s` : 'none'; b.style.transform = 'scaleY(1)'; });
+    document.querySelectorAll('#shifts i').forEach((x, i) => { x.style.transition = animate ? `width 1.2s ${EZ} ${0.6 + i * 0.1}s` : 'none'; x.style.width = x.dataset.w; });
+  }
+  if (motion) { if (aucLine) { aucLine.style.strokeDashoffset = 1; aucArea.style.opacity = 0; } aucDots.forEach((d) => (d.style.opacity = 0)); driftBars.forEach((b) => (b.style.transform = 'scaleY(0)')); }
+
+  const dl = monitor.drift_latest, dmax = Math.max(S.drift_psi_warn * 1.25, ...dl.top.map((t) => t[1]));
+  $('shift-title').textContent = `Largest shifts · ${mon(dl.date)}`;
+  $('shifts').innerHTML = dl.top.map(([f, v]) => { const warn = v >= S.drift_psi_warn, w = (100 * v / dmax).toFixed(1) + '%';
+    return `<div class="shift"><span class="n">${esc(monitor.feature_labels[f] || f)}</span><span class="t"><i data-w="${w}" style="background:${warn ? 'var(--warn)' : 'var(--honest)'};width:${motion ? 0 : w}"></i></span><span class="v">${f2(v)}</span></div>`; }).join('');
+  $('log').innerHTML = monitor.events.slice().reverse().slice(0, 6).map((e) => `<span class="d">${e.date}</span><span>${e.type === 'retrain'
+    ? esc(`Trained v${e.model_version}: ${e.model_version === 1 ? 'first model' : e.reason}. Cut-off ${pct(e.threshold)}.`) : esc(`Replay restarted: ${e.reason}.`)}</span>`).join('');
+
+  /* ---------- decision ---------- */
+  (function decision() {
+    const cv = audit.models.curves, sr = A.save_rate, nb = cv.test.n_bins;
+    const tail = (a) => { const o = new Array(a.length + 1).fill(0); for (let i = a.length - 1; i >= 0; i--) o[i] = o[i + 1] + a[i]; return o; };
     const prep = (c) => ({ L: tail(c.leavers), N: tail(c.leavers.map((v, i) => v + c.stayers[i])) });
-    const V = prep(cv.valid), Te = prep(cv.test);
-    const nTest = Te.N[0];
-    const save = (P, k, cost, val) => P.L[k] * sr * val - P.N[k] * cost;  // offer to bins k..end, i.e. chance >= k/100
-    const box = $("money-chart"), tip = tipFor(box);
-
-    function draw(cost, val) {
-      $("cost-out").textContent = "€" + (+cost).toFixed(cost % 1 ? 1 : 0);
-      $("value-out").textContent = "€" + val;
-      let kBest = 1, best = -Infinity;
-      for (let k = 1; k < nb; k++) { const s = save(V, k, cost, val); if (s > best) { best = s; kBest = k; } }
-      const curve = []; for (let k = 1; k < nb; k++) curve.push([k / nb, save(Te, k, cost, val)]);
-      const sBest = save(Te, kBest, cost, val), sHalf = save(Te, Math.round(nb / 2), cost, val), sAll = save(Te, 0, cost, val);
-      const k = $("kpis"); k.innerHTML = "";
-      [[pct(kBest / nb), "Send an offer above this chance"], [eur(sBest / nTest * 1000), "Saved per 1,000 customers"],
-       [eur(sHalf / nTest * 1000), "Same, with the default 50% cut-off"], [Te.N[kBest].toLocaleString() + " / " + nTest.toLocaleString(), "Offers sent in the test month"]]
-        .forEach(([v, lab]) => { const d = html("div", { class: "kpi" }); d.appendChild(html("span", { class: "v" }, v)); d.appendChild(html("span", { class: "k" }, lab)); k.appendChild(d); });
-      $("calc-note").textContent = `Break-even chance: ${(100 * cost / (sr * val)).toFixed(1)}%. Offering to everyone would save ${eur(sAll / nTest * 1000)} per 1,000. Assumes the offer keeps ${pct(sr)} of the leavers it reaches.`;
-
-      box.querySelectorAll("svg").forEach((s) => s.remove());
-      const W = 560, H = 290, L = 56, R = 14, T = 18, B = 36;
-      const ys = curve.map((c) => c[1]);
-      let ymin = Math.min(0, ...ys), ymax = Math.max(0, ...ys);
-      const pad = (ymax - ymin) * 0.08 || 1; ymin -= pad; ymax += pad;
-      const x = (t) => L + t * (W - L - R), y = (v) => T + (1 - (v - ymin) / (ymax - ymin)) * (H - T - B);
-      const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, class: "chart", role: "img", "aria-label": "Money saved in the test month by offer cut-off" });
-      const span = ymax - ymin, raw = span / 5, mag = Math.pow(10, Math.floor(Math.log10(raw))), stepv = [1, 2, 5, 10].map((m) => m * mag).find((s) => s >= raw);
-      for (let v = Math.ceil(ymin / stepv) * stepv; v <= ymax; v += stepv) {
-        el("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), stroke: v === 0 ? "var(--ink-3)" : "var(--grid)" }, svg);
-        const t = el("text", { x: L - 6, y: y(v) + 4, "text-anchor": "end" }, svg); t.textContent = eur(v);
-      }
-      [0, 0.2, 0.4, 0.6, 0.8, 1].forEach((t) => { const tx = el("text", { x: x(t), y: H - 14, "text-anchor": t === 0 ? "start" : t === 1 ? "end" : "middle" }, svg); tx.textContent = pct(t); });
-      const xl = el("text", { x: (L + W - R) / 2, y: H - 1, "text-anchor": "middle", class: "lbl" }, svg); xl.textContent = "send an offer when chance of leaving is at least…";
-      const area = "M" + x(curve[0][0]) + "," + y(0) + "L" + curve.map((c) => x(c[0]) + "," + y(c[1])).join("L") + "L" + x(curve[curve.length - 1][0]) + "," + y(0) + "Z";
-      el("path", { d: area, fill: "var(--accent-soft)", opacity: 0.7 }, svg);
-      el("path", { d: "M" + curve.map((c) => x(c[0]) + "," + y(c[1])).join("L"), fill: "none", stroke: "var(--accent)", "stroke-width": 2 }, svg);
-      const mark = (t, v, label, color, anchor) => {
-        el("line", { x1: x(t), x2: x(t), y1: y(v), y2: H - B, stroke: color, "stroke-dasharray": "3 3" }, svg);
-        el("circle", { cx: x(t), cy: y(v), r: 5, fill: color, stroke: "var(--panel)", "stroke-width": 2 }, svg);
-        const tx = el("text", { x: x(t) + (anchor === "start" ? 8 : -8), y: y(v) - 8, "text-anchor": anchor, class: "lbl" }, svg); tx.textContent = label;
-      };
-      mark(0.5, sHalf, `default 50%: ${eur(sHalf)}`, "var(--ink-3)", "start");
-      mark(kBest / nb, sBest, `money-based ${pct(kBest / nb)}: ${eur(sBest)}`, "var(--accent)", kBest / nb > 0.5 ? "end" : "start");
-      const cross = el("line", { y1: T, y2: H - B, stroke: "var(--ink-3)", visibility: "hidden" }, svg);
-      const hit = el("rect", { x: L, y: T, width: W - L - R, height: H - T - B, fill: "transparent" }, svg);
-      hit.addEventListener("mousemove", (ev) => {
-        const r = svg.getBoundingClientRect();
-        const px = (ev.clientX - r.left) * W / r.width;
-        const t = Math.min(0.99, Math.max(0.01, Math.round((px - L) / (W - L - R) * nb) / nb));
-        const v = save(Te, Math.round(t * nb), cost, val);
-        cross.setAttribute("x1", x(t)); cross.setAttribute("x2", x(t)); cross.setAttribute("visibility", "visible");
-        tip.show(x(t), y(v) - 6, `cut-off ${pct(t)}: saves ${eur(v)}, ${Te.N[Math.round(t * nb)].toLocaleString()} offers`, svg);
-      });
-      hit.addEventListener("mouseleave", () => { tip.hide(); cross.setAttribute("visibility", "hidden"); });
-      box.appendChild(svg);
+    const V = prep(cv.valid), Te = prep(cv.test), nT = Te.N[0];
+    const save = (P, k, cost, val) => P.L[k] * sr * val - P.N[k] * cost;
+    const g = $('money'), box = $('money-box'), tip = document.createElement('div'); tip.className = 'tip'; tip.hidden = true; box.appendChild(tip);
+    function draw() {
+      const cost = +$('cost').value, val = +$('val').value;
+      $('cost-out').textContent = '€' + (cost % 1 ? cost.toFixed(1) : cost); $('val-out').textContent = '€' + val;
+      let k = 1, best = -Infinity; for (let i = 1; i < nb; i++) { const s = save(V, i, cost, val); if (s > best) { best = s; k = i; } }
+      const curve = []; for (let i = 1; i < nb; i++) curve.push([i / nb, save(Te, i, cost, val)]);
+      const sB = save(Te, k, cost, val), sH = save(Te, Math.round(nb / 2), cost, val), sA = save(Te, 0, cost, val), tB = k / nb;
+      $('kpis').innerHTML = [[pct(tB), 'Money-based offer cut-off', 'var(--honest)'], [eurS(sB), 'Saved in the test month', 'var(--honest)'],
+        [eurS(sH), 'At the default 50%', 'var(--ink)'], [int(Te.N[k]), `Offers sent, of ${int(nT)} customers`, 'var(--ink)']]
+        .map(([v, l, c]) => `<div><span class="v" style="color:${c}">${v}</span><span class="k">${l}</span></div>`).join('');
+      $('calc-note').textContent = `An offer pays off when chance of leaving × €${val} × ${pct(sr)} kept > €${cost}: break-even at ${(100 * cost / (sr * val)).toFixed(1)}%. Offering to everyone nets ${eurS(sA)}.${sr >= 1 ? ' Assumes every reached leaver stays; real offers keep fewer.' : ''}`;
+      g.innerHTML = '';
+      const ys = curve.map((c) => c[1]); let lo = Math.min(0, ...ys), hi = Math.max(0, ...ys); const pad = (hi - lo) * 0.12 || 1; lo -= pad * 0.4; hi += pad;
+      const mx = (t) => 64 + t * 560, my = (v) => 24 + (1 - (v - lo) / (hi - lo)) * 232;
+      const raw = (hi - lo) / 5, mag = Math.pow(10, Math.floor(Math.log10(raw))), sv = [1, 2, 5, 10].map((q) => q * mag).find((q) => q >= raw);
+      for (let v = Math.ceil(lo / sv) * sv; v <= hi; v += sv) { svg(g, 'line', { x1: 64, x2: 624, y1: my(v), y2: my(v), stroke: Math.abs(v) < 1e-9 ? '#4a525e' : '#1b2028' }); svg(g, 'text', { x: 56, y: my(v) + 4, 'text-anchor': 'end' }, eurS(v)); }
+      [0, 0.2, 0.4, 0.6, 0.8, 1].forEach((t) => svg(g, 'text', { x: mx(t), y: 276, 'text-anchor': 'middle' }, pct(t)));
+      svg(g, 'text', { x: 344, y: 296, 'text-anchor': 'middle', style: 'fill:#a7adb8' }, 'send an offer when the chance of leaving is at least…');
+      const line = curve.map((c) => mx(c[0]).toFixed(1) + ',' + my(c[1]).toFixed(1)).join('L'), z = my(Math.max(lo, Math.min(0, hi)));
+      svg(g, 'path', { d: `M${mx(curve[0][0])},${my(0)}L${line}L${mx(curve[curve.length - 1][0])},${my(0)}Z`, fill: '#5b9bff', opacity: 0.14 });
+      svg(g, 'path', { d: 'M' + line, fill: 'none', stroke: '#5b9bff', 'stroke-width': 2, 'stroke-linejoin': 'round' });
+      svg(g, 'line', { x1: mx(0.5), x2: mx(0.5), y1: my(sH), y2: z, stroke: '#7d8491', 'stroke-dasharray': '3 3' });
+      svg(g, 'circle', { cx: mx(0.5), cy: my(sH), r: 5, fill: '#7d8491', stroke: '#0d1014', 'stroke-width': 2 });
+      svg(g, 'text', { x: mx(0.5) + 10, y: my(sH) - 10, style: 'fill:#a7adb8;font-weight:500' }, `default 50% · ${eurS(sH)}`);
+      svg(g, 'line', { x1: mx(tB), x2: mx(tB), y1: my(sB), y2: z, stroke: '#5b9bff', 'stroke-dasharray': '3 3' });
+      svg(g, 'circle', { cx: mx(tB), cy: my(sB), r: 6, fill: '#5b9bff', stroke: '#0d1014', 'stroke-width': 2 });
+      svg(g, 'text', { x: tB > 0.55 ? mx(tB) - 10 : mx(tB) + 10, y: my(sB) - 12, 'text-anchor': tB > 0.55 ? 'end' : 'start', style: 'fill:#eceef2;font-weight:500' }, `money-based ${pct(tB)} · ${eurS(sB)}`);
+      const cross = svg(g, 'line', { y1: 24, y2: 256, stroke: '#4a525e', visibility: 'hidden' });
+      const hit = svg(g, 'rect', { x: 64, y: 24, width: 560, height: 232, fill: 'transparent' });
+      hit.addEventListener('mousemove', (ev) => { const r = g.getBoundingClientRect(), px = (ev.clientX - r.left) * 640 / r.width;
+        const t = Math.min(0.99, Math.max(0.01, Math.round((px - 64) / 560 * nb) / nb)), kk = Math.round(t * nb), v = save(Te, kk, cost, val);
+        cross.setAttribute('x1', mx(t)); cross.setAttribute('x2', mx(t)); cross.setAttribute('visibility', 'visible');
+        const br = box.getBoundingClientRect(); tip.hidden = false; tip.textContent = `cut-off ${pct(t)}: ${eur(v)} · ${int(Te.N[kk])} offers`;
+        tip.style.left = (r.left - br.left + mx(t) * r.width / 640) + 'px'; tip.style.top = (r.top - br.top + my(v) * r.height / 300) + 'px'; });
+      hit.addEventListener('mouseleave', () => { tip.hidden = true; cross.setAttribute('visibility', 'hidden'); });
     }
-    const c = $("cost"), v = $("value");
-    c.value = audit.assumptions.offer_cost; v.value = audit.assumptions.customer_value;
-    const go = () => draw(+c.value, +v.value);
-    c.addEventListener("input", go); v.addEventListener("input", go); go();
+    $('cost').value = A.offer_cost; $('val').value = A.customer_value;
+    $('cost').addEventListener('input', draw); $('val').addEventListener('input', draw); draw();
   })();
 
-  /* ---------- offer list ---------- */
-  (function () {
-    const rows = monitor.offers.top; let shown = 0;
-    $("offers-title").textContent = `${monitor.offers.count.toLocaleString()} customers recommended for an offer`;
-    $("offers-sub").textContent = `Out of ${monitor.offers.total_scored.toLocaleString()} customers whose membership ends in the month after ${monitor.today}. Everyone with a chance of leaving of at least ${pct(monitor.model.threshold)} is on the list. Expected gain = chance × ${eur(S.customer_value)} × ${pct(S.save_rate)} kept − ${eur(S.offer_cost)} offer. Total expected gain: ${eur(monitor.offers.expected_gain_eur)}. Highest risk first.`;
+  /* ---------- action list ---------- */
+  (function actions() {
+    const rows = monitor.offers.top, listen = rows.some((r) => r.listening_days_last_month > 0); let shown = 0;
+    const last = hist[hist.length - 1];
+    $('act-title').textContent = `${int(monitor.offers.count)} customers worth an offer this month`;
+    $('act-sub').textContent = `Everyone with a chance of leaving of at least ${pct(monitor.model.threshold)}, out of ${int(monitor.offers.total_scored)} whose membership ends in the month after ${monitor.today}. Expected gain = chance × €${S.customer_value} × ${pct(S.save_rate)} kept − €${S.offer_cost}. Highest risk first; the list shows the top ${int(rows.length)}.`;
+    $('thead').innerHTML = `<tr><th>CUSTOMER</th><th class="r">CHANCE OF LEAVING</th><th class="r">EXPECTED GAIN</th><th>MEMBERSHIP ENDS</th><th>AUTO-RENEW</th>${listen ? '<th class="r">LISTENING DAYS</th>' : ''}</tr>`;
     function more() {
-      const body = $("offer-body");
-      rows.slice(shown, shown + 25).forEach((r) => {
-        const tr = html("tr");
-        tr.appendChild(html("td", { class: "num" }, r.customer));
-        tr.appendChild(html("td", { class: "num r" }, (100 * r.chance).toFixed(1) + "%"));
-        tr.appendChild(html("td", { class: "num r" }, "€" + r.expected_gain_eur.toFixed(2)));
-        tr.appendChild(html("td", { class: "num" }, r.expires));
-        const td = html("td"); td.appendChild(html("span", { class: "pill" }, r.auto_renew ? "on" : "off")); tr.appendChild(td);
-        tr.appendChild(html("td", { class: "num r" }, String(r.listening_days_last_month)));
-        body.appendChild(tr);
-      });
-      shown = Math.min(rows.length, shown + 25);
-      $("more").hidden = shown >= rows.length;
+      $('tbody').insertAdjacentHTML('beforeend', rows.slice(shown, shown + 12).map((r) => `<tr>
+        <td class="id">${esc(r.customer)}</td>
+        <td class="r">${(100 * r.chance).toFixed(1)}%<span class="risk"><i style="width:${(100 * r.chance).toFixed(1)}%"></i></span></td>
+        <td class="r gain">€${r.expected_gain_eur.toFixed(2)}</td><td>${esc(r.expires)}</td>
+        <td><span class="pill">${r.auto_renew ? 'on' : 'off'}</span></td>${listen ? `<td class="r">${r.listening_days_last_month}</td>` : ''}</tr>`).join(''));
+      shown = Math.min(rows.length, shown + 12); $('more').hidden = shown >= rows.length;
     }
-    $("more").addEventListener("click", more); more();
+    $('more').onclick = more; more();
   })();
 
-  $("foot-assump").textContent = `Assumptions (from config.toml): an offer costs ${eur(S.offer_cost)}, a lost customer costs ${eur(S.customer_value)}, the offer keeps ${pct(S.save_rate)} of the leavers it reaches. Accuracy floor ${S.retrain_below_auc}, drift warning at ${S.drift_psi_warn}. Replay runs ${monitor.replay_start} to ${monitor.replay_end}, loop ${monitor.loop}.`;
+  const d = audit.data;
+  $('f-assump').textContent = `An offer costs €${S.offer_cost}; a lost customer costs €${S.customer_value}; the offer keeps ${pct(S.save_rate)} of the leavers it reaches. Retrain below AUC ${f2(S.retrain_below_auc)}; drift warning above PSI ${f2(S.drift_psi_warn)}. Cut-off chosen on one month, money counted on the next. All set in config.toml.`;
+  $('f-data').textContent = `${audit.is_sample ? 'Made-up sample in KKBox format' : 'KKBox, WSDM 2018 churn challenge'}: ${int(d.n_users)} customers, ${int(d.n_transactions)} transactions, ${d.first_date} to ${d.last_date}. Test month ${audit.cutoffs.test}. Replay ${monitor.replay_start} to ${monitor.replay_end}.`;
+
+  /* ---------- reveal on scroll + 3D ---------- */
+  function countUp(node) {
+    const target = parseFloat(node.dataset.count), dec = +node.dataset.dec || 0, pre = node.dataset.prefix || '', final = node.textContent;
+    if (!isFinite(target)) return; const t0 = performance.now();
+    const step = (t) => { const p = Math.min(1, (t - t0) / 1400), e = 1 - Math.pow(1 - p, 3);
+      node.textContent = p >= 1 ? final : fmtN(target * e, dec, pre); if (p < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  }
+  const onSeen = { cases: () => playCases(motion), monitor: () => playMonitor(motion), matrix: () => mat3d && mat3d.play(), facts: (el) => motion && el.querySelectorAll('[data-count]').forEach(countUp) };
+  let matrixSeen = false;
+  const els = document.querySelectorAll('[data-reveal]');
+  if ('IntersectionObserver' in window) {
+    const anims = new Map();
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (!e.isIntersecting) return; io.unobserve(e.target);
+      const a = anims.get(e.target); if (a) a.play(); const k = e.target.dataset.reveal; if (k === 'matrix') matrixSeen = true; onSeen[k] && onSeen[k](e.target); }), { threshold: 0.15 });
+    els.forEach((el) => { if (motion && el.animate) { const a = el.animate([{ opacity: 0, transform: 'translateY(24px)' }, { opacity: 1, transform: 'none' }], { duration: 900, easing: EZ, fill: 'both' }); a.pause(); anims.set(el, a); } io.observe(el); });
+  } else { matrixSeen = true; Object.values(onSeen).forEach((f) => f(document.body)); }
+
+  import('./leak3d.js').then((m3) => {
+    hero3d = m3.mountHero($('hero3d'), { mode, motion });
+    mat3d = m3.mountMatrix($('mat3d'), cases.map((c) => ({ key: c.key, feats: c.leaks.map((l) => ({ short: l.short, pub: l.pub, hon: l.hon })) })), { motion, autoRotate: true });
+    if (matrixSeen) mat3d.play();
+  }).catch((err) => { console.warn('3D scene unavailable', err);
+    ['hero3d', 'mat3d'].forEach((id) => { const n = document.createElement('div'); n.className = 'no3d'; n.textContent = '3D view unavailable in this browser'; $(id).appendChild(n); }); });
 })();
 </script>
 </body>
