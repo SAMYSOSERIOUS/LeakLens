@@ -1,4 +1,4 @@
-# Three popular churn models, re-tested honestly: from 0.98 to 0.74 AUC
+# Three popular churn models, re-tested honestly: from 0.97–0.99 to 0.78–0.83 AUC
 
 [![tests](../../actions/workflows/tests.yml/badge.svg)](../../actions/workflows/tests.yml)
 [![weekly replay](../../actions/workflows/weekly-replay.yml/badge.svg)](../../actions/workflows/weekly-replay.yml)
@@ -15,22 +15,25 @@ worth an offer.
 
 ## At a glance
 
-All numbers are from the real KKBox data: 2.4 million customers, 23 million transactions,
-January 2015 to March 2017.
+All numbers are from the real KKBox data: 2.4 million customers, 23 million transactions and
+the daily listening logs, January 2015 to March 2017.
 
 - **Public models overstate their accuracy.** Three popular public churn models score
-  0.98–0.99 AUC as published. Tested honestly, they score **0.74–0.83**.
+  0.97–0.99 AUC as published. Tested honestly, they score **0.78–0.83**: they lose a third to
+  two fifths of their edge over a coin flip.
 - **The cause is leaked future data.** The worst leaks are the membership end date and the
   latest payment date, both read *after* the customer had already renewed. Once the future
   is removed, their predictive power drops from 0.95 to 0.52–0.56.
-- **An honest model still works.** Our LightGBM scores **0.865** on a later month it never
+- **An honest model still works.** Our LightGBM scores **0.872** on a later month it never
   saw, beating all three public models and the simple "auto-renew is off" rule (0.799).
+  Listening behaviour helps: adding the listening logs raised it from 0.865, and how often a
+  customer listened last month is among its most useful inputs.
 - **Set the offer rule in euros, not accuracy.** With an offer at €5 and a lost customer at
-  €60, offering to everyone above a **9%** chance of leaving saves **€1.0M** in one month,
-  against €0.13M with the usual 50% cut-off.
+  €60, offering to everyone above a **9%** chance of leaving saves **€1.02M** in one month,
+  against €0.30M with the usual 50% cut-off.
 - **The monitor caught a real change.** Replaying the data month by month, the drift warning
-  fired in October 2016. The accuracy drop (to 0.76) could only be confirmed in January 2017,
-  when the answers came in. The job retrained by itself, and accuracy recovered to 0.86.
+  fired in October 2016. The accuracy drop (to 0.77) could only be confirmed in January 2017,
+  when the answers came in. The job retrained by itself, and accuracy recovered to 0.87.
 
 **The question:** how much do popular public churn models overstate their performance, and
 which customers is it actually worth sending a retention offer to?
@@ -48,8 +51,8 @@ Our honest LightGBM on the same test month: AUC **0.872** (auto-renew rule 0.799
 <!-- RESULTS:END -->
 
 **What these numbers cover.** Test month: customers whose membership ran out in February 2017,
-scored on 31 January 2017 (883,727 customers, 3.9% churned). The listening logs (30 GB) were
-left out of this run, so the features use payments and profiles only. The three public
+scored on 31 January 2017 (883,727 customers, 3.9% churned). Features use payments, profiles
+and listening activity, all from before the cut-off date. The three public
 notebooks are re-tested on a random sample of 300,000 of those customers to keep their slow
 models practical; our own models use all of them. The churn rate is lower than in the
 competition because we score every customer whose membership ends that month, including the
@@ -221,9 +224,9 @@ history **one month per run**, as if each month had just arrived.
   recompute the best cut-off and the money saved for any setting without a server.
 
 **On the real data** (replay from July 2016 to March 2017): checked accuracy stayed between
-0.88 and 0.95 until the drift warning in October 2016 (score 0.26). The November predictions
-then scored 0.76, which the job learned in January 2017, when their answers arrived. It
-retrained on the newest known months, and the next checked month scored 0.86.
+0.89 and 0.95 until the drift warning in October 2016 (score 0.26). The November predictions
+then scored 0.77, which the job learned in January 2017, when their answers arrived. It
+retrained on the newest known months, and the next checked month scored 0.87.
 
 The built-in demo data has a similar planted change (a promotion wave from September 2016),
 so the same story can be seen without downloading anything.
@@ -271,7 +274,13 @@ python -m leaklens replay-reset
 python -m leaklens replay-run --steps 9   # replay Jul 2016 - Mar 2017 (start is set in config.toml)
 ```
 
-The audit takes about 30 minutes on a laptop, the replay about an hour. The public notebooks are re-tested on a random
+The audit takes about 30 minutes on a laptop, the replay about an hour.
+
+To add the listening logs (`user_logs.csv.7z` and `user_logs_v2.csv.7z`, about 30 GB unpacked),
+log in to Kaggle once (`kaggle auth login`) and run `python scripts/add_listening_logs.py`. It
+downloads, unpacks and prepares them, deletes the raw files, reruns the audit and the replay,
+and asks before pushing to GitHub. Every step is skipped if its result already exists, so it can
+be run again after an interruption. The public notebooks are re-tested on a random
 sample of `max_train_rows` (300,000) customers to keep their slow models practical. To run the weekly job on real data in
 GitHub Actions, upload the prepared folder as a `.tar.gz` and set its link as the secret
 `PREPARED_DATA_URL`.
@@ -291,6 +300,7 @@ src/leaklens/
   replay.py     the weekly job: score, check, retrain, drift, page data
   report.py     README results, manager summary, full tables
   sample.py     made-up data in KKBox format (for tests and the demo)
+scripts/        add_listening_logs.py: download the listening logs and rerun everything
 tests/          leakage, model, data, money
 site/           the static monitor page (+ data/ written by the audit and the job)
 docs/           manager summary, screenshots
@@ -303,9 +313,9 @@ state/          the replay job's memory between runs
   above for what was kept and changed.
 - The €5 / €60 / 100% figures are assumptions from the brief. The offer's real effect
   should be measured with a random control group before trusting any euro figure.
-- The real-data run leaves out the listening logs. Listening activity is one of the
-  strongest honest signals, so our model's score is probably a lower bound. Adding
-  `user_logs.csv` (30 GB) and rerunning `make prepare && make audit` includes it.
+- The listening logs come in two files that meet in February 2017. The drift score for that
+  month (0.81) is far above every other month and may come from the join between the files
+  rather than from customers; it does not affect the audit, whose test month is January 2017.
 - One test month (February 2017 expiries). Repeating the audit on other months would show
   how stable the gaps are.
 - KKBox is a Taiwanese music service from 2015–2017. The method transfers; the exact numbers
