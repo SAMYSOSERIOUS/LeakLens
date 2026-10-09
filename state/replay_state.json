@@ -8,7 +8,7 @@
    "type": "retrain",
    "model_version": 1,
    "reason": "first model",
-   "valid_auc": 0.9331,
+   "valid_auc": 0.937,
    "threshold": 0.08
   },
   {
@@ -16,8 +16,8 @@
    "loop": 1,
    "type": "retrain",
    "model_version": 2,
-   "reason": "accuracy (AUC) 0.760 on 2016-11-30 fell below the floor of 0.80",
-   "valid_auc": 0.757,
+   "reason": "accuracy (AUC) 0.766 on 2016-11-30 fell below the floor of 0.80",
+   "valid_auc": 0.7613,
    "threshold": 0.09
   }
  ],
@@ -29,15 +29,15 @@
    "model_version": 1,
    "threshold": 0.08,
    "n_scored": 803951,
-   "n_offers": 135125,
-   "expected_leavers": 54383.8,
-   "auc": 0.8982,
-   "log_loss": 0.1585,
+   "n_offers": 131575,
+   "expected_leavers": 53884.3,
+   "auc": 0.9049,
+   "log_loss": 0.1511,
    "churn_rate": 0.0429,
-   "saved_eur": 1016015.0,
+   "saved_eur": 1029385.0,
    "checked_on": "2016-09-30",
    "leavers": 34484,
-   "leavers_reached": 28194
+   "leavers_reached": 28121
   },
   {
    "loop": 1,
@@ -46,15 +46,15 @@
    "model_version": 1,
    "threshold": 0.08,
    "n_scored": 848080,
-   "n_offers": 151249,
-   "expected_leavers": 68889.9,
-   "auc": 0.9216,
-   "log_loss": 0.1582,
+   "n_offers": 148619,
+   "expected_leavers": 68889.6,
+   "auc": 0.9243,
+   "log_loss": 0.155,
    "churn_rate": 0.0624,
-   "saved_eur": 1958155.0,
+   "saved_eur": 1916825.0,
    "checked_on": "2016-10-31",
    "leavers": 52920,
-   "leavers_reached": 45240
+   "leavers_reached": 44332
   },
   {
    "loop": 1,
@@ -63,15 +63,15 @@
    "model_version": 1,
    "threshold": 0.08,
    "n_scored": 839471,
-   "n_offers": 130026,
-   "expected_leavers": 47370.1,
-   "auc": 0.884,
-   "log_loss": 0.1345,
+   "n_offers": 127344,
+   "expected_leavers": 47774.7,
+   "auc": 0.8896,
+   "log_loss": 0.1312,
    "churn_rate": 0.0383,
-   "saved_eur": 845550.0,
+   "saved_eur": 859380.0,
    "checked_on": "2016-11-30",
    "leavers": 32134,
-   "leavers_reached": 24928
+   "leavers_reached": 24935
   },
   {
    "loop": 1,
@@ -80,15 +80,15 @@
    "model_version": 1,
    "threshold": 0.08,
    "n_scored": 894758,
-   "n_offers": 171713,
-   "expected_leavers": 87907.5,
-   "auc": 0.9516,
-   "log_loss": 0.1358,
+   "n_offers": 166085,
+   "expected_leavers": 88366.6,
+   "auc": 0.9549,
+   "log_loss": 0.1301,
    "churn_rate": 0.0898,
-   "saved_eur": 3533135.0,
+   "saved_eur": 3553535.0,
    "checked_on": "2016-12-31",
    "leavers": 80343,
-   "leavers_reached": 73195
+   "leavers_reached": 73066
   },
   {
    "loop": 1,
@@ -97,15 +97,15 @@
    "model_version": 1,
    "threshold": 0.08,
    "n_scored": 887233,
-   "n_offers": 148131,
-   "expected_leavers": 65994.6,
-   "auc": 0.7596,
-   "log_loss": 0.244,
+   "n_offers": 143735,
+   "expected_leavers": 67063.8,
+   "auc": 0.7661,
+   "log_loss": 0.2357,
    "churn_rate": 0.0805,
-   "saved_eur": 2156145.0,
+   "saved_eur": 2174765.0,
    "checked_on": "2017-01-31",
    "leavers": 71385,
-   "leavers_reached": 48280
+   "leavers_reached": 48224
   },
   {
    "loop": 1,
@@ -114,15 +114,15 @@
    "model_version": 1,
    "threshold": 0.08,
    "n_scored": 872356,
-   "n_offers": 134265,
-   "expected_leavers": 46550.7,
-   "auc": 0.8646,
-   "log_loss": 0.1429,
+   "n_offers": 127668,
+   "expected_leavers": 46225.1,
+   "auc": 0.8722,
+   "log_loss": 0.1364,
    "churn_rate": 0.0449,
-   "saved_eur": 1145895.0,
+   "saved_eur": 1172220.0,
    "checked_on": "2017-03-31",
    "leavers": 39212,
-   "leavers_reached": 30287
+   "leavers_reached": 30176
   },
   {
    "loop": 1,
@@ -131,15 +131,15 @@
    "model_version": 2,
    "threshold": 0.09,
    "n_scored": 883727,
-   "n_offers": 87681,
-   "expected_leavers": 31878.1,
-   "auc": 0.8624,
-   "log_loss": 0.1163,
+   "n_offers": 82285,
+   "expected_leavers": 32044.8,
+   "auc": 0.8692,
+   "log_loss": 0.1121,
    "churn_rate": 0.0395,
-   "saved_eur": 1003695.0,
+   "saved_eur": 1018375.0,
    "checked_on": "2017-03-31",
    "leavers": 34878,
-   "leavers_reached": 24035
+   "leavers_reached": 23830
   },
   {
    "loop": 1,
@@ -148,8 +148,8 @@
    "model_version": 2,
    "threshold": 0.09,
    "n_scored": 890266,
-   "n_offers": 144528,
-   "expected_leavers": 47276.4,
+   "n_offers": 146619,
+   "expected_leavers": 50390.5,
    "auc": null,
    "log_loss": null,
    "churn_rate": null,
@@ -162,8 +162,8 @@
    "model_version": 2,
    "threshold": 0.09,
    "n_scored": 908819,
-   "n_offers": 86289,
-   "expected_leavers": 31506.1,
+   "n_offers": 81553,
+   "expected_leavers": 32165.6,
    "auc": null,
    "log_loss": null,
    "churn_rate": null,
@@ -192,8 +192,8 @@
      0.0042
     ],
     [
-     "plan_days",
-     0.0033
+     "days_active_m1",
+     0.0034
     ]
    ],
    "warning": false
@@ -219,8 +219,8 @@
      0.0081
     ],
     [
-     "n_lapses",
-     0.0069
+     "days_active_m1",
+     0.0077
     ]
    ],
    "warning": false
@@ -273,8 +273,8 @@
      0.0137
     ],
     [
-     "n_lapses",
-     0.0067
+     "days_active_m1",
+     0.0128
     ]
    ],
    "warning": true
@@ -323,12 +323,12 @@
      0.011
     ],
     [
-     "n_lapses",
-     0.0083
+     "days_active_m1",
+     0.0105
     ],
     [
-     "plan_days",
-     0.0039
+     "n_lapses",
+     0.0083
     ]
    ],
    "warning": false
@@ -350,20 +350,24 @@
      0.051
     ],
     [
-     "n_lapses",
-     0.0017
+     "secs_m1",
+     0.0039
     ],
     [
-     "age",
-     0.001
+     "days_active_m1",
+     0.0023
     ]
    ],
    "warning": false
   },
   {
    "date": "2017-02-28",
-   "max_psi": 0.1427,
+   "max_psi": 0.8092,
    "top": [
+    [
+     "days_active_m1",
+     0.8092
+    ],
     [
      "payment_method",
      0.1427
@@ -377,15 +381,11 @@
      0.0647
     ],
     [
-     "n_lapses",
-     0.0018
-    ],
-    [
-     "age",
-     0.0007
+     "secs_m1",
+     0.0071
     ]
    ],
-   "warning": false
+   "warning": true
   },
   {
    "date": "2017-03-31",
@@ -404,12 +404,12 @@
      0.0715
     ],
     [
-     "age",
-     0.0017
+     "days_active_m1",
+     0.0069
     ],
     [
-     "n_lapses",
-     0.0011
+     "completion_ratio",
+     0.0045
     ]
    ],
    "warning": false
@@ -431,7 +431,7 @@
    "2016-11-30"
   ],
   "threshold": 0.09,
-  "valid_auc": 0.757,
+  "valid_auc": 0.7613,
   "categories": {
    "payment_method": [
     "10",
@@ -557,21 +557,68 @@
    ]
   },
   "days_active_m1": {
-   "edges": [],
+   "edges": [
+    3.0,
+    7.0,
+    12.0,
+    17.0,
+    21.0,
+    26.0,
+    29.0
+   ],
    "shares": [
-    1.0
+    0.29763872317095175,
+    0.08970647664568539,
+    0.10263454274992377,
+    0.10221053363138773,
+    0.08556560172205735,
+    0.12134102009761102,
+    0.08936647374875775,
+    0.11153662823362528
    ]
   },
   "secs_m1": {
-   "edges": [],
+   "edges": [
+    5160.168400000001,
+    21411.337600000003,
+    43367.032999999996,
+    71232.10840000001,
+    107942.03220000005,
+    161689.33720000004,
+    264539.6342000002
+   ],
    "shares": [
-    1.0
+    0.3000000234000617,
+    0.09999992979981481,
+    0.09999992979981481,
+    0.1000001638004321,
+    0.09999992979981481,
+    0.09999992979981481,
+    0.09999992979981481,
+    0.1000001638004321
    ]
   },
   "completion_ratio": {
-   "edges": [],
+   "edges": [
+    0.0,
+    0.43373493975903615,
+    0.5636007827788649,
+    0.6478405315614618,
+    0.7143557079862812,
+    0.7739938080495357,
+    0.832102081934184,
+    0.8942486085343229
+   ],
    "shares": [
-    1.0
+    0.19796756423843445,
+    0.102020291129528,
+    0.10001186383129679,
+    0.09999758979364187,
+    0.10000250380660504,
+    0.09999595178932082,
+    0.10000390781030881,
+    0.09999899379734564,
+    0.10000133380351857
    ]
   },
   "age": {

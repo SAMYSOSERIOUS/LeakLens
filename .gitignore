@@ -5,3 +5,5 @@ __pycache__/
 /data/*
 !/data/README.md
 *.7z
+
+logs_run.txt

@@ -40,11 +40,11 @@ which customers is it actually worth sending a retention offer to?
 <!-- RESULTS:START -->
 | Public notebook | What it claimed | Re-run as published (AUC) | Honest re-test (AUC) | Drop | Main leak |
 |---|---|---|---|---|---|
-| [jsroa15/KKBOX (random forest)](https://github.com/jsroa15/KKBOX) | Random forest, ROC AUC 0.940 on its test set (README). | 0.977 | 0.743 | −0.233 | `mode_quarter`, `regist_cancels`, `revenue` |
+| [jsroa15/KKBOX (random forest)](https://github.com/jsroa15/KKBOX) | Random forest, ROC AUC 0.940 on its test set (README). | 0.974 | 0.779 | −0.195 | `mode_quarter`, `regist_cancels`, `revenue` |
 | [apostaremczak/churn-prediction (random forest)](https://github.com/apostaremczak/churn-prediction) | 'Unbalanced' random forest: accuracy 92.7%, F1 0.48 (model_results.json). | 0.989 | 0.826 | −0.163 | `membership_expire_date`, `transaction_date`, `is_cancel` |
-| [naomifridman/Deep-VAE-prediction-of-churn-customer (VAE + KNN)](https://github.com/naomifridman/Deep-VAE-prediction-of-churn-customer) | KNN on a VAE latent space: accuracy 95.0%, churn-class F1 0.66 (notebook output). | 0.977 | 0.808 | −0.169 | `membership_expire_date`, `transaction_date`, `is_cancel` |
+| [naomifridman/Deep-VAE-prediction-of-churn-customer (VAE + KNN)](https://github.com/naomifridman/Deep-VAE-prediction-of-churn-customer) | KNN on a VAE latent space: accuracy 95.0%, churn-class F1 0.66 (notebook output). | 0.973 | 0.804 | −0.169 | `membership_expire_date`, `transaction_date`, `is_cancel` |
 
-Our honest LightGBM on the same test month: AUC **0.865** (auto-renew rule 0.799, nobody-churns baseline 0.500). Money-based threshold **0.09** saves **€1,007,035** on 883,727 customers, versus €126,795 at the default 0.5. Full tables: [reports/results.md](reports/results.md).
+Our honest LightGBM on the same test month: AUC **0.872** (auto-renew rule 0.799, nobody-churns baseline 0.500). Money-based threshold **0.09** saves **€1,024,505** on 883,727 customers, versus €297,125 at the default 0.5. Full tables: [reports/results.md](reports/results.md).
 <!-- RESULTS:END -->
 
 **What these numbers cover.** Test month: customers whose membership ran out in February 2017,

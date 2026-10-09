@@ -4,7 +4,7 @@
 
 ## The short version
 
-Popular public churn models look far better than they are. When we re-tested three of them the honest way - only using what the company knew on the day of the prediction - their scores fell. The worst one (jsroa15/KKBOX) went from **0.98 to 0.74** on a scale where 0.5 is a coin flip and 1.0 is perfect.
+Popular public churn models look far better than they are. When we re-tested three of them the honest way - only using what the company knew on the day of the prediction - their scores fell. The worst one (jsroa15/KKBOX) went from **0.97 to 0.78** on a scale where 0.5 is a coin flip and 1.0 is perfect.
 
 ## Why the published scores were wrong
 
@@ -19,12 +19,12 @@ That is like predicting who will cancel a gym membership by checking next month'
 
 Our own model, trained only on the past and tested on a later month it had never seen:
 
-- Ranks customers by risk with a score of **0.86** (the simple "who turned off auto-renew" rule scores 0.80).
-- Per 1,000 customers due to renew, it would save about **€1,140** with the threshold set by money, versus €143 with the usual default setting.
+- Ranks customers by risk with a score of **0.87** (the simple "who turned off auto-renew" rule scores 0.80).
+- Per 1,000 customers due to renew, it would save about **€1,159** with the threshold set by money, versus €336 with the usual default setting.
 
 ## Who should get an offer
 
-Send an offer when a customer's chance of leaving is above **9%**, not the default 50%. With an offer costing €5 and a lost customer costing €60, an offer pays for itself if even 1 in 12 recipients would otherwise leave. The default setting sends only 3,321 offers and misses 32,488 of 34,878 leavers; the money-based setting sends 87,085 offers and reaches 24,041 of them.
+Send an offer when a customer's chance of leaving is above **9%**, not the default 50%. With an offer costing €5 and a lost customer costing €60, an offer pays for itself if even 1 in 12 recipients would otherwise leave. The default setting sends only 7,619 offers and misses 29,291 of 34,878 leavers; the money-based setting sends 81,371 offers and reaches 23,856 of them.
 
 ## What to do
 
