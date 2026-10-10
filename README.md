@@ -47,7 +47,7 @@ which customers is it actually worth sending a retention offer to?
 | [apostaremczak/churn-prediction (random forest)](https://github.com/apostaremczak/churn-prediction) | 'Unbalanced' random forest: accuracy 92.7%, F1 0.48 (model_results.json). | 0.989 | 0.826 | −0.163 | `membership_expire_date`, `transaction_date`, `is_cancel` |
 | [naomifridman/Deep-VAE-prediction-of-churn-customer (VAE + KNN)](https://github.com/naomifridman/Deep-VAE-prediction-of-churn-customer) | KNN on a VAE latent space: accuracy 95.0%, churn-class F1 0.66 (notebook output). | 0.973 | 0.804 | −0.169 | `membership_expire_date`, `transaction_date`, `is_cancel` |
 
-Our honest LightGBM on the same test month: AUC **0.872** (auto-renew rule 0.799, nobody-churns baseline 0.500). Money-based threshold **0.09** saves **€1,024,505** on 883,727 customers, versus €297,125 at the default 0.5. Full tables: [reports/results.md](reports/results.md).
+Our honest LightGBM on the same test month: AUC **0.872** (auto-renew rule 0.799, nobody-churns baseline 0.500). Money-based threshold **0.09** saves **€1,025,200** on 883,727 customers, versus €299,035 at the default 0.5. Full tables: [reports/results.md](reports/results.md).
 <!-- RESULTS:END -->
 
 **What these numbers cover.** Test month: customers whose membership ran out in February 2017,
@@ -233,7 +233,7 @@ so the same story can be seen without downloading anything.
 
 ## Tests
 
-`pytest` runs 30 checks (also on every push, via GitHub Actions):
+`pytest` runs 31 checks (also on every push, via GitHub Actions):
 
 - **Leakage (the most important):** for four cut-off dates, every future row is scrambled
   (fake cancels and renewals for every customer, changed payments, wild listening numbers)
@@ -244,7 +244,8 @@ so the same story can be seen without downloading anything.
   and log loss).
 - **Data:** every customer appears once per scoring date; labels are only 0 or 1; scored
   customers' memberships end in the following month; the churn rule gives the hand-worked
-  answer on a four-customer example.
+  answer on a four-customer example; listening is measured per calendar day, so a customer who
+  listens every day looks the same in February as in a 31-day month.
 - **Money:** the savings formula gives the hand-checked answer on a tiny example
   (e.g. offers to 2 customers, 1 leaver: 1 × €60 − 2 × €5 = €50), and the page's banded
   calculation matches the exact one.
@@ -254,7 +255,7 @@ so the same story can be seen without downloading anything.
 ```bash
 pip install -e ".[dev]"      # Python 3.11+
 make sample                   # made-up data in KKBox format (≈1 min)
-make test                     # 30 tests
+make test                     # 31 tests
 make audit                    # steps 1-6, writes reports/, docs/, README results
 make replay-loop              # 15 months of the live simulation (demo data starts Jan 2016)
 make serve                    # monitor at http://localhost:8000
@@ -313,9 +314,6 @@ state/          the replay job's memory between runs
   above for what was kept and changed.
 - The €5 / €60 / 100% figures are assumptions from the brief. The offer's real effect
   should be measured with a random control group before trusting any euro figure.
-- The listening logs come in two files that meet in February 2017. The drift score for that
-  month (0.81) is far above every other month and may come from the join between the files
-  rather than from customers; it does not affect the audit, whose test month is January 2017.
 - One test month (February 2017 expiries). Repeating the audit on other months would show
   how stable the gaps are.
 - KKBox is a Taiwanese music service from 2015–2017. The method transfers; the exact numbers

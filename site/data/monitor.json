@@ -11,6 +11,7 @@
   "save_rate": 1.0
  },
  "model": {
+  "file": "model_v2_loop1.txt",
   "version": 2,
   "trained_on": "2017-01-31",
   "months": [
@@ -21,7 +22,7 @@
    "2016-11-30"
   ],
   "threshold": 0.09,
-  "valid_auc": 0.7613
+  "valid_auc": 0.7607
  },
  "history": [
   {
@@ -31,15 +32,15 @@
    "model_version": 1,
    "threshold": 0.08,
    "n_scored": 803951,
-   "n_offers": 131575,
-   "expected_leavers": 53884.3,
-   "auc": 0.9049,
-   "log_loss": 0.1511,
+   "n_offers": 132249,
+   "expected_leavers": 54334.7,
+   "auc": 0.9047,
+   "log_loss": 0.1516,
    "churn_rate": 0.0429,
-   "saved_eur": 1029385.0,
+   "saved_eur": 1026315.0,
    "checked_on": "2016-09-30",
    "leavers": 34484,
-   "leavers_reached": 28121
+   "leavers_reached": 28126
   },
   {
    "loop": 1,
@@ -48,15 +49,15 @@
    "model_version": 1,
    "threshold": 0.08,
    "n_scored": 848080,
-   "n_offers": 148619,
-   "expected_leavers": 68889.6,
-   "auc": 0.9243,
-   "log_loss": 0.155,
+   "n_offers": 149236,
+   "expected_leavers": 69619.4,
+   "auc": 0.9245,
+   "log_loss": 0.1555,
    "churn_rate": 0.0624,
-   "saved_eur": 1916825.0,
+   "saved_eur": 1914700.0,
    "checked_on": "2016-10-31",
    "leavers": 52920,
-   "leavers_reached": 44332
+   "leavers_reached": 44348
   },
   {
    "loop": 1,
@@ -65,15 +66,15 @@
    "model_version": 1,
    "threshold": 0.08,
    "n_scored": 839471,
-   "n_offers": 127344,
-   "expected_leavers": 47774.7,
+   "n_offers": 125935,
+   "expected_leavers": 47323.6,
    "auc": 0.8896,
-   "log_loss": 0.1312,
+   "log_loss": 0.1305,
    "churn_rate": 0.0383,
-   "saved_eur": 859380.0,
+   "saved_eur": 861985.0,
    "checked_on": "2016-11-30",
    "leavers": 32134,
-   "leavers_reached": 24935
+   "leavers_reached": 24861
   },
   {
    "loop": 1,
@@ -82,15 +83,15 @@
    "model_version": 1,
    "threshold": 0.08,
    "n_scored": 894758,
-   "n_offers": 166085,
-   "expected_leavers": 88366.6,
-   "auc": 0.9549,
-   "log_loss": 0.1301,
+   "n_offers": 166146,
+   "expected_leavers": 89210.5,
+   "auc": 0.9553,
+   "log_loss": 0.1289,
    "churn_rate": 0.0898,
-   "saved_eur": 3553535.0,
+   "saved_eur": 3553590.0,
    "checked_on": "2016-12-31",
    "leavers": 80343,
-   "leavers_reached": 73066
+   "leavers_reached": 73072
   },
   {
    "loop": 1,
@@ -99,15 +100,15 @@
    "model_version": 1,
    "threshold": 0.08,
    "n_scored": 887233,
-   "n_offers": 143735,
-   "expected_leavers": 67063.8,
-   "auc": 0.7661,
-   "log_loss": 0.2357,
+   "n_offers": 142105,
+   "expected_leavers": 66944.4,
+   "auc": 0.7673,
+   "log_loss": 0.234,
    "churn_rate": 0.0805,
-   "saved_eur": 2174765.0,
+   "saved_eur": 2177755.0,
    "checked_on": "2017-01-31",
    "leavers": 71385,
-   "leavers_reached": 48224
+   "leavers_reached": 48138
   },
   {
    "loop": 1,
@@ -116,15 +117,15 @@
    "model_version": 1,
    "threshold": 0.08,
    "n_scored": 872356,
-   "n_offers": 127668,
-   "expected_leavers": 46225.1,
-   "auc": 0.8722,
+   "n_offers": 127595,
+   "expected_leavers": 46411.0,
+   "auc": 0.8718,
    "log_loss": 0.1364,
    "churn_rate": 0.0449,
-   "saved_eur": 1172220.0,
+   "saved_eur": 1172885.0,
    "checked_on": "2017-03-31",
    "leavers": 39212,
-   "leavers_reached": 30176
+   "leavers_reached": 30181
   },
   {
    "loop": 1,
@@ -133,15 +134,15 @@
    "model_version": 2,
    "threshold": 0.09,
    "n_scored": 883727,
-   "n_offers": 82285,
-   "expected_leavers": 32044.8,
+   "n_offers": 83207,
+   "expected_leavers": 32354.1,
    "auc": 0.8692,
    "log_loss": 0.1121,
    "churn_rate": 0.0395,
-   "saved_eur": 1018375.0,
+   "saved_eur": 1020665.0,
    "checked_on": "2017-03-31",
    "leavers": 34878,
-   "leavers_reached": 23830
+   "leavers_reached": 23945
   },
   {
    "loop": 1,
@@ -150,8 +151,8 @@
    "model_version": 2,
    "threshold": 0.09,
    "n_scored": 890266,
-   "n_offers": 146619,
-   "expected_leavers": 50390.5,
+   "n_offers": 143059,
+   "expected_leavers": 48484.0,
    "auc": null,
    "log_loss": null,
    "churn_rate": null,
@@ -164,8 +165,8 @@
    "model_version": 2,
    "threshold": 0.09,
    "n_scored": 908819,
-   "n_offers": 81553,
-   "expected_leavers": 32165.6,
+   "n_offers": 82383,
+   "expected_leavers": 32398.6,
    "auc": null,
    "log_loss": null,
    "churn_rate": null,
@@ -179,7 +180,7 @@
    "type": "retrain",
    "model_version": 1,
    "reason": "first model",
-   "valid_auc": 0.937,
+   "valid_auc": 0.9371,
    "threshold": 0.08
   },
   {
@@ -187,8 +188,8 @@
    "loop": 1,
    "type": "retrain",
    "model_version": 2,
-   "reason": "accuracy (AUC) 0.766 on 2016-11-30 fell below the floor of 0.80",
-   "valid_auc": 0.7613,
+   "reason": "accuracy (AUC) 0.767 on 2016-11-30 fell below the floor of 0.80",
+   "valid_auc": 0.7607,
    "threshold": 0.09
   }
  ],
@@ -210,7 +211,7 @@
    ],
    [
     "days_active_m1",
-    0.0069
+    0.0098
    ],
    [
     "completion_ratio",
@@ -250,7 +251,7 @@
   },
   {
    "date": "2017-02-28",
-   "max_psi": 0.8092
+   "max_psi": 0.1427
   },
   {
    "date": "2017-03-31",
@@ -264,413 +265,437 @@
   "plan_days": "Plan length",
   "tenure_days": "Time as a customer",
   "n_lapses": "Past lapses",
-  "days_active_m1": "Listening days last month",
-  "secs_m1": "Listening time last month",
+  "days_active_m1": "Share of days listened last month",
+  "secs_m1": "Listening time per day last month",
   "completion_ratio": "Songs played to the end",
   "age": "Age",
   "payment_method": "Payment method"
  },
  "offers": {
-  "count": 81553,
+  "count": 82383,
   "total_scored": 908819,
-  "expected_gain_eur": 908636.9,
+  "expected_gain_eur": 917264.92,
   "top": [
    {
-    "customer": "MPUZTHqF/g/E",
-    "chance": 0.989,
-    "expected_gain_eur": 54.32,
-    "expires": "2017-04-30",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
     "customer": "4E0diDHhwd/G",
-    "chance": 0.989,
-    "expected_gain_eur": 54.35,
+    "chance": 0.991,
+    "expected_gain_eur": 54.47,
     "expires": "2017-04-19",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "9brq/aHkAO1V",
-    "chance": 0.988,
-    "expected_gain_eur": 54.3,
-    "expires": "2017-04-26",
-    "auto_renew": 0,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "NkDZKxs66YOY",
-    "chance": 0.987,
-    "expected_gain_eur": 54.23,
-    "expires": "2017-04-05",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "/vcxjrfBfuWq",
-    "chance": 0.986,
-    "expected_gain_eur": 54.18,
+    "customer": "MPUZTHqF/g/E",
+    "chance": 0.991,
+    "expected_gain_eur": 54.49,
     "expires": "2017-04-30",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
+    "customer": "9brq/aHkAO1V",
+    "chance": 0.989,
+    "expected_gain_eur": 54.32,
+    "expires": "2017-04-26",
+    "auto_renew": 0,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "/vcxjrfBfuWq",
+    "chance": 0.989,
+    "expected_gain_eur": 54.31,
+    "expires": "2017-04-30",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "NkDZKxs66YOY",
+    "chance": 0.986,
+    "expected_gain_eur": 54.18,
+    "expires": "2017-04-05",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
     "customer": "1sJDTpymjK9B",
-    "chance": 0.981,
-    "expected_gain_eur": 53.83,
+    "chance": 0.983,
+    "expected_gain_eur": 53.95,
     "expires": "2017-04-02",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "wUhRQAFWEMhn",
-    "chance": 0.977,
-    "expected_gain_eur": 53.62,
-    "expires": "2017-04-02",
-    "auto_renew": 0,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "rLvPRz1PvJeG",
-    "chance": 0.976,
-    "expected_gain_eur": 53.56,
-    "expires": "2017-04-03",
-    "auto_renew": 0,
-    "listening_days_last_month": 0
-   },
-   {
     "customer": "Pku2E8FzdAC+",
-    "chance": 0.973,
-    "expected_gain_eur": 53.4,
+    "chance": 0.981,
+    "expected_gain_eur": 53.84,
     "expires": "2017-04-09",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "Oq6n7Zj5cx9I",
-    "chance": 0.972,
-    "expected_gain_eur": 53.31,
-    "expires": "2017-04-07",
+    "customer": "rLvPRz1PvJeG",
+    "chance": 0.979,
+    "expected_gain_eur": 53.71,
+    "expires": "2017-04-03",
+    "auto_renew": 0,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "wUhRQAFWEMhn",
+    "chance": 0.979,
+    "expected_gain_eur": 53.74,
+    "expires": "2017-04-02",
     "auto_renew": 0,
     "listening_days_last_month": 0
    },
    {
     "customer": "efjcR5Bn0jjl",
-    "chance": 0.971,
-    "expected_gain_eur": 53.25,
+    "chance": 0.973,
+    "expected_gain_eur": 53.4,
     "expires": "2017-04-08",
     "auto_renew": 0,
     "listening_days_last_month": 0
    },
    {
     "customer": "tKMlBZxVmKsN",
-    "chance": 0.97,
-    "expected_gain_eur": 53.21,
+    "chance": 0.972,
+    "expected_gain_eur": 53.3,
     "expires": "2017-04-09",
     "auto_renew": 0,
     "listening_days_last_month": 0
    },
    {
-    "customer": "rCaXLvGPn1uy",
-    "chance": 0.97,
-    "expected_gain_eur": 53.21,
-    "expires": "2017-04-21",
+    "customer": "Oq6n7Zj5cx9I",
+    "chance": 0.972,
+    "expected_gain_eur": 53.32,
+    "expires": "2017-04-07",
     "auto_renew": 0,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "zV/WUr4bNYFN",
-    "chance": 0.969,
-    "expected_gain_eur": 53.12,
-    "expires": "2017-04-13",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "f1XfBJsSZlWL",
-    "chance": 0.967,
-    "expected_gain_eur": 53.04,
-    "expires": "2017-04-12",
-    "auto_renew": 0,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "ovRdmGRv77hv",
-    "chance": 0.966,
-    "expected_gain_eur": 52.97,
-    "expires": "2017-04-23",
-    "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
     "customer": "R9H4Hdquozp7",
-    "chance": 0.966,
-    "expected_gain_eur": 52.97,
+    "chance": 0.971,
+    "expected_gain_eur": 53.26,
     "expires": "2017-04-14",
     "auto_renew": 0,
     "listening_days_last_month": 0
    },
    {
-    "customer": "oXAz2B94gkYs",
-    "chance": 0.965,
-    "expected_gain_eur": 52.92,
-    "expires": "2017-04-05",
-    "auto_renew": 0,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "tbzp/HwabjNd",
-    "chance": 0.964,
-    "expected_gain_eur": 52.86,
-    "expires": "2017-04-03",
-    "auto_renew": 0,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "0FRcIuT/NpOQ",
-    "chance": 0.964,
-    "expected_gain_eur": 52.81,
-    "expires": "2017-04-15",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "e+8mGoAQBq7d",
-    "chance": 0.964,
-    "expected_gain_eur": 52.86,
-    "expires": "2017-04-30",
-    "auto_renew": 1,
-    "listening_days_last_month": 1
-   },
-   {
-    "customer": "hCYErrOD2eAc",
-    "chance": 0.964,
-    "expected_gain_eur": 52.83,
-    "expires": "2017-04-30",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "a2Heg7BSb3HI",
-    "chance": 0.964,
-    "expected_gain_eur": 52.81,
-    "expires": "2017-04-15",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "yV8Guo+MgrsA",
-    "chance": 0.964,
-    "expected_gain_eur": 52.81,
-    "expires": "2017-04-15",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "x5neDmGM/RMr",
-    "chance": 0.964,
-    "expected_gain_eur": 52.81,
-    "expires": "2017-04-15",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "V/lJ5ls19wFm",
-    "chance": 0.963,
-    "expected_gain_eur": 52.77,
-    "expires": "2017-04-28",
-    "auto_renew": 1,
-    "listening_days_last_month": 1
-   },
-   {
-    "customer": "XGT3getR1QpR",
-    "chance": 0.96,
-    "expected_gain_eur": 52.61,
-    "expires": "2017-04-02",
-    "auto_renew": 0,
-    "listening_days_last_month": 0
-   },
-   {
     "customer": "jhBA01YfQ7ZO",
-    "chance": 0.96,
-    "expected_gain_eur": 52.62,
+    "chance": 0.971,
+    "expected_gain_eur": 53.27,
     "expires": "2017-04-26",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "MK2ExN5hy2+6",
-    "chance": 0.959,
-    "expected_gain_eur": 52.55,
+    "customer": "rCaXLvGPn1uy",
+    "chance": 0.97,
+    "expected_gain_eur": 53.22,
+    "expires": "2017-04-21",
+    "auto_renew": 0,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "T0TlddiO4UBM",
+    "chance": 0.97,
+    "expected_gain_eur": 53.18,
+    "expires": "2017-04-30",
+    "auto_renew": 1,
+    "listening_days_last_month": 1
+   },
+   {
+    "customer": "f1XfBJsSZlWL",
+    "chance": 0.969,
+    "expected_gain_eur": 53.15,
+    "expires": "2017-04-12",
+    "auto_renew": 0,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "e+8mGoAQBq7d",
+    "chance": 0.969,
+    "expected_gain_eur": 53.14,
+    "expires": "2017-04-30",
+    "auto_renew": 1,
+    "listening_days_last_month": 1
+   },
+   {
+    "customer": "oXAz2B94gkYs",
+    "chance": 0.967,
+    "expected_gain_eur": 53.03,
+    "expires": "2017-04-05",
+    "auto_renew": 0,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "V/lJ5ls19wFm",
+    "chance": 0.965,
+    "expected_gain_eur": 52.91,
+    "expires": "2017-04-28",
+    "auto_renew": 1,
+    "listening_days_last_month": 1
+   },
+   {
+    "customer": "LJkx048CaLtH",
+    "chance": 0.964,
+    "expected_gain_eur": 52.84,
     "expires": "2017-04-05",
     "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "XGT3getR1QpR",
+    "chance": 0.963,
+    "expected_gain_eur": 52.77,
+    "expires": "2017-04-02",
+    "auto_renew": 0,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "tbzp/HwabjNd",
+    "chance": 0.963,
+    "expected_gain_eur": 52.75,
+    "expires": "2017-04-03",
+    "auto_renew": 0,
     "listening_days_last_month": 0
    },
    {
     "customer": "5bN31E5yQi1B",
-    "chance": 0.959,
-    "expected_gain_eur": 52.55,
+    "chance": 0.962,
+    "expected_gain_eur": 52.74,
     "expires": "2017-04-05",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "2qUrkJLe/Dmv",
-    "chance": 0.959,
-    "expected_gain_eur": 52.55,
+    "customer": "MK2ExN5hy2+6",
+    "chance": 0.962,
+    "expected_gain_eur": 52.74,
     "expires": "2017-04-05",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
     "customer": "uvdNIJy1Iud7",
-    "chance": 0.959,
-    "expected_gain_eur": 52.55,
+    "chance": 0.962,
+    "expected_gain_eur": 52.74,
     "expires": "2017-04-05",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
     "customer": "BLA7TfTr62ig",
-    "chance": 0.959,
-    "expected_gain_eur": 52.55,
+    "chance": 0.962,
+    "expected_gain_eur": 52.74,
     "expires": "2017-04-05",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
     "customer": "0IFq77UVU0Fg",
-    "chance": 0.959,
-    "expected_gain_eur": 52.55,
+    "chance": 0.962,
+    "expected_gain_eur": 52.74,
     "expires": "2017-04-05",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "g3udgSVyF9ow",
-    "chance": 0.958,
-    "expected_gain_eur": 52.47,
-    "expires": "2017-04-11",
+    "customer": "zV/WUr4bNYFN",
+    "chance": 0.962,
+    "expected_gain_eur": 52.71,
+    "expires": "2017-04-13",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "2qUrkJLe/Dmv",
+    "chance": 0.962,
+    "expected_gain_eur": 52.74,
+    "expires": "2017-04-05",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "xnchBNgAAgjj",
+    "chance": 0.96,
+    "expected_gain_eur": 52.57,
+    "expires": "2017-04-02",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "L7hBZcNdhbJ5",
+    "chance": 0.959,
+    "expected_gain_eur": 52.55,
+    "expires": "2017-04-17",
+    "auto_renew": 0,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "Q85x8yxOKPlo",
+    "chance": 0.959,
+    "expected_gain_eur": 52.53,
+    "expires": "2017-04-03",
+    "auto_renew": 0,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "VAtAeDL5ESLk",
+    "chance": 0.959,
+    "expected_gain_eur": 52.54,
+    "expires": "2017-04-14",
+    "auto_renew": 0,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "qZaHj+jAh1ZS",
+    "chance": 0.959,
+    "expected_gain_eur": 52.53,
+    "expires": "2017-04-16",
     "auto_renew": 0,
     "listening_days_last_month": 0
    },
    {
     "customer": "Gr6y9fGPJ99o",
     "chance": 0.958,
-    "expected_gain_eur": 52.46,
+    "expected_gain_eur": 52.51,
     "expires": "2017-04-09",
     "auto_renew": 1,
     "listening_days_last_month": 1
    },
    {
-    "customer": "VAtAeDL5ESLk",
-    "chance": 0.958,
-    "expected_gain_eur": 52.48,
-    "expires": "2017-04-14",
-    "auto_renew": 0,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "Q85x8yxOKPlo",
-    "chance": 0.957,
-    "expected_gain_eur": 52.44,
-    "expires": "2017-04-03",
-    "auto_renew": 0,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "LJkx048CaLtH",
-    "chance": 0.957,
-    "expected_gain_eur": 52.44,
-    "expires": "2017-04-05",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "L7hBZcNdhbJ5",
-    "chance": 0.957,
-    "expected_gain_eur": 52.39,
-    "expires": "2017-04-17",
-    "auto_renew": 0,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "xnchBNgAAgjj",
-    "chance": 0.956,
-    "expected_gain_eur": 52.34,
-    "expires": "2017-04-02",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "gfSF5cjCBlXs",
-    "chance": 0.956,
-    "expected_gain_eur": 52.33,
-    "expires": "2017-04-23",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
     "customer": "w12pjnXK2UPa",
-    "chance": 0.955,
-    "expected_gain_eur": 52.32,
+    "chance": 0.957,
+    "expected_gain_eur": 52.41,
     "expires": "2017-04-11",
     "auto_renew": 0,
     "listening_days_last_month": 0
    },
    {
-    "customer": "T0TlddiO4UBM",
-    "chance": 0.955,
-    "expected_gain_eur": 52.33,
-    "expires": "2017-04-30",
-    "auto_renew": 1,
-    "listening_days_last_month": 1
-   },
-   {
-    "customer": "49ByxxRPGFui",
-    "chance": 0.955,
-    "expected_gain_eur": 52.32,
-    "expires": "2017-04-22",
-    "auto_renew": 0,
-    "listening_days_last_month": 0
-   },
-   {
     "customer": "cTXCEk4/BB/N",
-    "chance": 0.954,
-    "expected_gain_eur": 52.23,
+    "chance": 0.957,
+    "expected_gain_eur": 52.42,
     "expires": "2017-04-01",
     "auto_renew": 1,
     "listening_days_last_month": 2
    },
    {
-    "customer": "fODBDFU3zrCW",
-    "chance": 0.953,
-    "expected_gain_eur": 52.18,
-    "expires": "2017-04-21",
+    "customer": "49ByxxRPGFui",
+    "chance": 0.957,
+    "expected_gain_eur": 52.45,
+    "expires": "2017-04-22",
+    "auto_renew": 0,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "ovRdmGRv77hv",
+    "chance": 0.957,
+    "expected_gain_eur": 52.4,
+    "expires": "2017-04-23",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "g3udgSVyF9ow",
+    "chance": 0.956,
+    "expected_gain_eur": 52.34,
+    "expires": "2017-04-11",
     "auto_renew": 0,
     "listening_days_last_month": 0
    },
    {
     "customer": "HSQfr5/TH/rt",
-    "chance": 0.951,
-    "expected_gain_eur": 52.08,
+    "chance": 0.956,
+    "expected_gain_eur": 52.35,
     "expires": "2017-04-03",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "qZaHj+jAh1ZS",
+    "customer": "a2Heg7BSb3HI",
+    "chance": 0.955,
+    "expected_gain_eur": 52.28,
+    "expires": "2017-04-15",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "yV8Guo+MgrsA",
+    "chance": 0.955,
+    "expected_gain_eur": 52.28,
+    "expires": "2017-04-15",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "0FRcIuT/NpOQ",
+    "chance": 0.955,
+    "expected_gain_eur": 52.28,
+    "expires": "2017-04-15",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "x5neDmGM/RMr",
+    "chance": 0.955,
+    "expected_gain_eur": 52.28,
+    "expires": "2017-04-15",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "hCYErrOD2eAc",
+    "chance": 0.955,
+    "expected_gain_eur": 52.33,
+    "expires": "2017-04-30",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "gfSF5cjCBlXs",
+    "chance": 0.953,
+    "expected_gain_eur": 52.21,
+    "expires": "2017-04-23",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "fODBDFU3zrCW",
+    "chance": 0.952,
+    "expected_gain_eur": 52.11,
+    "expires": "2017-04-21",
+    "auto_renew": 0,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "nM/u+/fPhgvp",
+    "chance": 0.952,
+    "expected_gain_eur": 52.13,
+    "expires": "2017-04-01",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "+HeG2yAFyrdO",
+    "chance": 0.951,
+    "expected_gain_eur": 52.04,
+    "expires": "2017-04-25",
+    "auto_renew": 0,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "mI+FcxXzdYTu",
     "chance": 0.951,
     "expected_gain_eur": 52.08,
-    "expires": "2017-04-16",
+    "expires": "2017-04-10",
     "auto_renew": 0,
     "listening_days_last_month": 0
    },
    {
     "customer": "pcs3uBClq5I0",
-    "chance": 0.95,
-    "expected_gain_eur": 52.03,
+    "chance": 0.951,
+    "expected_gain_eur": 52.07,
     "expires": "2017-04-03",
     "auto_renew": 1,
     "listening_days_last_month": 0
@@ -678,63 +703,55 @@
    {
     "customer": "vVJXRu+/OCRO",
     "chance": 0.949,
-    "expected_gain_eur": 51.93,
+    "expected_gain_eur": 51.92,
     "expires": "2017-04-09",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
     "customer": "Ru7PPdY2EENp",
-    "chance": 0.948,
-    "expected_gain_eur": 51.9,
+    "chance": 0.949,
+    "expected_gain_eur": 51.95,
     "expires": "2017-04-16",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "mI+FcxXzdYTu",
+    "customer": "JvldqG3gp3HB",
     "chance": 0.948,
-    "expected_gain_eur": 51.86,
-    "expires": "2017-04-10",
+    "expected_gain_eur": 51.89,
+    "expires": "2017-04-24",
     "auto_renew": 0,
     "listening_days_last_month": 0
    },
    {
-    "customer": "+HeG2yAFyrdO",
-    "chance": 0.947,
-    "expected_gain_eur": 51.8,
-    "expires": "2017-04-25",
+    "customer": "gQ8Y+FjN9nby",
+    "chance": 0.948,
+    "expected_gain_eur": 51.85,
+    "expires": "2017-04-27",
+    "auto_renew": 1,
+    "listening_days_last_month": 1
+   },
+   {
+    "customer": "5JXBN3+xkO2k",
+    "chance": 0.948,
+    "expected_gain_eur": 51.85,
+    "expires": "2017-04-27",
     "auto_renew": 0,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "dVWndMqZPGfz",
+    "chance": 0.947,
+    "expected_gain_eur": 51.82,
+    "expires": "2017-04-03",
+    "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
     "customer": "8UOVi6RscYIs",
     "chance": 0.947,
-    "expected_gain_eur": 51.84,
-    "expires": "2017-04-05",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "nM/u+/fPhgvp",
-    "chance": 0.947,
-    "expected_gain_eur": 51.79,
-    "expires": "2017-04-01",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "dEQ9Yi0Low0S",
-    "chance": 0.946,
-    "expected_gain_eur": 51.75,
-    "expires": "2017-04-22",
-    "auto_renew": 1,
-    "listening_days_last_month": 1
-   },
-   {
-    "customer": "xv6qA6RpVYKV",
-    "chance": 0.946,
-    "expected_gain_eur": 51.75,
+    "expected_gain_eur": 51.83,
     "expires": "2017-04-05",
     "auto_renew": 1,
     "listening_days_last_month": 0
@@ -742,621 +759,973 @@
    {
     "customer": "DnSl4LN8fdbh",
     "chance": 0.946,
-    "expected_gain_eur": 51.79,
+    "expected_gain_eur": 51.74,
     "expires": "2017-04-26",
     "auto_renew": 0,
     "listening_days_last_month": 0
    },
    {
-    "customer": "5JXBN3+xkO2k",
-    "chance": 0.945,
-    "expected_gain_eur": 51.72,
-    "expires": "2017-04-27",
-    "auto_renew": 0,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "HXEv3y+F9Wjc",
-    "chance": 0.945,
-    "expected_gain_eur": 51.68,
-    "expires": "2017-04-03",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "NyOXtGRlJfeD",
-    "chance": 0.945,
-    "expected_gain_eur": 51.71,
-    "expires": "2017-04-05",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "gQ8Y+FjN9nby",
-    "chance": 0.944,
-    "expected_gain_eur": 51.67,
-    "expires": "2017-04-27",
-    "auto_renew": 1,
-    "listening_days_last_month": 1
-   },
-   {
-    "customer": "JvldqG3gp3HB",
-    "chance": 0.944,
-    "expected_gain_eur": 51.62,
-    "expires": "2017-04-24",
-    "auto_renew": 0,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "CCO1sDHPGcWu",
-    "chance": 0.943,
-    "expected_gain_eur": 51.56,
-    "expires": "2017-04-06",
-    "auto_renew": 0,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "wOavxLJpDWns",
-    "chance": 0.943,
-    "expected_gain_eur": 51.58,
-    "expires": "2017-04-04",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "65ZJeNgeSRGh",
-    "chance": 0.943,
-    "expected_gain_eur": 51.57,
-    "expires": "2017-04-05",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "dVWndMqZPGfz",
-    "chance": 0.943,
-    "expected_gain_eur": 51.59,
-    "expires": "2017-04-03",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
     "customer": "qoRL2hYnqOP2",
-    "chance": 0.942,
-    "expected_gain_eur": 51.5,
+    "chance": 0.946,
+    "expected_gain_eur": 51.75,
     "expires": "2017-04-09",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "vLPY4lSpY1Ei",
-    "chance": 0.942,
-    "expected_gain_eur": 51.52,
-    "expires": "2017-04-05",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "MafDFrBHqfEm",
-    "chance": 0.942,
-    "expected_gain_eur": 51.5,
-    "expires": "2017-04-02",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "S7XXJQ8TAmAg",
-    "chance": 0.942,
-    "expected_gain_eur": 51.52,
-    "expires": "2017-04-01",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "fkHQQzhL4Kmv",
-    "chance": 0.941,
-    "expected_gain_eur": 51.47,
-    "expires": "2017-04-01",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "/V2ofZf0yJdZ",
-    "chance": 0.941,
-    "expected_gain_eur": 51.47,
-    "expires": "2017-04-17",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "wH9nIhDI2sQb",
-    "chance": 0.941,
-    "expected_gain_eur": 51.47,
-    "expires": "2017-04-03",
+    "customer": "CCO1sDHPGcWu",
+    "chance": 0.945,
+    "expected_gain_eur": 51.68,
+    "expires": "2017-04-06",
     "auto_renew": 0,
     "listening_days_last_month": 0
    },
    {
-    "customer": "nsI+K9jLdpPx",
-    "chance": 0.941,
-    "expected_gain_eur": 51.46,
-    "expires": "2017-04-01",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
     "customer": "0mIcH2qXBr4G",
-    "chance": 0.941,
-    "expected_gain_eur": 51.45,
+    "chance": 0.944,
+    "expected_gain_eur": 51.64,
     "expires": "2017-04-06",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "eJBHNScS/eET",
-    "chance": 0.941,
-    "expected_gain_eur": 51.44,
-    "expires": "2017-04-04",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "bW3H4YHq5Qx8",
-    "chance": 0.94,
-    "expected_gain_eur": 51.4,
-    "expires": "2017-04-17",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "S/yApHEtukEp",
-    "chance": 0.94,
-    "expected_gain_eur": 51.4,
-    "expires": "2017-04-17",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "YZ3+gj1Otbd2",
-    "chance": 0.94,
-    "expected_gain_eur": 51.39,
-    "expires": "2017-04-19",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "LSgpRwpfDTvt",
-    "chance": 0.939,
-    "expected_gain_eur": 51.35,
-    "expires": "2017-04-28",
-    "auto_renew": 0,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "aZfBFM4Idn/1",
-    "chance": 0.939,
-    "expected_gain_eur": 51.36,
-    "expires": "2017-04-17",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "/5Ojw4zFIxW7",
-    "chance": 0.938,
-    "expected_gain_eur": 51.26,
-    "expires": "2017-04-07",
-    "auto_renew": 0,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "9FxRsBXeldOJ",
-    "chance": 0.937,
-    "expected_gain_eur": 51.23,
-    "expires": "2017-04-18",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "0njwGf6b6lFo",
-    "chance": 0.937,
-    "expected_gain_eur": 51.23,
-    "expires": "2017-04-15",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "5OB4gVSDaFGU",
-    "chance": 0.937,
-    "expected_gain_eur": 51.22,
-    "expires": "2017-04-22",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
     "customer": "ezoiioPNLIjF",
-    "chance": 0.937,
-    "expected_gain_eur": 51.22,
+    "chance": 0.944,
+    "expected_gain_eur": 51.62,
     "expires": "2017-04-24",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
+    "customer": "/V2ofZf0yJdZ",
+    "chance": 0.944,
+    "expected_gain_eur": 51.66,
+    "expires": "2017-04-17",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "6H/Wu8Riig7e",
+    "chance": 0.943,
+    "expected_gain_eur": 51.57,
+    "expires": "2017-04-20",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "luaIoHSy1WwE",
+    "chance": 0.943,
+    "expected_gain_eur": 51.55,
+    "expires": "2017-04-11",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "YF2MvxW0yC7t",
+    "chance": 0.943,
+    "expected_gain_eur": 51.59,
+    "expires": "2017-04-18",
+    "auto_renew": 0,
+    "listening_days_last_month": 0
+   },
+   {
     "customer": "U1ZHeHQ8Dfnt",
-    "chance": 0.937,
-    "expected_gain_eur": 51.2,
+    "chance": 0.943,
+    "expected_gain_eur": 51.58,
     "expires": "2017-04-18",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "Q5XCy2m0RHhi",
-    "chance": 0.937,
-    "expected_gain_eur": 51.23,
-    "expires": "2017-04-12",
+    "customer": "S/yApHEtukEp",
+    "chance": 0.943,
+    "expected_gain_eur": 51.56,
+    "expires": "2017-04-17",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "tUr+KYKyP8kx",
-    "chance": 0.936,
-    "expected_gain_eur": 51.17,
-    "expires": "2017-04-29",
-    "auto_renew": 0,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "rbWDVV2j+dK9",
-    "chance": 0.936,
-    "expected_gain_eur": 51.15,
+    "customer": "xv6qA6RpVYKV",
+    "chance": 0.943,
+    "expected_gain_eur": 51.6,
     "expires": "2017-04-05",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
+    "customer": "EpQBiBEe+pdd",
+    "chance": 0.943,
+    "expected_gain_eur": 51.55,
+    "expires": "2017-04-07",
+    "auto_renew": 0,
+    "listening_days_last_month": 1
+   },
+   {
+    "customer": "YZ3+gj1Otbd2",
+    "chance": 0.943,
+    "expected_gain_eur": 51.59,
+    "expires": "2017-04-19",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "dEQ9Yi0Low0S",
+    "chance": 0.943,
+    "expected_gain_eur": 51.56,
+    "expires": "2017-04-22",
+    "auto_renew": 1,
+    "listening_days_last_month": 1
+   },
+   {
+    "customer": "bW3H4YHq5Qx8",
+    "chance": 0.943,
+    "expected_gain_eur": 51.56,
+    "expires": "2017-04-17",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "5OB4gVSDaFGU",
+    "chance": 0.942,
+    "expected_gain_eur": 51.53,
+    "expires": "2017-04-22",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "NyOXtGRlJfeD",
+    "chance": 0.942,
+    "expected_gain_eur": 51.53,
+    "expires": "2017-04-05",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "aZfBFM4Idn/1",
+    "chance": 0.942,
+    "expected_gain_eur": 51.52,
+    "expires": "2017-04-17",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "Q5XCy2m0RHhi",
+    "chance": 0.942,
+    "expected_gain_eur": 51.52,
+    "expires": "2017-04-12",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "HXEv3y+F9Wjc",
+    "chance": 0.942,
+    "expected_gain_eur": 51.52,
+    "expires": "2017-04-03",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "0njwGf6b6lFo",
+    "chance": 0.942,
+    "expected_gain_eur": 51.52,
+    "expires": "2017-04-15",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "wH9nIhDI2sQb",
+    "chance": 0.942,
+    "expected_gain_eur": 51.53,
+    "expires": "2017-04-03",
+    "auto_renew": 0,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "wZjsukbsL7XG",
+    "chance": 0.942,
+    "expected_gain_eur": 51.49,
+    "expires": "2017-04-27",
+    "auto_renew": 0,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "xtC8oaWoCJky",
+    "chance": 0.942,
+    "expected_gain_eur": 51.49,
+    "expires": "2017-04-21",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "9FxRsBXeldOJ",
+    "chance": 0.941,
+    "expected_gain_eur": 51.44,
+    "expires": "2017-04-18",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
     "customer": "22IL1VogoBU+",
-    "chance": 0.936,
-    "expected_gain_eur": 51.15,
+    "chance": 0.941,
+    "expected_gain_eur": 51.44,
     "expires": "2017-04-13",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
     "customer": "JSkrtirU87fq",
-    "chance": 0.936,
-    "expected_gain_eur": 51.15,
+    "chance": 0.941,
+    "expected_gain_eur": 51.44,
     "expires": "2017-04-13",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "wZjsukbsL7XG",
-    "chance": 0.936,
-    "expected_gain_eur": 51.14,
-    "expires": "2017-04-27",
+    "customer": "LSgpRwpfDTvt",
+    "chance": 0.941,
+    "expected_gain_eur": 51.43,
+    "expires": "2017-04-28",
     "auto_renew": 0,
     "listening_days_last_month": 0
    },
    {
-    "customer": "EpQBiBEe+pdd",
-    "chance": 0.936,
-    "expected_gain_eur": 51.14,
-    "expires": "2017-04-07",
-    "auto_renew": 0,
-    "listening_days_last_month": 1
-   },
-   {
-    "customer": "luaIoHSy1WwE",
-    "chance": 0.935,
-    "expected_gain_eur": 51.12,
-    "expires": "2017-04-11",
+    "customer": "S7XXJQ8TAmAg",
+    "chance": 0.94,
+    "expected_gain_eur": 51.39,
+    "expires": "2017-04-01",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
+    "customer": "/5Ojw4zFIxW7",
+    "chance": 0.94,
+    "expected_gain_eur": 51.37,
+    "expires": "2017-04-07",
+    "auto_renew": 0,
+    "listening_days_last_month": 0
+   },
+   {
     "customer": "r7A9vREsvY1Y",
-    "chance": 0.935,
-    "expected_gain_eur": 51.08,
+    "chance": 0.94,
+    "expected_gain_eur": 51.4,
     "expires": "2017-04-09",
     "auto_renew": 0,
     "listening_days_last_month": 1
    },
    {
+    "customer": "65ZJeNgeSRGh",
+    "chance": 0.94,
+    "expected_gain_eur": 51.4,
+    "expires": "2017-04-05",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
     "customer": "NNhSfOmMAGMB",
-    "chance": 0.934,
-    "expected_gain_eur": 51.02,
+    "chance": 0.94,
+    "expected_gain_eur": 51.39,
     "expires": "2017-04-25",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "eJBHNScS/eET",
+    "chance": 0.939,
+    "expected_gain_eur": 51.31,
+    "expires": "2017-04-04",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "fkHQQzhL4Kmv",
+    "chance": 0.939,
+    "expected_gain_eur": 51.35,
+    "expires": "2017-04-01",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "TKF820StgfNL",
+    "chance": 0.939,
+    "expected_gain_eur": 51.32,
+    "expires": "2017-04-11",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "wOavxLJpDWns",
+    "chance": 0.938,
+    "expected_gain_eur": 51.26,
+    "expires": "2017-04-04",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "vLPY4lSpY1Ei",
+    "chance": 0.938,
+    "expected_gain_eur": 51.28,
+    "expires": "2017-04-05",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "zS5iShHVDCo7",
+    "chance": 0.938,
+    "expected_gain_eur": 51.27,
+    "expires": "2017-04-05",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "Z5mVdnoAyYi/",
+    "chance": 0.938,
+    "expected_gain_eur": 51.3,
+    "expires": "2017-04-07",
+    "auto_renew": 0,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "9DyVgyERmJT4",
+    "chance": 0.938,
+    "expected_gain_eur": 51.27,
+    "expires": "2017-04-26",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "MafDFrBHqfEm",
+    "chance": 0.937,
+    "expected_gain_eur": 51.21,
+    "expires": "2017-04-02",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "lJpqEVs5psDW",
+    "chance": 0.937,
+    "expected_gain_eur": 51.23,
+    "expires": "2017-04-21",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "tUr+KYKyP8kx",
+    "chance": 0.937,
+    "expected_gain_eur": 51.22,
+    "expires": "2017-04-29",
+    "auto_renew": 0,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "yklK1SujK9y4",
+    "chance": 0.937,
+    "expected_gain_eur": 51.22,
+    "expires": "2017-04-05",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "2M3j1WNrTkAx",
+    "chance": 0.936,
+    "expected_gain_eur": 51.17,
+    "expires": "2017-04-07",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "nsI+K9jLdpPx",
+    "chance": 0.936,
+    "expected_gain_eur": 51.19,
+    "expires": "2017-04-01",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "CuMRW2TsxFUN",
+    "chance": 0.936,
+    "expected_gain_eur": 51.14,
+    "expires": "2017-04-27",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "jspwye0bzc2h",
+    "chance": 0.936,
+    "expected_gain_eur": 51.14,
+    "expires": "2017-04-10",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "uZcIcXpb5ehu",
+    "chance": 0.935,
+    "expected_gain_eur": 51.12,
+    "expires": "2017-04-09",
+    "auto_renew": 0,
+    "listening_days_last_month": 1
+   },
+   {
+    "customer": "R1tN5HdfED1m",
+    "chance": 0.935,
+    "expected_gain_eur": 51.11,
+    "expires": "2017-04-24",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "rbWDVV2j+dK9",
+    "chance": 0.935,
+    "expected_gain_eur": 51.1,
+    "expires": "2017-04-05",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "vXM2JK/hBpgI",
+    "chance": 0.934,
+    "expected_gain_eur": 51.04,
+    "expires": "2017-04-17",
+    "auto_renew": 0,
+    "listening_days_last_month": 1
+   },
+   {
+    "customer": "GKlf7842zV5N",
+    "chance": 0.934,
+    "expected_gain_eur": 51.04,
+    "expires": "2017-04-06",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "KyaOvXaGPnt9",
+    "chance": 0.934,
+    "expected_gain_eur": 51.07,
+    "expires": "2017-04-27",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
     "customer": "Thc/ya9b8tdc",
     "chance": 0.934,
-    "expected_gain_eur": 51.03,
+    "expected_gain_eur": 51.06,
     "expires": "2017-04-06",
     "auto_renew": 0,
     "listening_days_last_month": 1
    },
    {
-    "customer": "2M3j1WNrTkAx",
-    "chance": 0.934,
-    "expected_gain_eur": 51.03,
-    "expires": "2017-04-07",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "RiMgZAb7IHT0",
-    "chance": 0.933,
-    "expected_gain_eur": 51.0,
-    "expires": "2017-04-05",
-    "auto_renew": 1,
-    "listening_days_last_month": 1
-   },
-   {
-    "customer": "YF2MvxW0yC7t",
-    "chance": 0.933,
-    "expected_gain_eur": 51.0,
-    "expires": "2017-04-18",
-    "auto_renew": 0,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "6H/Wu8Riig7e",
-    "chance": 0.932,
-    "expected_gain_eur": 50.92,
-    "expires": "2017-04-20",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "lJpqEVs5psDW",
-    "chance": 0.932,
-    "expected_gain_eur": 50.94,
-    "expires": "2017-04-21",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "OONXe1XeSCAw",
-    "chance": 0.932,
-    "expected_gain_eur": 50.94,
-    "expires": "2017-04-04",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "jspwye0bzc2h",
-    "chance": 0.931,
-    "expected_gain_eur": 50.89,
-    "expires": "2017-04-10",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "9DyVgyERmJT4",
-    "chance": 0.931,
-    "expected_gain_eur": 50.84,
-    "expires": "2017-04-26",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "vXM2JK/hBpgI",
-    "chance": 0.93,
-    "expected_gain_eur": 50.81,
-    "expires": "2017-04-17",
-    "auto_renew": 0,
-    "listening_days_last_month": 1
-   },
-   {
     "customer": "ZeRZ64qSR3Q2",
-    "chance": 0.93,
-    "expected_gain_eur": 50.82,
+    "chance": 0.933,
+    "expected_gain_eur": 50.97,
     "expires": "2017-04-15",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
     "customer": "MUkTwSYFgcXr",
-    "chance": 0.93,
-    "expected_gain_eur": 50.79,
+    "chance": 0.933,
+    "expected_gain_eur": 51.01,
     "expires": "2017-04-10",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "Ckz6qxx9UxTn",
-    "chance": 0.93,
-    "expected_gain_eur": 50.8,
-    "expires": "2017-04-04",
+    "customer": "CLdc/e4MMlcn",
+    "chance": 0.933,
+    "expected_gain_eur": 50.98,
+    "expires": "2017-04-30",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "Ea6ppNI97s8V",
+    "chance": 0.933,
+    "expected_gain_eur": 51.0,
+    "expires": "2017-04-14",
+    "auto_renew": 0,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "SY/G+LGKcuLd",
+    "chance": 0.933,
+    "expected_gain_eur": 50.97,
+    "expires": "2017-04-27",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "y63f7jVV5gfT",
+    "chance": 0.933,
+    "expected_gain_eur": 50.96,
+    "expires": "2017-04-18",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "qrGWxo11s/Kj",
+    "chance": 0.932,
+    "expected_gain_eur": 50.92,
+    "expires": "2017-04-15",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
     "customer": "Fo1dvI6ax3Vo",
-    "chance": 0.93,
-    "expected_gain_eur": 50.81,
+    "chance": 0.932,
+    "expected_gain_eur": 50.95,
     "expires": "2017-04-21",
     "auto_renew": 0,
     "listening_days_last_month": 0
    },
    {
-    "customer": "R1tN5HdfED1m",
+    "customer": "lmWS3sNR5wdh",
+    "chance": 0.932,
+    "expected_gain_eur": 50.9,
+    "expires": "2017-04-06",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "1pGSFSVgVu8z",
+    "chance": 0.932,
+    "expected_gain_eur": 50.9,
+    "expires": "2017-04-09",
+    "auto_renew": 0,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "h12VvIQpI6Zy",
+    "chance": 0.931,
+    "expected_gain_eur": 50.88,
+    "expires": "2017-04-09",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "NU4vRjVNNtDS",
+    "chance": 0.931,
+    "expected_gain_eur": 50.88,
+    "expires": "2017-04-22",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "lfL7NSlyh4Wc",
+    "chance": 0.931,
+    "expected_gain_eur": 50.86,
+    "expires": "2017-04-11",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "75M5nqGRhvwQ",
+    "chance": 0.931,
+    "expected_gain_eur": 50.87,
+    "expires": "2017-04-08",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "QCcj6+Os6Xmv",
+    "chance": 0.931,
+    "expected_gain_eur": 50.86,
+    "expires": "2017-04-23",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "OONXe1XeSCAw",
+    "chance": 0.931,
+    "expected_gain_eur": 50.86,
+    "expires": "2017-04-04",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "2inR27z55Q8l",
+    "chance": 0.931,
+    "expected_gain_eur": 50.87,
+    "expires": "2017-04-19",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "ohApKAsKgw/L",
+    "chance": 0.931,
+    "expected_gain_eur": 50.87,
+    "expires": "2017-04-22",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "S1a4YrsYPfzj",
     "chance": 0.93,
-    "expected_gain_eur": 50.81,
-    "expires": "2017-04-24",
+    "expected_gain_eur": 50.79,
+    "expires": "2017-04-12",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "TaqtxWa8458q",
+    "chance": 0.93,
+    "expected_gain_eur": 50.83,
+    "expires": "2017-04-15",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "1O8ncsbXeBwM",
+    "chance": 0.93,
+    "expected_gain_eur": 50.79,
+    "expires": "2017-04-03",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "58+637ATHoex",
+    "chance": 0.93,
+    "expected_gain_eur": 50.79,
+    "expires": "2017-04-01",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
     "customer": "pyzKpq0hijqD",
     "chance": 0.93,
-    "expected_gain_eur": 50.81,
+    "expected_gain_eur": 50.8,
     "expires": "2017-04-11",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "TaqtxWa8458q",
-    "chance": 0.929,
-    "expected_gain_eur": 50.73,
-    "expires": "2017-04-15",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "CuMRW2TsxFUN",
-    "chance": 0.929,
-    "expected_gain_eur": 50.75,
-    "expires": "2017-04-27",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "Z5mVdnoAyYi/",
-    "chance": 0.929,
-    "expected_gain_eur": 50.76,
-    "expires": "2017-04-07",
-    "auto_renew": 0,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "KyaOvXaGPnt9",
-    "chance": 0.929,
-    "expected_gain_eur": 50.72,
-    "expires": "2017-04-27",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "GKlf7842zV5N",
-    "chance": 0.929,
-    "expected_gain_eur": 50.75,
+    "customer": "xFq0HMQBjj7v",
+    "chance": 0.93,
+    "expected_gain_eur": 50.83,
     "expires": "2017-04-06",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "2GIAL/hiu5Ap",
-    "chance": 0.928,
-    "expected_gain_eur": 50.68,
-    "expires": "2017-04-03",
+    "customer": "aVMipJu+/pNG",
+    "chance": 0.929,
+    "expected_gain_eur": 50.74,
+    "expires": "2017-04-21",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "75M5nqGRhvwQ",
-    "chance": 0.928,
-    "expected_gain_eur": 50.67,
-    "expires": "2017-04-08",
+    "customer": "J48CQxk8sed/",
+    "chance": 0.929,
+    "expected_gain_eur": 50.75,
+    "expires": "2017-04-13",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "2inR27z55Q8l",
+    "customer": "RiMgZAb7IHT0",
+    "chance": 0.929,
+    "expected_gain_eur": 50.74,
+    "expires": "2017-04-05",
+    "auto_renew": 1,
+    "listening_days_last_month": 1
+   },
+   {
+    "customer": "PXuYfBseirBJ",
+    "chance": 0.929,
+    "expected_gain_eur": 50.77,
+    "expires": "2017-04-07",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "m9b5IxiYWHZR",
+    "chance": 0.929,
+    "expected_gain_eur": 50.75,
+    "expires": "2017-04-14",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "kPjmXtFLjBop",
+    "chance": 0.929,
+    "expected_gain_eur": 50.75,
+    "expires": "2017-04-20",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "Gx6H8QKo8aCk",
+    "chance": 0.929,
+    "expected_gain_eur": 50.76,
+    "expires": "2017-04-28",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "doSrDbt73T6E",
+    "chance": 0.929,
+    "expected_gain_eur": 50.74,
+    "expires": "2017-04-15",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "9PUzeAv4ji96",
+    "chance": 0.929,
+    "expected_gain_eur": 50.71,
+    "expires": "2017-04-20",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "ta3jAhVq2Lzt",
     "chance": 0.928,
-    "expected_gain_eur": 50.7,
-    "expires": "2017-04-19",
+    "expected_gain_eur": 50.69,
+    "expires": "2017-04-24",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "4xnjXFLcs2Q1",
+    "chance": 0.928,
+    "expected_gain_eur": 50.66,
+    "expires": "2017-04-22",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
     "customer": "vJdYY9vW18Az",
     "chance": 0.928,
-    "expected_gain_eur": 50.7,
+    "expected_gain_eur": 50.66,
     "expires": "2017-04-20",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "y63f7jVV5gfT",
-    "chance": 0.927,
-    "expected_gain_eur": 50.62,
+    "customer": "O/cqgjas1i4E",
+    "chance": 0.928,
+    "expected_gain_eur": 50.66,
+    "expires": "2017-04-25",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "fQef3x9yrVHf",
+    "chance": 0.928,
+    "expected_gain_eur": 50.67,
+    "expires": "2017-04-19",
+    "auto_renew": 0,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "3VY1g7iimxl2",
+    "chance": 0.928,
+    "expected_gain_eur": 50.66,
+    "expires": "2017-04-14",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "8XTX60MeeeUc",
+    "chance": 0.928,
+    "expected_gain_eur": 50.67,
+    "expires": "2017-04-25",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "JraBL1lHqfuU",
+    "chance": 0.928,
+    "expected_gain_eur": 50.69,
+    "expires": "2017-04-23",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "Pr0CnZ87PjjZ",
+    "chance": 0.928,
+    "expected_gain_eur": 50.66,
+    "expires": "2017-04-16",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "09VFgErA63UJ",
+    "chance": 0.928,
+    "expected_gain_eur": 50.69,
+    "expires": "2017-04-24",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "R5Bbol/Z5nIj",
+    "chance": 0.928,
+    "expected_gain_eur": 50.7,
     "expires": "2017-04-18",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "CLdc/e4MMlcn",
+    "customer": "ofKECOWor5+r",
     "chance": 0.927,
     "expected_gain_eur": 50.6,
-    "expires": "2017-04-30",
+    "expires": "2017-04-28",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "SY/G+LGKcuLd",
+    "customer": "uQMY3AqYep9N",
     "chance": 0.927,
-    "expected_gain_eur": 50.63,
-    "expires": "2017-04-27",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "J48CQxk8sed/",
-    "chance": 0.926,
-    "expected_gain_eur": 50.59,
-    "expires": "2017-04-13",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "S1a4YrsYPfzj",
-    "chance": 0.926,
-    "expected_gain_eur": 50.54,
+    "expected_gain_eur": 50.65,
     "expires": "2017-04-12",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "lfL7NSlyh4Wc",
-    "chance": 0.926,
-    "expected_gain_eur": 50.58,
-    "expires": "2017-04-11",
+    "customer": "gC1dmmfDmLxl",
+    "chance": 0.927,
+    "expected_gain_eur": 50.63,
+    "expires": "2017-04-29",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "doSrDbt73T6E",
+    "customer": "j+OYkfPHUMWf",
+    "chance": 0.927,
+    "expected_gain_eur": 50.61,
+    "expires": "2017-04-07",
+    "auto_renew": 0,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "yPl3i6xeyl3w",
+    "chance": 0.927,
+    "expected_gain_eur": 50.61,
+    "expires": "2017-04-24",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "FMNL+BteWCJe",
+    "chance": 0.927,
+    "expected_gain_eur": 50.62,
+    "expires": "2017-04-25",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "icW+hTjNwnyf",
+    "chance": 0.926,
+    "expected_gain_eur": 50.59,
+    "expires": "2017-04-19",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "Rk+EcHSu4SqB",
+    "chance": 0.926,
+    "expected_gain_eur": 50.55,
+    "expires": "2017-04-08",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "pmZUR4JvjpqE",
+    "chance": 0.926,
+    "expected_gain_eur": 50.55,
+    "expires": "2017-04-18",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "lfZNLg3hUlc5",
+    "chance": 0.926,
+    "expected_gain_eur": 50.58,
+    "expires": "2017-04-30",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "tnJzAlRIXHJ/",
+    "chance": 0.926,
+    "expected_gain_eur": 50.58,
+    "expires": "2017-04-30",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "vsRqx3PBWIbO",
+    "chance": 0.926,
+    "expected_gain_eur": 50.53,
+    "expires": "2017-04-07",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "Ckz6qxx9UxTn",
+    "chance": 0.926,
+    "expected_gain_eur": 50.56,
+    "expires": "2017-04-04",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "CBxgyVnCvbT/",
     "chance": 0.925,
     "expected_gain_eur": 50.48,
-    "expires": "2017-04-15",
+    "expires": "2017-04-18",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
     "customer": "FCyeulNKeDoY",
     "chance": 0.925,
-    "expected_gain_eur": 50.49,
+    "expected_gain_eur": 50.51,
     "expires": "2017-04-14",
     "auto_renew": 0,
     "listening_days_last_month": 2
    },
    {
-    "customer": "aVMipJu+/pNG",
-    "chance": 0.925,
-    "expected_gain_eur": 50.47,
-    "expires": "2017-04-21",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "h12VvIQpI6Zy",
+    "customer": "70WNDcXQeesE",
     "chance": 0.925,
     "expected_gain_eur": 50.49,
-    "expires": "2017-04-09",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "m9b5IxiYWHZR",
-    "chance": 0.925,
-    "expected_gain_eur": 50.52,
     "expires": "2017-04-14",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "PXuYfBseirBJ",
+    "customer": "/Z7j6dX6POJ1",
+    "chance": 0.925,
+    "expected_gain_eur": 50.53,
+    "expires": "2017-04-20",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "mYIaAEhgXlve",
+    "chance": 0.925,
+    "expected_gain_eur": 50.51,
+    "expires": "2017-04-17",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "YxPd6ueL0cbq",
+    "chance": 0.925,
+    "expected_gain_eur": 50.47,
+    "expires": "2017-04-18",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "SVE7A1qEWdt0",
+    "chance": 0.925,
+    "expected_gain_eur": 50.5,
+    "expires": "2017-04-17",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "nu0SZEkqEolD",
     "chance": 0.925,
     "expected_gain_eur": 50.49,
     "expires": "2017-04-07",
@@ -1364,47 +1733,55 @@
     "listening_days_last_month": 0
    },
    {
-    "customer": "qrGWxo11s/Kj",
+    "customer": "1///GSsaGMq8",
+    "chance": 0.925,
+    "expected_gain_eur": 50.51,
+    "expires": "2017-04-29",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "gqI3fXG1DpYB",
     "chance": 0.925,
     "expected_gain_eur": 50.48,
+    "expires": "2017-04-01",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "48O9ygNow540",
+    "chance": 0.924,
+    "expected_gain_eur": 50.42,
+    "expires": "2017-04-12",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "zPHyoBvAFjT1",
+    "chance": 0.924,
+    "expected_gain_eur": 50.46,
+    "expires": "2017-04-06",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "yjr8PDe++nHd",
+    "chance": 0.924,
+    "expected_gain_eur": 50.46,
+    "expires": "2017-04-14",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "tklFayxmrY7E",
+    "chance": 0.924,
+    "expected_gain_eur": 50.46,
     "expires": "2017-04-15",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "8XTX60MeeeUc",
-    "chance": 0.925,
-    "expected_gain_eur": 50.52,
-    "expires": "2017-04-25",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "1pGSFSVgVu8z",
-    "chance": 0.924,
-    "expected_gain_eur": 50.45,
-    "expires": "2017-04-09",
-    "auto_renew": 0,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "Gx6H8QKo8aCk",
-    "chance": 0.924,
-    "expected_gain_eur": 50.43,
-    "expires": "2017-04-28",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "pmZUR4JvjpqE",
-    "chance": 0.924,
-    "expected_gain_eur": 50.46,
-    "expires": "2017-04-18",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "R5Bbol/Z5nIj",
+    "customer": "BfCNSlOCWSbJ",
     "chance": 0.924,
     "expected_gain_eur": 50.44,
     "expires": "2017-04-18",
@@ -1412,111 +1789,63 @@
     "listening_days_last_month": 0
    },
    {
-    "customer": "6i0rGJb+gObF",
-    "chance": 0.924,
-    "expected_gain_eur": 50.45,
-    "expires": "2017-04-04",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "yklK1SujK9y4",
+    "customer": "MH+DpkFmkpHx",
     "chance": 0.924,
     "expected_gain_eur": 50.47,
-    "expires": "2017-04-05",
+    "expires": "2017-04-26",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "Pr0CnZ87PjjZ",
+    "customer": "QQy/7marlc6w",
     "chance": 0.924,
-    "expected_gain_eur": 50.44,
+    "expected_gain_eur": 50.43,
+    "expires": "2017-04-26",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "GwXHUAs+a5gn",
+    "chance": 0.924,
+    "expected_gain_eur": 50.46,
+    "expires": "2017-04-06",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "L+RMX9srWOxW",
+    "chance": 0.924,
+    "expected_gain_eur": 50.41,
+    "expires": "2017-04-23",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "6OzkXN2uf2Uy",
+    "chance": 0.924,
+    "expected_gain_eur": 50.43,
+    "expires": "2017-04-17",
+    "auto_renew": 1,
+    "listening_days_last_month": 0
+   },
+   {
+    "customer": "tvT0D9ZjPHZO",
+    "chance": 0.923,
+    "expected_gain_eur": 50.39,
     "expires": "2017-04-16",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "kPjmXtFLjBop",
-    "chance": 0.924,
-    "expected_gain_eur": 50.42,
-    "expires": "2017-04-20",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "fQef3x9yrVHf",
-    "chance": 0.924,
-    "expected_gain_eur": 50.45,
-    "expires": "2017-04-19",
-    "auto_renew": 0,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "58+637ATHoex",
-    "chance": 0.924,
-    "expected_gain_eur": 50.45,
-    "expires": "2017-04-01",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "Rk+EcHSu4SqB",
+    "customer": "Gs2S4qPo9TpR",
     "chance": 0.923,
     "expected_gain_eur": 50.39,
-    "expires": "2017-04-08",
+    "expires": "2017-04-14",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "hijqkCG4JzVD",
-    "chance": 0.923,
-    "expected_gain_eur": 50.4,
-    "expires": "2017-04-01",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "9PUzeAv4ji96",
-    "chance": 0.923,
-    "expected_gain_eur": 50.41,
-    "expires": "2017-04-20",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "TKF820StgfNL",
-    "chance": 0.923,
-    "expected_gain_eur": 50.4,
-    "expires": "2017-04-11",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "nu0SZEkqEolD",
-    "chance": 0.923,
-    "expected_gain_eur": 50.4,
-    "expires": "2017-04-07",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "O/cqgjas1i4E",
-    "chance": 0.923,
-    "expected_gain_eur": 50.4,
-    "expires": "2017-04-25",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "Nrf493KtFwob",
-    "chance": 0.923,
-    "expected_gain_eur": 50.4,
-    "expires": "2017-04-13",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "QCcj6+Os6Xmv",
+    "customer": "jWoqEmBV+lH+",
     "chance": 0.923,
     "expected_gain_eur": 50.38,
     "expires": "2017-04-23",
@@ -1524,354 +1853,26 @@
     "listening_days_last_month": 0
    },
    {
-    "customer": "2fDdtFx2/5Lk",
+    "customer": "+zLvgLovVpSU",
     "chance": 0.923,
-    "expected_gain_eur": 50.35,
-    "expires": "2017-04-03",
+    "expected_gain_eur": 50.4,
+    "expires": "2017-04-25",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
-    "customer": "CBxgyVnCvbT/",
-    "chance": 0.922,
-    "expected_gain_eur": 50.31,
-    "expires": "2017-04-18",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "ohApKAsKgw/L",
-    "chance": 0.922,
-    "expected_gain_eur": 50.32,
-    "expires": "2017-04-22",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "YxPd6ueL0cbq",
-    "chance": 0.922,
-    "expected_gain_eur": 50.34,
-    "expires": "2017-04-18",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "NU4vRjVNNtDS",
-    "chance": 0.922,
-    "expected_gain_eur": 50.34,
-    "expires": "2017-04-22",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "70WNDcXQeesE",
-    "chance": 0.922,
-    "expected_gain_eur": 50.3,
-    "expires": "2017-04-14",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "q7VjjL9MybZr",
-    "chance": 0.922,
-    "expected_gain_eur": 50.31,
-    "expires": "2017-04-03",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "tklFayxmrY7E",
-    "chance": 0.922,
-    "expected_gain_eur": 50.34,
-    "expires": "2017-04-15",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "uZcIcXpb5ehu",
-    "chance": 0.922,
-    "expected_gain_eur": 50.31,
-    "expires": "2017-04-09",
-    "auto_renew": 0,
-    "listening_days_last_month": 1
-   },
-   {
-    "customer": "uQMY3AqYep9N",
-    "chance": 0.922,
-    "expected_gain_eur": 50.34,
-    "expires": "2017-04-12",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "xFq0HMQBjj7v",
-    "chance": 0.921,
-    "expected_gain_eur": 50.24,
-    "expires": "2017-04-06",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "Ea6ppNI97s8V",
-    "chance": 0.921,
-    "expected_gain_eur": 50.27,
-    "expires": "2017-04-14",
-    "auto_renew": 0,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "BfCNSlOCWSbJ",
-    "chance": 0.921,
-    "expected_gain_eur": 50.28,
-    "expires": "2017-04-18",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "SEZ36769PsOI",
-    "chance": 0.921,
-    "expected_gain_eur": 50.28,
-    "expires": "2017-04-01",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "Y5CeOJ7XfdEw",
-    "chance": 0.921,
-    "expected_gain_eur": 50.28,
-    "expires": "2017-04-08",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "RLAFRVLa6IDO",
-    "chance": 0.921,
-    "expected_gain_eur": 50.28,
-    "expires": "2017-04-22",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "/Z7j6dX6POJ1",
-    "chance": 0.921,
-    "expected_gain_eur": 50.29,
-    "expires": "2017-04-20",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "4xnjXFLcs2Q1",
-    "chance": 0.921,
-    "expected_gain_eur": 50.25,
-    "expires": "2017-04-22",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "gC1dmmfDmLxl",
-    "chance": 0.921,
-    "expected_gain_eur": 50.27,
-    "expires": "2017-04-29",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "zPHyoBvAFjT1",
-    "chance": 0.92,
-    "expected_gain_eur": 50.17,
-    "expires": "2017-04-06",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "sHqEndcMNxgx",
-    "chance": 0.92,
-    "expected_gain_eur": 50.21,
-    "expires": "2017-04-09",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "3VY1g7iimxl2",
-    "chance": 0.92,
-    "expected_gain_eur": 50.2,
-    "expires": "2017-04-14",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "tvT0D9ZjPHZO",
-    "chance": 0.92,
-    "expected_gain_eur": 50.2,
+    "customer": "Hnj0PC5O3NwC",
+    "chance": 0.923,
+    "expected_gain_eur": 50.37,
     "expires": "2017-04-16",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "3bLKQdJStOvP",
-    "chance": 0.92,
-    "expected_gain_eur": 50.22,
-    "expires": "2017-04-19",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "48O9ygNow540",
-    "chance": 0.92,
-    "expected_gain_eur": 50.22,
-    "expires": "2017-04-12",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "6OzkXN2uf2Uy",
-    "chance": 0.92,
-    "expected_gain_eur": 50.19,
-    "expires": "2017-04-17",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "Gs2S4qPo9TpR",
-    "chance": 0.92,
-    "expected_gain_eur": 50.23,
-    "expires": "2017-04-14",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "CBk3M67aW2Xp",
-    "chance": 0.919,
-    "expected_gain_eur": 50.12,
-    "expires": "2017-04-13",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "UE1iwmB+C29t",
-    "chance": 0.919,
-    "expected_gain_eur": 50.12,
-    "expires": "2017-04-09",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "yjr8PDe++nHd",
-    "chance": 0.919,
-    "expected_gain_eur": 50.15,
-    "expires": "2017-04-14",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "E+ayfr4h05wm",
-    "chance": 0.919,
-    "expected_gain_eur": 50.14,
-    "expires": "2017-04-13",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "i+o9rIZ6Qn7G",
-    "chance": 0.919,
-    "expected_gain_eur": 50.17,
-    "expires": "2017-04-17",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "fOHmIFG4eES3",
-    "chance": 0.919,
-    "expected_gain_eur": 50.12,
-    "expires": "2017-04-14",
     "auto_renew": 1,
     "listening_days_last_month": 0
    },
    {
     "customer": "LuYehW768R0E",
-    "chance": 0.919,
-    "expected_gain_eur": 50.12,
+    "chance": 0.923,
+    "expected_gain_eur": 50.39,
     "expires": "2017-04-23",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "yPl3i6xeyl3w",
-    "chance": 0.919,
-    "expected_gain_eur": 50.14,
-    "expires": "2017-04-24",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "xtC8oaWoCJky",
-    "chance": 0.919,
-    "expected_gain_eur": 50.14,
-    "expires": "2017-04-21",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "dIYK9rychzXw",
-    "chance": 0.918,
-    "expected_gain_eur": 50.11,
-    "expires": "2017-04-10",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "0xD6j44WE2se",
-    "chance": 0.918,
-    "expected_gain_eur": 50.1,
-    "expires": "2017-04-19",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "jWoqEmBV+lH+",
-    "chance": 0.918,
-    "expected_gain_eur": 50.06,
-    "expires": "2017-04-23",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "jWzwPOkx4tRN",
-    "chance": 0.918,
-    "expected_gain_eur": 50.08,
-    "expires": "2017-04-17",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "QQy/7marlc6w",
-    "chance": 0.918,
-    "expected_gain_eur": 50.07,
-    "expires": "2017-04-26",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "DQvwu9SLJDST",
-    "chance": 0.918,
-    "expected_gain_eur": 50.11,
-    "expires": "2017-04-01",
-    "auto_renew": 0,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "Hnj0PC5O3NwC",
-    "chance": 0.917,
-    "expected_gain_eur": 50.03,
-    "expires": "2017-04-16",
-    "auto_renew": 1,
-    "listening_days_last_month": 0
-   },
-   {
-    "customer": "y89bk4WMTaRm",
-    "chance": 0.917,
-    "expected_gain_eur": 50.03,
-    "expires": "2017-04-12",
     "auto_renew": 1,
     "listening_days_last_month": 0
    }

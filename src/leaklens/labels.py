@@ -23,8 +23,12 @@ def known_status(tx: pd.DataFrame, cutoff) -> pd.DataFrame:
     """Each customer's latest transaction as known on the cut-off date."""
     cutoff = month_end(cutoff)
     seen = tx[tx["transaction_date"] <= cutoff]
+    if not tx.attrs.get("sorted_by_customer_and_date"):
+        # load_prepared() marks data that is already in this order, so the
+        # 23-million-row sort is only needed for hand-made test data.
+        seen = seen.sort_values(["msno", "transaction_date", "membership_expire_date"])
     last = (
-        seen.sort_values(["msno", "transaction_date", "membership_expire_date"])
+        seen
         .groupby("msno", sort=False)
         .tail(1)
         .set_index("msno")

@@ -59,7 +59,7 @@ def run(args: list[str]) -> None:
     """Run a command, show its output live, stop if it fails."""
     p = subprocess.Popen(args, cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                          text=True, encoding="utf-8", errors="replace",
-                         env={**__import__("os").environ, "PYTHONWARNINGS": "ignore", "PYTHONIOENCODING": "utf-8"})
+                         env={**__import__("os").environ, "PYTHONWARNINGS": "ignore", "PYTHONIOENCODING": "utf-8", "PYTHONUNBUFFERED": "1"})
     for line in p.stdout:
         if "Warning" in line or "warnings.warn(" in line:
             continue  # harmless library warnings
@@ -73,8 +73,11 @@ def py(*args: str) -> None:
 
 
 def kaggle(*args: str) -> None:
+    """Run the Kaggle tool straight on the screen, so its download progress bar shows."""
     code = "import sys; from kaggle.cli import main; sys.argv = ['kaggle'] + sys.argv[1:]; main()"
-    py("-c", code, *args)
+    sys.stdout.flush()
+    if subprocess.call([sys.executable, "-c", code, *args], cwd=ROOT) != 0:
+        raise SystemExit(f"This Kaggle command failed: kaggle {' '.join(args)}")
 
 
 def main() -> None:

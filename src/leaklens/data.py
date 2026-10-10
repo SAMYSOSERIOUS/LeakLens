@@ -153,6 +153,18 @@ def prepare(raw_dir: str | Path, out_dir: str | Path, chunksize: int = 5_000_000
 def load_prepared(prepared_dir: str | Path) -> Dataset:
     p = Path(prepared_dir)
     tx = pd.read_parquet(p / "transactions.parquet")
+    order = ["msno", "transaction_date", "membership_expire_date"]
+    # prepare() writes the table sorted; check cheaply and remember it, so
+    # every later "latest transaction per customer" can skip a full sort.
+    if len(tx) > 1:
+        m = tx["msno"].to_numpy()
+        t = tx["transaction_date"].to_numpy()
+        e = tx["membership_expire_date"].to_numpy()
+        same_m, same_t = m[1:] == m[:-1], t[1:] == t[:-1]
+        bad = (m[1:] < m[:-1]) | (same_m & (t[1:] < t[:-1])) | (same_m & same_t & (e[1:] < e[:-1]))
+        if bad.any():
+            tx = tx.sort_values(order, kind="mergesort").reset_index(drop=True)
+    tx.attrs["sorted_by_customer_and_date"] = True
     members = pd.read_parquet(p / "members.parquet")
     logs_path = p / "logs_monthly.parquet"
     logs = pd.read_parquet(logs_path) if logs_path.exists() else _combine_monthly([])

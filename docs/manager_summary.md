@@ -20,11 +20,11 @@ That is like predicting who will cancel a gym membership by checking next month'
 Our own model, trained only on the past and tested on a later month it had never seen:
 
 - Ranks customers by risk with a score of **0.87** (the simple "who turned off auto-renew" rule scores 0.80).
-- Per 1,000 customers due to renew, it would save about **€1,159** with the threshold set by money, versus €336 with the usual default setting.
+- Per 1,000 customers due to renew, it would save about **€1,160** with the threshold set by money, versus €338 with the usual default setting.
 
 ## Who should get an offer
 
-Send an offer when a customer's chance of leaving is above **9%**, not the default 50%. With an offer costing €5 and a lost customer costing €60, an offer pays for itself if even 1 in 12 recipients would otherwise leave. The default setting sends only 7,619 offers and misses 29,291 of 34,878 leavers; the money-based setting sends 81,371 offers and reaches 23,856 of them.
+Send an offer when a customer's chance of leaving is above **9%**, not the default 50%. With an offer costing €5 and a lost customer costing €60, an offer pays for itself if even 1 in 12 recipients would otherwise leave. The default setting sends only 7,681 offers and misses 29,254 of 34,878 leavers; the money-based setting sends 81,664 offers and reaches 23,892 of them.
 
 ## What to do
 

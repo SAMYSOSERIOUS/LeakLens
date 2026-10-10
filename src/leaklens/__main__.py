@@ -34,7 +34,7 @@ def _job(cfg):
     from .replay import ReplayConfig, ReplayJob
 
     ds = load_prepared(cfg["data"]["prepared_dir"])
-    return ReplayJob(ds, ReplayConfig(**cfg["replay"]), _assumptions(cfg), cfg["audit"]["seed"])
+    return ReplayJob(ds, ReplayConfig(**cfg["replay"]), _assumptions(cfg), cfg["audit"]["seed"], verbose=True)
 
 
 def main(argv=None):
@@ -88,7 +88,8 @@ def main(argv=None):
 
     elif args.command == "replay-run":
         job = _job(cfg)
-        for _ in range(args.steps):
+        for i in range(args.steps):
+            print(f"month {i + 1} of {args.steps} ...", flush=True)
             s = job.step()
             h = [x for x in s["history"] if x["auc"] is not None and x["loop"] == s["loop"]]
             last = f"checked AUC {h[-1]['auc']:.3f} ({h[-1]['cutoff']})" if h else "nothing checked yet"
@@ -97,6 +98,7 @@ def main(argv=None):
 
     elif args.command == "replay-reset":
         shutil.rmtree(cfg["replay"]["state_dir"], ignore_errors=True)
+        shutil.rmtree(cfg["replay"].get("cache_dir", "data/replay_cache"), ignore_errors=True)
         print("replay state deleted")
 
     else:

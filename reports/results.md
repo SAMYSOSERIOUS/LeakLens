@@ -110,8 +110,8 @@ Which features changed when the future was removed:
 |---|---|---|---|---|---|
 | Nobody churns (baseline) | 0.500 | 0.040 | 0.170 | €0 (t=0.06) | €0 |
 | Auto-renew rule | 0.799 | 0.186 | 0.131 | €909,470 (t=0.02) | €97,310 |
-| Logistic regression | 0.866 | 0.404 | 0.116 | €989,575 (t=0.11) | €289,225 |
-| LightGBM | 0.872 | 0.444 | 0.112 | €1,024,505 (t=0.09) | €297,125 |
+| Logistic regression | 0.866 | 0.405 | 0.115 | €991,085 (t=0.10) | €308,495 |
+| LightGBM | 0.872 | 0.445 | 0.112 | €1,025,200 (t=0.09) | €299,035 |
 
 ## 5–6. Money
 
@@ -119,22 +119,22 @@ Assumptions: offer costs €5, a lost customer costs €60, offer keeps 100% of 
 
 | Who gets an offer | Threshold | Offers | Leavers reached | Leavers missed | Saved |
 |---|---|---|---|---|---|
-| money-based threshold | 0.09 | 81,371 | 23,856 | 11,022 | €1,024,505 |
-| default 0.5 | 0.50 | 7,619 | 5,587 | 29,291 | €297,125 |
+| money-based threshold | 0.09 | 81,664 | 23,892 | 10,986 | €1,025,200 |
+| default 0.5 | 0.50 | 7,681 | 5,624 | 29,254 | €299,035 |
 | offer to everyone | 0.00 | 883,727 | 34,878 | 0 | −€2,325,955 |
 | no offers | 1.00 | 0 | 0 | 34,878 | €0 |
 
-Best possible threshold in hindsight: 0.08 (€1,027,745). Ours was picked a month earlier, without seeing the answers.
+Best possible threshold in hindsight: 0.08 (€1,026,010). Ours was picked a month earlier, without seeing the answers.
 
 Most useful inputs for LightGBM (share of total gain):
 
-- `payment_method`: 35.0%
+- `payment_method`: 35.1%
 - `auto_renew`: 23.2%
 - `avg_paid`: 9.8%
-- `days_active_m1`: 5.1%
-- `days_active_m3`: 4.9%
+- `days_active_m1`: 5.6%
+- `days_active_m3`: 4.8%
 - `cancel_last`: 4.2%
-- `unique_songs_m1`: 3.9%
-- `amount_paid`: 2.5%
+- `unique_songs_m1`: 3.7%
 - `n_tx_180d`: 2.5%
-- `list_price`: 2.4%
+- `amount_paid`: 2.4%
+- `list_price`: 2.3%

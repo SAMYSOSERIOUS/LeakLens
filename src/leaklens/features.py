@@ -31,6 +31,8 @@ NUMERIC_FEATURES = [
 ]
 CATEGORICAL_FEATURES = ["payment_method", "city", "registered_via", "gender"]
 FEATURES = NUMERIC_FEATURES + CATEGORICAL_FEATURES
+# Bump when the feature code changes, so cached customer tables are rebuilt.
+FEATURES_VERSION = "f2"
 
 
 def visible(ds: Dataset, cutoff) -> Dataset:
@@ -93,12 +95,15 @@ def build_features(ds: Dataset, cutoff, users) -> pd.DataFrame:
     lg = v.logs[v.logs["msno"].isin(users)]
     m1 = lg[lg["month_end"] == cutoff].set_index("msno")
     m3 = lg[lg["month_end"] > add_months(cutoff, -3)].groupby("msno")
-    out["days_active_m1"] = m1["days_active"].reindex(users).fillna(0)
-    out["secs_m1"] = m1["total_secs"].reindex(users).fillna(0)
-    out["unique_songs_m1"] = m1["num_unq"].reindex(users).fillna(0)
-    out["days_active_m3"] = m3["days_active"].sum().reindex(users).fillna(0) / 3
-    out["secs_m3"] = m3["total_secs"].sum().reindex(users).fillna(0) / 3
-    out["activity_trend"] = (out["days_active_m1"] + 1) / (out["days_active_m3"] + 1)
+    # Per calendar day, so a 28-day February doesn't look like a drop in listening.
+    dim1 = cutoff.day                                   # days in the last month
+    dim3 = (cutoff - add_months(cutoff, -3)).days       # days in the last three months
+    out["days_active_m1"] = m1["days_active"].reindex(users).fillna(0) / dim1   # share of days listened
+    out["secs_m1"] = m1["total_secs"].reindex(users).fillna(0) / dim1           # seconds per day
+    out["unique_songs_m1"] = m1["num_unq"].reindex(users).fillna(0) / dim1      # songs per day
+    out["days_active_m3"] = m3["days_active"].sum().reindex(users).fillna(0) / dim3
+    out["secs_m3"] = m3["total_secs"].sum().reindex(users).fillna(0) / dim3
+    out["activity_trend"] = (out["days_active_m1"] + 0.03) / (out["days_active_m3"] + 0.03)
     plays = m3[["num_25", "num_50", "num_75", "num_985", "num_100"]].sum()
     total = plays.sum(axis=1)
     out["completion_ratio"] = (plays["num_100"] / total.replace(0, np.nan)).reindex(users)
