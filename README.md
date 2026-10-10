@@ -224,7 +224,7 @@ history **one month per run**, as if each month had just arrived.
   recompute the best cut-off and the money saved for any setting without a server.
 
 **On the real data** (replay from July 2016 to March 2017): checked accuracy stayed between
-0.89 and 0.95 until the drift warning in October 2016 (score 0.26). The November predictions
+0.89 and 0.96 until the drift warning in October 2016 (score 0.26). The November predictions
 then scored 0.77, which the job learned in January 2017, when their answers arrived. It
 retrained on the newest known months, and the next checked month scored 0.87.
 
